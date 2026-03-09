@@ -1,11 +1,10 @@
 "use client"
 
-import { useState, useEffect, type FormEvent } from "react"
+import { useState, type FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { sileo } from "sileo"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { authApi } from "@/lib/api/auth"
-import { getApiUrl } from "@/lib/api"
 import { VerifyIdentityStep } from "@/components/auth/verify-identity-step"
 import { NeedPhotoStep } from "@/components/auth/need-photo-step"
 import type { LoginResponse } from "@/lib/api/auth"
@@ -19,15 +18,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const [connectionOk, setConnectionOk] = useState<boolean | null>(null)
-
-  useEffect(() => {
-    const ctrl = new AbortController()
-    fetch(getApiUrl(), { method: "GET", signal: ctrl.signal })
-      .then((r) => (r.ok ? setConnectionOk(true) : setConnectionOk(false)))
-      .catch(() => setConnectionOk(false))
-    return () => ctrl.abort()
-  }, [])
   const [step, setStep] = useState<"login" | "verify-face" | "need-photo">("login")
   const [loggedUser, setLoggedUser] = useState<LoginResponse["user"] | null>(null)
   const [userTypedEmail, setUserTypedEmail] = useState(false)
@@ -67,12 +57,8 @@ export default function LoginPage() {
         finishLogin(role)
       }
     } catch (err: unknown) {
-      const raw =
-        err instanceof Error ? err.message : "Error al iniciar sesión"
       const message =
-        !raw || raw === "Failed to fetch" || /abort|timeout|network/i.test(raw)
-          ? "No se pudo conectar con el servidor. Revisá tu conexión o intentá más tarde."
-          : raw
+        err instanceof Error ? err.message : "Error al iniciar sesión"
       setError(message)
       sileo.error({ title: message })
     } finally {
@@ -136,13 +122,6 @@ export default function LoginPage() {
               Acceso: administradores, gerentes de local, auditores y logística. Verificación por rostro si tenés foto de perfil.
             </p>
           </div>
-
-          {/* Aviso si no hay conexión con la API */}
-          {connectionOk === false && (
-            <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-              No se puede conectar con el servidor. Revisá tu conexión a internet o intentá más tarde.
-            </div>
-          )}
 
           {/* Form */}
           <form id="login-form" onSubmit={handleSubmit} className="form-login-fields space-y-5">

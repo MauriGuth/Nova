@@ -1,11 +1,4 @@
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  process.env.next_public_api_url ||
-  'http://localhost:4010/api';
-
-export function getApiUrl(): string {
-  return API_URL;
-}
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
 
 /** Claves por app: cada link tiene su propia sesión para poder tener varias abiertas a la vez */
 function getStationFromUrl(): string | null {
@@ -109,19 +102,10 @@ class ApiClient {
       (headers as Record<string, string>)['Content-Type'] = 'application/json';
     }
 
-    const signal = options.signal;
-    let controller: AbortController | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    if (!signal) {
-      controller = new AbortController();
-      timeoutId = setTimeout(() => controller!.abort(), 20000);
-    }
     const response = await fetch(`${API_URL}${endpoint}`, {
       ...options,
       headers,
-      signal: signal ?? controller!.signal,
     });
-    if (timeoutId) clearTimeout(timeoutId);
 
     if (response.status === 401) {
       this.clearToken();
