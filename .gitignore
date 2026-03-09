@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment (no subir claves ni conexiones)
+.env
+.env.local
+.env.*.local
+
+# Build / output
+apps/web/.next/
+apps/web/out/
+apps/web/build/
+apps/api/dist/
+apps/api/generated/
+
+# Logs y cache
+*.log
+.DS_Store
+.vercel
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

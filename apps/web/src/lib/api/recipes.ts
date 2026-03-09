@@ -1,0 +1,24 @@
+import { api } from '../api';
+
+export const recipesApi = {
+  getAll: (params?: { search?: string; category?: string; isActive?: boolean; page?: number; limit?: number }) =>
+    api.get<{ data: any[]; total: number }>('/recipes', params),
+
+  getById: (id: string) => api.get<any>(`/recipes/${id}`),
+
+  create: (data: any) => api.post<any>('/recipes', data),
+
+  update: (id: string, data: any) => api.patch<any>(`/recipes/${id}`, data),
+
+  delete: (id: string) => api.delete(`/recipes/${id}`),
+
+  addIngredient: (recipeId: string, data: any) => api.post<any>(`/recipes/${recipeId}/ingredients`, data),
+
+  updateIngredient: (id: string, data: any) => api.patch<any>(`/recipes/ingredients/${id}`, data),
+
+  removeIngredient: (id: string) => api.delete(`/recipes/ingredients/${id}`),
+
+  calculateCost: (id: string, qty: number) => api.get<any>(`/recipes/${id}/cost`, { qty }),
+
+  newVersion: (id: string) => api.post<any>(`/recipes/${id}/new-version`),
+};

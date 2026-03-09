@@ -1,0 +1,1331 @@
+"use client"
+
+import { useState, useEffect, useMemo, useCallback } from "react"
+import { useRouter } from "next/navigation"
+import { sileo } from "sileo"
+import { Search, Plus, Package, RefreshCw, X, Loader2, Pencil, Trash2 } from "lucide-react"
+import { authApi } from "@/lib/api/auth"
+import { productsApi } from "@/lib/api/products"
+import { categoriesApi } from "@/lib/api/categories"
+import { locationsApi } from "@/lib/api/locations"
+import { stockApi } from "@/lib/api/stock"
+import {
+  cn,
+  formatCurrency,
+  formatNumber,
+  getStockStatus,
+  getStockStatusLabel,
+  getStockStatusColor,
+  getCategoryBadgeStyle,
+} from "@/lib/utils"
+import type { StockStatus } from "@/types"
+
+// ---------- helpers ----------
+
+const statusDotColor: Record<string, string> = {
+  critical: "bg-red-500",
+  medium: "bg-yellow-500",
+  normal: "bg-green-500",
+  excess: "bg-purple-500",
+}
+
+const allStatuses: { value: StockStatus | ""; label: string }[] = [
+  { value: "", label: "Todos los estados" },
+  { value: "critical", label: "Crítico" },
+  { value: "medium", label: "Medio" },
+  { value: "normal", label: "Normal" },
+  { value: "excess", label: "Exceso" },
+]
+
+// ---------- API → UI mapping ----------
+
+interface ApiStockLevel {
+  id: string
+  productId: string
+  locationId: string
+  quantity: number
+  minQuantity: number
+  maxQuantity: number
+  location: { id: string; name: string; slug: string; type: string }
+}
+
+interface ApiProduct {
+  id: string
+  sku: string
+  name: string
+  description?: string
+  categoryId: string
+  unit: string
+  imageUrl?: string | null
+  avgCost: number
+  lastCost: number
+  salePrice: number
+  isSellable: boolean
+  isIngredient: boolean
+  isProduced: boolean
+  isPerishable: boolean
+  isActive: boolean
+  category: {
+    id: string
+    name: string
+    slug: string
+    icon: string
+    color: string
+  }
+  stockLevels: ApiStockLevel[]
+}
+
+interface ProcessedProduct {
+  id: string
+  sku: string
+  name: string
+  unit: string
+  imageUrl?: string | null
+  avgCost: number
+  category: {
+    id: string
+    name: string
+    slug: string
+    icon: string
+    color: string
+  }
+  stockByLocation: Array<{
+    locationId: string
+    locationName: string
+    quantity: number
+    minQuantity: number
+    maxQuantity?: number
+    status: StockStatus
+  }>
+  totalStock: number
+  worstStatus: StockStatus
+}
+
+function processProduct(p: ApiProduct): ProcessedProduct {
+  const stockByLocation = (p.stockLevels || []).map((sl) => {
+    const status = getStockStatus(
+      sl.quantity,
+      sl.minQuantity,
+      sl.maxQuantity || undefined
+    ) as StockStatus
+    return {
+      locationId: sl.location?.id || sl.locationId,
+      locationName: sl.location?.name || "Sin ubicación",
+      quantity: sl.quantity,
+      minQuantity: sl.minQuantity,
+      maxQuantity: sl.maxQuantity || undefined,
+      status,
+    }
+  })
+
+  const totalStock = stockByLocation.reduce((sum, s) => sum + s.quantity, 0)
+
+  const statusPriority: Record<string, number> = {
+    critical: 0,
+    medium: 1,
+    excess: 2,
+    normal: 3,
+  }
+  const worstStatus =
+    stockByLocation.length > 0
+      ? (stockByLocation.reduce(
+          (worst, s) =>
+            (statusPriority[s.status] ?? 3) < (statusPriority[worst] ?? 3)
+              ? s.status
+              : worst,
+          "normal" as StockStatus
+        ) as StockStatus)
+      : ("normal" as StockStatus)
+
+  return {
+    id: p.id,
+    sku: p.sku,
+    name: p.name,
+    unit: p.unit,
+    imageUrl: p.imageUrl ?? undefined,
+    avgCost: p.avgCost,
+    category: p.category,
+    stockByLocation,
+    totalStock,
+    worstStatus,
+  }
+}
+
+// ---------- loading skeleton ----------
+
+function TableSkeleton() {
+  return (
+    <div className="space-y-1">
+      {/* Header row */}
+      <div className="flex items-center gap-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 px-4 py-3">
+        <div className="h-3 w-14 rounded bg-gray-200" />
+        <div className="h-3 w-40 rounded bg-gray-200" />
+        <div className="h-3 w-24 rounded bg-gray-200" />
+        <div className="h-3 w-12 rounded bg-gray-200" />
+        <div className="ml-auto h-3 w-20 rounded bg-gray-200" />
+        <div className="h-3 w-16 rounded bg-gray-200" />
+        <div className="h-3 w-20 rounded bg-gray-200" />
+      </div>
+      {/* Data rows */}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div
+          key={i}
+          className="flex items-center gap-4 border-b border-gray-100 px-4 py-3"
+        >
+          <div className="h-4 w-16 rounded bg-gray-100 animate-pulse" />
+          <div className="h-4 w-36 rounded bg-gray-100 animate-pulse flex-1 min-w-0" />
+          <div className="h-5 w-24 rounded-full bg-gray-100 animate-pulse" />
+          <div className="h-4 w-8 rounded bg-gray-100 animate-pulse" />
+          <div className="ml-auto h-4 w-20 rounded bg-gray-100 animate-pulse" />
+          <div className="h-4 w-14 rounded bg-gray-100 animate-pulse" />
+          <div className="h-5 w-20 rounded-full bg-gray-100 animate-pulse" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function StatsBarSkeleton() {
+  return (
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="flex items-center gap-1.5">
+          <div className="h-2 w-2 rounded-full bg-gray-200 animate-pulse" />
+          <div className="h-4 w-16 rounded bg-gray-200 animate-pulse" />
+        </div>
+      ))}
+      <div className="ml-auto h-3 w-28 rounded bg-gray-200 animate-pulse" />
+    </div>
+  )
+}
+
+// ---------- unit options ----------
+
+const unitOptions = [
+  { value: "unidad", label: "Unidad" },
+  { value: "kg", label: "Kilogramo (kg)" },
+  { value: "litro", label: "Litro" },
+  { value: "gramo", label: "Gramo" },
+  { value: "ml", label: "Mililitro (ml)" },
+]
+
+// ---------- main page ----------
+
+export default function StockPage() {
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedStatus, setSelectedStatus] = useState<StockStatus | "">("")
+  const [selectedLocation, setSelectedLocation] = useState("")
+
+  // Data state
+  const [products, setProducts] = useState<ProcessedProduct[]>([])
+  const [categories, setCategories] = useState<
+    Array<{ id: string; name: string; slug: string; icon: string; color: string }>
+  >([])
+  const [locations, setLocations] = useState<
+    Array<{ id: string; name: string }>
+  >([])
+  const [summary, setSummary] = useState<{
+    critical: number
+    medium: number
+    normal: number
+    totalProducts: number
+    totalValue: number
+  } | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Create modal state
+  const [showCreateModal, setShowCreateModal] = useState(false)
+  const [creating, setCreating] = useState(false)
+  const [createError, setCreateError] = useState<string | null>(null)
+  // Nueva categoría modal
+  const [showCategoryModal, setShowCategoryModal] = useState(false)
+  const [creatingCategory, setCreatingCategory] = useState(false)
+  const [categoryError, setCategoryError] = useState<string | null>(null)
+  const [newCategoryName, setNewCategoryName] = useState("")
+  // Gestionar categorías (editar / eliminar)
+  const [showManageCategoriesModal, setShowManageCategoriesModal] = useState(false)
+  const [editingCategory, setEditingCategory] = useState<{ id: string; name: string } | null>(null)
+  const [editCategoryName, setEditCategoryName] = useState("")
+  const [savingCategory, setSavingCategory] = useState(false)
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
+  const [deletingCategory, setDeletingCategory] = useState(false)
+  const [newProduct, setNewProduct] = useState({
+    sku: "",
+    name: "",
+    categoryId: "",
+    unit: "unidad",
+    imageUrl: "" as string,
+    avgCost: 0,
+    salePrice: 0,
+    isSellable: false,
+    isIngredient: false,
+    isPerishable: false,
+  })
+  const [newProductImageFile, setNewProductImageFile] = useState<File | null>(null)
+  const [newProductImageUploading, setNewProductImageUploading] = useState(false)
+
+  const [user, setUser] = useState<{ role?: string } | null>(null)
+  useEffect(() => {
+    setUser(authApi.getStoredUser())
+  }, [])
+  const isLogisticsRole =
+    user?.role === "LOGISTICS" || user?.role === "logistics"
+
+  // Close modals on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (deleteConfirmId) setDeleteConfirmId(null)
+        else if (editingCategory) setEditingCategory(null)
+        else {
+          setShowCreateModal(false)
+          setShowCategoryModal(false)
+          setShowManageCategoriesModal(false)
+        }
+      }
+    }
+    if (showCreateModal || showCategoryModal || showManageCategoriesModal || editingCategory || deleteConfirmId) {
+      document.addEventListener("keydown", handleKeyDown)
+      return () => document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [showCreateModal, showCategoryModal, showManageCategoriesModal, editingCategory, deleteConfirmId])
+
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchQuery), 300)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  const refreshCategories = useCallback(() => {
+    categoriesApi
+      .getAll({ isActive: true })
+      .then((res: any) => {
+        const data = Array.isArray(res) ? res : res?.data ?? []
+        setCategories(
+          data.map((c: any) => ({
+            id: c.id,
+            name: c.name,
+            slug: c.slug,
+            icon: c.icon ?? "",
+            color: c.color ?? "",
+          }))
+        )
+      })
+      .catch(() => {})
+  }, [])
+
+  // Fetch categories and locations once on mount
+  useEffect(() => {
+    refreshCategories()
+
+    locationsApi
+      .getAll()
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setLocations(
+            data.map((l: Record<string, string>) => ({
+              id: l.id,
+              name: l.name,
+            }))
+          )
+        }
+      })
+      .catch(() => {})
+  }, [refreshCategories])
+
+  // Fetch summary (refresh when location filter changes)
+  useEffect(() => {
+    stockApi
+      .getSummary(selectedLocation || undefined)
+      .then(setSummary)
+      .catch(() => {})
+  }, [selectedLocation])
+
+  // Fetch products when API-supported filters change
+  const fetchProducts = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const params: Record<string, string | number | boolean> = { limit: 200 }
+      if (debouncedSearch) params.search = debouncedSearch
+      if (selectedCategory) params.categoryId = selectedCategory
+
+      const response = await productsApi.getAll(params)
+      const processed = (response.data || []).map(processProduct)
+      setProducts(processed)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Error al cargar productos"
+      setError(msg)
+      sileo.error({ title: msg })
+    } finally {
+      setLoading(false)
+    }
+  }, [debouncedSearch, selectedCategory])
+
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchProducts])
+
+  // Client-side filters (status, location — not supported as API params)
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      if (selectedStatus && product.worstStatus !== selectedStatus) return false
+      if (
+        selectedLocation &&
+        !product.stockByLocation.some(
+          (s) => s.locationId === selectedLocation
+        )
+      ) {
+        return false
+      }
+      return true
+    })
+  }, [products, selectedStatus, selectedLocation])
+
+  // Stats: use API summary when no filters active, otherwise compute locally
+  const stats = useMemo(() => {
+    if (
+      summary &&
+      !selectedStatus &&
+      !selectedLocation &&
+      !debouncedSearch &&
+      !selectedCategory
+    ) {
+      return {
+        critical: summary.critical,
+        medium: summary.medium,
+        normal: summary.normal,
+        excess: Math.max(
+          0,
+          summary.totalProducts -
+            summary.critical -
+            summary.medium -
+            summary.normal
+        ),
+      }
+    }
+    const counts = { critical: 0, medium: 0, normal: 0, excess: 0 }
+    for (const p of filteredProducts) {
+      if (p.worstStatus in counts) {
+        counts[p.worstStatus as keyof typeof counts]++
+      }
+    }
+    return counts
+  }, [
+    summary,
+    filteredProducts,
+    selectedStatus,
+    selectedLocation,
+    debouncedSearch,
+    selectedCategory,
+  ])
+
+  // Handle create product
+  const handleCreateProduct = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setCreating(true)
+    setCreateError(null)
+    try {
+      let imageUrl = newProduct.imageUrl || undefined
+      if (newProductImageFile) {
+        setNewProductImageUploading(true)
+        const res = await productsApi.uploadImage(newProductImageFile)
+        imageUrl = (res as any)?.url ?? (res as any)?.data?.url ?? ""
+        setNewProductImageUploading(false)
+      }
+      await productsApi.create({ ...newProduct, imageUrl: imageUrl || undefined })
+      setShowCreateModal(false)
+      setNewProduct({
+        sku: "",
+        name: "",
+        categoryId: "",
+        unit: "unidad",
+        imageUrl: "",
+        avgCost: 0,
+        salePrice: 0,
+        isSellable: false,
+        isIngredient: false,
+        isPerishable: false,
+      })
+      setNewProductImageFile(null)
+      fetchProducts()
+      sileo.success({ title: "Producto creado correctamente" })
+    } catch (err: any) {
+      const msg = err.message || "Error al crear el producto"
+      setCreateError(msg)
+      sileo.error({ title: msg })
+    } finally {
+      setCreating(false)
+      setNewProductImageUploading(false)
+    }
+  }
+
+  const handleCreateCategory = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const name = newCategoryName.trim()
+    if (!name || name.length < 2) {
+      setCategoryError("El nombre debe tener al menos 2 caracteres")
+      return
+    }
+    setCreatingCategory(true)
+    setCategoryError(null)
+    try {
+      await categoriesApi.create({ name })
+      setShowCategoryModal(false)
+      setNewCategoryName("")
+      refreshCategories()
+      sileo.success({ title: "Categoría creada" })
+    } catch (err: any) {
+      const msg = err.message || "Error al crear la categoría"
+      setCategoryError(msg)
+      sileo.error({ title: msg })
+    } finally {
+      setCreatingCategory(false)
+    }
+  }
+
+  const handleUpdateCategory = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!editingCategory) return
+    const name = editCategoryName.trim()
+    if (name.length < 2) return
+    setSavingCategory(true)
+    setCategoryError(null)
+    try {
+      await categoriesApi.update(editingCategory.id, { name })
+      setEditingCategory(null)
+      setEditCategoryName("")
+      refreshCategories()
+      sileo.success({ title: "Categoría actualizada" })
+    } catch (err: any) {
+      const msg = err.message || "Error al actualizar"
+      setCategoryError(msg)
+      sileo.error({ title: msg })
+    } finally {
+      setSavingCategory(false)
+    }
+  }
+
+  const handleDeleteCategory = async (id: string) => {
+    setDeletingCategory(true)
+    setCategoryError(null)
+    try {
+      await categoriesApi.delete(id)
+      setDeleteConfirmId(null)
+      refreshCategories()
+      sileo.success({ title: "Categoría eliminada" })
+    } catch (err: any) {
+      const msg = err.message || "Error al eliminar"
+      setCategoryError(msg)
+      sileo.error({ title: msg })
+    } finally {
+      setDeletingCategory(false)
+    }
+  }
+
+  // ---------- error state (no products loaded at all) ----------
+
+  if (error && products.length === 0) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Productos y Stock
+            </h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+              Gestiona el inventario de todos tus productos
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-16">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/20">
+            <Package className="h-7 w-7 text-red-400" />
+          </div>
+          <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+            Error al cargar productos
+          </h2>
+          <p className="mt-1 max-w-sm text-center text-sm text-gray-500 dark:text-gray-300">
+            {error}
+          </p>
+          <button
+            type="button"
+            onClick={fetchProducts}
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Reintentar
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // ---------- render ----------
+
+  return (
+    <div className="space-y-6">
+      {/* -------- Header -------- */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Productos y Stock
+          </h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+            Gestiona el inventario de todos tus productos
+          </p>
+        </div>
+        {!isLogisticsRole && (
+          <button
+            type="button"
+            onClick={() => { setCreateError(null); setShowCreateModal(true) }}
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700"
+          >
+            <Plus className="h-4 w-4" />
+            Nuevo Producto
+          </button>
+        )}
+      </div>
+
+      {/* -------- Filters -------- */}
+      <div className="flex flex-wrap items-center gap-3">
+        {/* Search */}
+        <div className="relative flex-1 min-w-[240px]">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-white" />
+          <input
+            type="text"
+            placeholder="Buscar por nombre o SKU..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-10 pr-4 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Status */}
+        <select
+          aria-label="Filtrar por estado de stock"
+          value={selectedStatus}
+          onChange={(e) =>
+            setSelectedStatus(e.target.value as StockStatus | "")
+          }
+          className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-700 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        >
+          {allStatuses.map((s) => (
+            <option key={s.value} value={s.value}>
+              {s.label}
+            </option>
+          ))}
+        </select>
+
+        {/* Location */}
+        <select
+          aria-label="Filtrar por ubicación"
+          value={selectedLocation}
+          onChange={(e) => setSelectedLocation(e.target.value)}
+          className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-700 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        >
+          <option value="">Todas las ubicaciones</option>
+          {locations.map((loc) => (
+            <option key={loc.id} value={loc.id}>
+              {loc.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Category (al lado de ubicaciones) */}
+        <select
+          aria-label="Filtrar por categoría"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-700 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        >
+          <option value="">Todas las categorías</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+
+        {!isLogisticsRole && (
+          <>
+            <button
+              type="button"
+              onClick={() => { setCategoryError(null); setShowCategoryModal(true) }}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <Plus className="h-4 w-4" />
+              Nueva categoría
+            </button>
+            <button
+              type="button"
+              onClick={() => { setCategoryError(null); setDeleteConfirmId(null); setEditingCategory(null); setShowManageCategoriesModal(true) }}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <Pencil className="h-4 w-4" />
+              Gestionar categorías
+            </button>
+          </>
+        )}
+      </div>
+
+      {selectedLocation && (
+        <p className="text-sm text-gray-600 dark:text-white">
+          Mostrando productos y stock en:{" "}
+          <span className="font-medium text-gray-900 dark:text-white">
+            {locations.find((l) => l.id === selectedLocation)?.name ?? "Ubicación"}
+          </span>
+        </p>
+      )}
+
+      {/* -------- Stats bar -------- */}
+      {loading && !products.length ? (
+        <StatsBarSkeleton />
+      ) : (
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-600 dark:text-white">
+          {(["critical", "medium", "normal", "excess"] as const).map(
+            (status) => (
+              <span key={status} className="inline-flex items-center gap-1.5">
+                <span
+                  className={cn(
+                    "h-2 w-2 rounded-full",
+                    statusDotColor[status]
+                  )}
+                />
+                <span className="font-medium tabular-nums">
+                  {stats[status]}
+                </span>{" "}
+                {getStockStatusLabel(status).toLowerCase()}
+              </span>
+            )
+          )}
+          <span className="ml-auto text-xs text-gray-400 dark:text-white">
+            {filteredProducts.length} producto
+            {filteredProducts.length !== 1 ? "s" : ""} en total
+          </span>
+        </div>
+      )}
+
+      {/* -------- Table -------- */}
+      <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        {loading ? (
+          <TableSkeleton />
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px]">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                  <th className="w-14 px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Foto
+                  </th>
+                  <th className="w-24 px-3 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    SKU
+                  </th>
+                  <th className="min-w-[200px] px-3 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Producto
+                  </th>
+                  <th className="w-32 px-3 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Categoría
+                  </th>
+                  <th className="w-20 px-3 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Unidad
+                  </th>
+                  <th className="w-28 px-3 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Costo Prom.
+                  </th>
+                  <th className="w-24 px-3 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Stock
+                  </th>
+                  <th className="w-28 px-3 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white">
+                    Estado
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProducts.map((product) => {
+                  const locStock = selectedLocation
+                    ? product.stockByLocation.find(
+                        (s) => s.locationId === selectedLocation
+                      )
+                    : null
+                  const displayQty = locStock != null ? locStock.quantity : product.totalStock
+                  const displayStatus = locStock != null ? locStock.status : product.worstStatus
+                  return (
+                  <tr
+                    key={product.id}
+                    onClick={() => router.push(`/stock/${product.id}`)}
+                    className="border-b border-gray-100 dark:border-gray-700 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer"
+                  >
+                      <td className="px-2 py-3 align-middle">
+                        {product.imageUrl ? (
+                          <img
+                            src={product.imageUrl.startsWith("http") ? product.imageUrl : `${process.env.NEXT_PUBLIC_API_URL?.replace(/\/api\/?$/, "") || ""}${product.imageUrl}`}
+                            alt=""
+                            className="h-10 w-10 rounded-lg border border-gray-200 dark:border-gray-600 object-cover bg-gray-50 dark:bg-gray-700"
+                          />
+                        ) : (
+                          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {product.category?.name?.charAt(0)?.toUpperCase() ?? "?"}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-3 py-3 align-middle">
+                        <span className="font-mono text-xs text-gray-600 dark:text-gray-300 truncate block">
+                          {product.sku}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3 align-middle">
+                        <span className="text-sm font-medium text-gray-900 dark:text-white truncate block">
+                          {product.name}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3 align-middle">
+                        <span
+                          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium"
+                          style={getCategoryBadgeStyle(product.category.color)}
+                        >
+                          {product.category.name}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3 align-middle text-sm text-gray-600 dark:text-gray-300">
+                        {product.unit}
+                      </td>
+                      <td className="px-3 py-3 align-middle text-right text-sm tabular-nums text-gray-700 dark:text-gray-300">
+                        {formatCurrency(product.avgCost)}
+                      </td>
+                      <td className="px-3 py-3 align-middle text-right text-sm font-semibold tabular-nums text-gray-900 dark:text-white">
+                        {formatNumber(displayQty)}
+                      </td>
+                      <td className="px-3 py-3 align-middle text-right">
+                        <span
+                          className={cn(
+                            "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium",
+                            getStockStatusColor(displayStatus)
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "h-1.5 w-1.5 rounded-full shrink-0",
+                              statusDotColor[displayStatus]
+                            )}
+                          />
+                          {getStockStatusLabel(displayStatus)}
+                        </span>
+                      </td>
+                    </tr>
+                  )
+                })}
+
+                {filteredProducts.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={8}
+                      className="px-4 py-12 text-center text-sm text-gray-400 dark:text-gray-400"
+                    >
+                      <Package className="mx-auto mb-2 h-8 w-8 text-gray-300 dark:text-gray-500" />
+                      No se encontraron productos con los filtros seleccionados
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* Pagination footer */}
+        {filteredProducts.length > 0 && !loading && (
+          <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 px-4 py-3">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Mostrando{" "}
+              <span className="font-medium text-gray-700 dark:text-gray-300">1</span>-
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                {filteredProducts.length}
+              </span>{" "}
+              de{" "}
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                {filteredProducts.length}
+              </span>{" "}
+              productos
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* -------- Create Product Modal -------- */}
+      {showCreateModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setShowCreateModal(false)}
+        >
+          <div
+            className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Nuevo Producto
+              </h2>
+              <button
+                type="button"
+                aria-label="Cerrar"
+                onClick={() => setShowCreateModal(false)}
+                className="rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleCreateProduct}>
+              <div className="space-y-4 px-6 py-5">
+                {createError && (
+                  <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+                    {createError}
+                  </div>
+                )}
+
+                {/* SKU */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                    SKU <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newProduct.sku}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, sku: e.target.value })
+                    }
+                    placeholder="Ej: PROD-001"
+                    className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Name */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                    Nombre <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newProduct.name}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, name: e.target.value })
+                    }
+                    placeholder="Nombre del producto"
+                    className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Foto del artículo */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                    Foto del artículo
+                  </label>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label className="cursor-pointer rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <span className="sr-only">Elegir imagen</span>
+                      {newProductImageFile ? newProductImageFile.name : "Elegir imagen (jpg, png, webp)"}
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.webp,.gif"
+                        className="sr-only"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0]
+                          setNewProductImageFile(f ?? null)
+                          if (f) setNewProduct((p) => ({ ...p, imageUrl: "" }))
+                        }}
+                      />
+                    </label>
+                    {(newProduct.imageUrl || newProductImageFile) && (
+                      <div className="flex items-center gap-2">
+                        {newProductImageFile ? (
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            Se subirá al crear
+                          </span>
+                        ) : newProduct.imageUrl ? (
+                          <img
+                            src={newProduct.imageUrl.startsWith("http") ? newProduct.imageUrl : `${process.env.NEXT_PUBLIC_API_URL?.replace(/\/api\/?$/, "") || ""}${newProduct.imageUrl}`}
+                            alt="Vista previa"
+                            className="h-14 w-14 rounded border border-gray-200 object-cover"
+                          />
+                        ) : null}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewProductImageFile(null)
+                            setNewProduct((p) => ({ ...p, imageUrl: "" }))
+                          }}
+                          className="text-xs text-red-600 dark:text-red-400 hover:underline"
+                        >
+                          Quitar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  {newProductImageUploading && (
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Subiendo imagen...</p>
+                  )}
+                </div>
+
+                {/* Category + Unit row */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                      Categoría
+                    </label>
+                    <select
+                      aria-label="Categoría"
+                      value={newProduct.categoryId}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, categoryId: e.target.value })
+                      }
+                      className="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-700 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      <option value="">Seleccionar...</option>
+                      {categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                      Unidad
+                    </label>
+                    <select
+                      aria-label="Unidad"
+                      value={newProduct.unit}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, unit: e.target.value })
+                      }
+                      className="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-700 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      {unitOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Cost + Price row */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                      Costo Promedio
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={newProduct.avgCost || ""}
+                      onChange={(e) =>
+                        setNewProduct({
+                          ...newProduct,
+                          avgCost: parseFloat(e.target.value) || 0,
+                        })
+                      }
+                      placeholder="0.00"
+                      className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                      Precio de Venta
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={newProduct.salePrice || ""}
+                      onChange={(e) =>
+                        setNewProduct({
+                          ...newProduct,
+                          salePrice: parseFloat(e.target.value) || 0,
+                        })
+                      }
+                      placeholder="0.00"
+                      className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Checkboxes */}
+                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-1">
+                  <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <input
+                      type="checkbox"
+                      checked={newProduct.isSellable}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, isSellable: e.target.checked })
+                      }
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    Vendible
+                  </label>
+                  <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <input
+                      type="checkbox"
+                      checked={newProduct.isIngredient}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, isIngredient: e.target.checked })
+                      }
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    Ingrediente
+                  </label>
+                  <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <input
+                      type="checkbox"
+                      checked={newProduct.isPerishable}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, isPerishable: e.target.checked })
+                      }
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    Perecedero
+                  </label>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex items-center justify-end gap-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-6 py-4">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  disabled={creating}
+                  className="rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={creating}
+                  className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
+                >
+                  {creating && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {creating ? "Creando..." : "Crear Producto"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* -------- Nueva Categoría Modal -------- */}
+      {showCategoryModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setShowCategoryModal(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Nueva Categoría
+              </h2>
+              <button
+                type="button"
+                aria-label="Cerrar"
+                onClick={() => setShowCategoryModal(false)}
+                className="rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <form onSubmit={handleCreateCategory}>
+              <div className="space-y-4 px-6 py-5">
+                {categoryError && (
+                  <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+                    {categoryError}
+                  </div>
+                )}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white">
+                    Nombre <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    placeholder="Ej: Bebidas, Panadería"
+                    className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    El icono y el color se asignan automáticamente.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-end gap-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-6 py-4">
+                <button
+                  type="button"
+                  onClick={() => setShowCategoryModal(false)}
+                  disabled={creatingCategory}
+                  className="rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={creatingCategory}
+                  className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
+                >
+                  {creatingCategory && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {creatingCategory ? "Creando..." : "Crear Categoría"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* -------- Gestionar categorías Modal -------- */}
+      {showManageCategoriesModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => { if (!editingCategory && !deleteConfirmId) setShowManageCategoriesModal(false) }}
+        >
+          <div
+            className="w-full max-w-lg rounded-xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4 shrink-0">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Gestionar categorías
+              </h2>
+              <button
+                type="button"
+                aria-label="Cerrar"
+                onClick={() => setShowManageCategoriesModal(false)}
+                className="rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+              {categoryError && (
+                <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+                  {categoryError}
+                </div>
+              )}
+              {deleteConfirmId && (
+                <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 px-4 py-3 flex items-center justify-between gap-3">
+                  <span className="text-sm text-amber-800 dark:text-amber-200">
+                    ¿Eliminar la categoría &quot;{categories.find((c) => c.id === deleteConfirmId)?.name ?? ""}&quot;? Los productos quedarán sin esta categoría.
+                  </span>
+                  <div className="flex gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setDeleteConfirmId(null)}
+                      disabled={deletingCategory}
+                      className="rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => deleteConfirmId && handleDeleteCategory(deleteConfirmId)}
+                      disabled={deletingCategory}
+                      className="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50 inline-flex items-center gap-1"
+                    >
+                      {deletingCategory ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              )}
+              {editingCategory ? (
+                <form onSubmit={handleUpdateCategory} className="rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/20 p-4 space-y-3">
+                  <p className="text-sm font-medium text-gray-700 dark:text-white">Editar categoría</p>
+                  <input
+                    type="text"
+                    value={editCategoryName}
+                    onChange={(e) => setEditCategoryName(e.target.value)}
+                    placeholder="Nombre"
+                    className="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => { setEditingCategory(null); setEditCategoryName("") }}
+                      disabled={savingCategory}
+                      className="rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingCategory || editCategoryName.trim().length < 2}
+                      className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 inline-flex items-center gap-1"
+                    >
+                      {savingCategory ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                      Guardar
+                    </button>
+                  </div>
+                </form>
+              ) : null}
+              <ul className="space-y-1">
+                {categories.map((cat) => (
+                  <li
+                    key={cat.id}
+                    className="flex items-center justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50/50 dark:bg-gray-700/30 px-3 py-2"
+                  >
+                    <span
+                      className="inline-flex items-center gap-2 text-sm text-gray-900 dark:text-white truncate min-w-0"
+                      style={getCategoryBadgeStyle(cat.color)}
+                    >
+                      <span className="truncate">{cat.name}</span>
+                    </span>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => { setEditingCategory({ id: cat.id, name: cat.name }); setEditCategoryName(cat.name); setCategoryError(null) }}
+                        className="rounded p-1.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-400"
+                        title="Editar"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setDeleteConfirmId(cat.id); setCategoryError(null) }}
+                        className="rounded p-1.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-red-600 dark:hover:text-red-400"
+                        title="Eliminar"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {categories.length === 0 && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 py-4 text-center">
+                  No hay categorías. Creá una desde &quot;Nueva categoría&quot;.
+                </p>
+              )}
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700 px-6 py-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => setShowManageCategoriesModal(false)}
+                className="rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

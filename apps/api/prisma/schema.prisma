@@ -1,0 +1,1059 @@
+// ──────────────────────────────────────────────────────────────
+// Elio – Gastronomy Management System
+// Prisma Schema  ·  PostgreSQL
+// ──────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  LOCATION_MANAGER
+  WAREHOUSE_MANAGER
+  PRODUCTION_WORKER
+  LOGISTICS
+  CASHIER
+  WAITER
+  KITCHEN
+  CAFETERIA
+  AUDITOR
+}
+
+enum LocationType {
+  WAREHOUSE
+  CAFE
+  RESTAURANT
+  EXPRESS
+}
+
+enum SupplierPaymentMethod {
+  CASH
+  CHECK
+  TRANSFER
+  ACCOUNT
+}
+
+// ─── User ─────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  firstName    String    @map("first_name")
+  lastName     String    @map("last_name")
+  phone        String?
+  avatarUrl    String?   @map("avatar_url")
+  role         Role
+  locationId   String?   @map("location_id")
+  isActive     Boolean   @default(true) @map("is_active")
+  lastLogin    DateTime? @map("last_login")
+  failedLoginAttempts Int      @default(0) @map("failed_login_attempts")
+  lockedUntil  DateTime? @map("locked_until")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  location Location? @relation(fields: [locationId], references: [id])
+
+  stockMovements             StockMovement[]
+  createdGoodsReceipts       GoodsReceipt[]      @relation("GoodsReceiptCreator")
+  confirmedGoodsReceipts     GoodsReceipt[]      @relation("GoodsReceiptConfirmer")
+  createdRecipes             Recipe[]
+  createdProductionOrders    ProductionOrder[]    @relation("ProductionOrderCreator")
+  startedProductionOrders    ProductionOrder[]    @relation("ProductionOrderStarter")
+  completedProductionOrders  ProductionOrder[]    @relation("ProductionOrderCompleter")
+  createdShipments           Shipment[]           @relation("ShipmentCreator")
+  dispatchedShipments        Shipment[]           @relation("ShipmentDispatcher")
+  receivedShipments          Shipment[]           @relation("ShipmentReceiver")
+  approvedShipments          Shipment[]           @relation("ShipmentApprover")
+  waiterOrders               Order[]              @relation("OrderWaiter")
+  cashierOrders              Order[]              @relation("OrderCashier")
+  preparedOrderItems         OrderItem[]
+  readAlerts                 Alert[]
+  actedAIEvents              AIEvent[]
+  auditLogs                  AuditLog[]
+  openedCashRegisters        CashRegister[]       @relation("CashRegisterOpener")
+  closedCashRegisters        CashRegister[]       @relation("CashRegisterCloser")
+  cashMovements              CashMovement[]
+  wasteRecords               WasteRecord[]
+  productionBatches          ProductionBatch[]
+  stockReconciliations       StockReconciliation[]
+  createdPurchaseOrders      PurchaseOrder[]       @relation("PurchaseOrderCreator")
+
+  @@index([locationId])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+// ─── Location ─────────────────────────────────────────────────
+
+model Location {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  type         LocationType
+  address      String?
+  phone        String?
+  isActive     Boolean      @default(true) @map("is_active")
+  isProduction Boolean      @default(false) @map("is_production")
+  hasTables    Boolean      @default(false) @map("has_tables")
+  mapConfig    Json?        @map("map_config")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  users                User[]
+  stockLevels          StockLevel[]
+  stockMovements       StockMovement[]
+  goodsReceipts        GoodsReceipt[]
+  productionOrders     ProductionOrder[]
+  originShipments      Shipment[]       @relation("ShipmentOrigin")
+  destinationShipments Shipment[]       @relation("ShipmentDestination")
+  tables               Table[]
+  orders               Order[]
+  alerts               Alert[]
+  cashRegisters        CashRegister[]
+  customers            Customer[]
+  cashMovements        CashMovement[]
+  wasteRecords         WasteRecord[]
+  stockReconciliations StockReconciliation[]
+  purchaseOrders       PurchaseOrder[]
+
+  @@index([type])
+  @@index([isActive])
+  @@map("locations")
+}
+
+// ─── Category ─────────────────────────────────────────────────
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  icon      String?
+  color     String?
+  parentId  String?  @map("parent_id")
+  sortOrder Int      @default(0) @map("sort_order")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+  products Product[]
+
+  @@index([parentId])
+  @@index([isActive])
+  @@map("categories")
+}
+
+// ─── Product ──────────────────────────────────────────────────
+
+model Product {
+  id           String   @id @default(cuid())
+  sku          String   @unique
+  barcode      String?
+  name         String
+  description  String?
+  categoryId   String   @map("category_id")
+  unit         String
+  imageUrl     String?  @map("image_url")
+  avgCost      Float    @default(0) @map("avg_cost")
+  lastCost     Float    @default(0) @map("last_cost")
+  salePrice    Float    @default(0) @map("sale_price")
+  isSellable   Boolean  @default(false) @map("is_sellable")
+  isIngredient Boolean  @default(true) @map("is_ingredient")
+  isProduced   Boolean  @default(false) @map("is_produced")
+  isPerishable Boolean  @default(false) @map("is_perishable")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  category             Category              @relation(fields: [categoryId], references: [id])
+  stockLevels          StockLevel[]
+  stockMovements       StockMovement[]
+  productSuppliers     ProductSupplier[]
+  goodsReceiptItems    GoodsReceiptItem[]
+  recipes              Recipe[]
+  recipeIngredients    RecipeIngredient[]
+  productionOrderItems ProductionOrderItem[]
+  shipmentItems        ShipmentItem[]
+  orderItems           OrderItem[]
+  supplierPriceHistory SupplierPriceHistory[]
+  wasteRecords               WasteRecord[]
+  productionBatches          ProductionBatch[]
+  stockReconciliationItems   StockReconciliationItem[]
+  purchaseOrderItems         PurchaseOrderItem[]
+
+  @@index([categoryId])
+  @@index([barcode])
+  @@index([isActive])
+  @@index([isSellable])
+  @@map("products")
+}
+
+// ─── Supplier ─────────────────────────────────────────────────
+
+model Supplier {
+  id              String                 @id @default(cuid())
+  name            String
+  legalName       String?                @map("legal_name")
+  taxId           String?                @map("tax_id")
+  rubro           String?                @map("rubro")
+  contactName     String?                @map("contact_name")
+  contactPhone    String?                @map("contact_phone")
+  contactEmail    String?                @map("contact_email")
+  address         String?
+  paymentTerms    String?                @map("payment_terms")
+  paymentMethod   SupplierPaymentMethod? @default(TRANSFER) @map("payment_method")
+  notes           String?
+  isActive        Boolean                @default(true) @map("is_active")
+  createdAt       DateTime               @default(now()) @map("created_at")
+  updatedAt       DateTime               @updatedAt @map("updated_at")
+
+  // Relations
+  productSuppliers   ProductSupplier[]
+  priceLists         SupplierPriceList[]
+  goodsReceipts      GoodsReceipt[]
+  priceHistory       SupplierPriceHistory[]
+  paymentOrders      PaymentOrder[]
+  purchaseOrders     PurchaseOrder[]
+
+  @@index([isActive])
+  @@map("suppliers")
+}
+
+// ─── SupplierPriceList (listado de precios subido y analizado por IA) ───
+
+model SupplierPriceList {
+  id             String   @id @default(cuid())
+  supplierId     String   @map("supplier_id")
+  filePath       String   @map("file_path")
+  fileName       String   @map("file_name")
+  mimeType       String   @map("mime_type")
+  extractedData  Json     @map("extracted_data")
+  extractedText  String?  @map("extracted_text")
+  extractedTable Json?    @map("extracted_table")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@index([supplierId])
+  @@map("supplier_price_lists")
+}
+
+// ─── ProductSupplier ──────────────────────────────────────────
+
+model ProductSupplier {
+  id           String    @id @default(cuid())
+  productId    String    @map("product_id")
+  supplierId   String    @map("supplier_id")
+  supplierSku  String?   @map("supplier_sku")
+  unitCost     Float?    @map("unit_cost")
+  minOrderQty  Float?    @map("min_order_qty")
+  leadTimeDays Int       @default(1) @map("lead_time_days")
+  isPreferred  Boolean   @default(false) @map("is_preferred")
+  lastPurchase DateTime? @map("last_purchase")
+
+  // Relations
+  product  Product  @relation(fields: [productId], references: [id])
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  @@unique([productId, supplierId])
+  @@index([productId])
+  @@index([supplierId])
+  @@map("product_suppliers")
+}
+
+// ─── SupplierPriceHistory (historial de precios para comparación e IA) ───
+
+model SupplierPriceHistory {
+  id             String    @id @default(cuid())
+  supplierId     String    @map("supplier_id")
+  productId      String    @map("product_id")
+  unitCost       Float     @map("unit_cost")
+  recordedAt     DateTime  @default(now()) @map("recorded_at")
+  sourceReceiptId String?  @map("source_receipt_id")
+  notes          String?
+
+  // Relations
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([supplierId])
+  @@index([productId])
+  @@index([recordedAt])
+  @@index([supplierId, productId])
+  @@map("supplier_price_history")
+}
+
+// ─── PaymentOrder (orden de pago automática al confirmar ingreso) ───
+
+model PaymentOrder {
+  id                  String    @id @default(cuid())
+  supplierId          String    @map("supplier_id")
+  goodsReceiptId      String?   @unique @map("goods_receipt_id")
+  amount              Float
+  status              String    @default("pending")
+  dueDate             DateTime? @map("due_date")
+  invoiceNumber       String?   @map("invoice_number")
+  accountSettledAt    DateTime? @map("account_settled_at")
+  paymentProofPath    String?   @map("payment_proof_path")
+  paymentProofFileName String?  @map("payment_proof_file_name")
+  notes               String?
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  supplier    Supplier     @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  goodsReceipt GoodsReceipt? @relation(fields: [goodsReceiptId], references: [id], onDelete: SetNull)
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("payment_orders")
+}
+
+// ─── PurchaseOrder (orden de compra por demanda – depósito) ───
+
+model PurchaseOrder {
+  id              String    @id @default(cuid())
+  locationId      String    @map("location_id")
+  supplierId      String    @map("supplier_id")
+  orderNumber     String    @unique @map("order_number")
+  status          String    @default("draft") // draft | placed | confirmed | received | approved_payment
+  totalAmount     Float?    @map("total_amount")
+  notes           String?
+  createdById     String    @map("created_by_id")
+  placedAt        DateTime? @map("placed_at")
+  confirmedAt     DateTime? @map("confirmed_at")
+  goodsReceiptId  String?   @map("goods_receipt_id")
+  approvedAt      DateTime? @map("approved_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  location     Location     @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  supplier     Supplier     @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  createdBy           User          @relation("PurchaseOrderCreator", fields: [createdById], references: [id])
+  goodsReceipt        GoodsReceipt? @relation(fields: [goodsReceiptId], references: [id], onDelete: SetNull)
+  generatedGoodsReceipt GoodsReceipt? @relation("GoodsReceiptFromPO")
+  items               PurchaseOrderItem[]
+
+  @@index([locationId])
+  @@index([supplierId])
+  @@index([status])
+  @@index([createdById])
+  @@index([goodsReceiptId])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id              String   @id @default(cuid())
+  purchaseOrderId String   @map("purchase_order_id")
+  productId       String   @map("product_id")
+  quantity        Float
+  unitCost        Float    @map("unit_cost")
+  lastKnownCost   Float?   @map("last_known_cost")
+  priceStatus     String?  @map("price_status") // ok | expensive | cheap
+  notes           String?
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@index([purchaseOrderId])
+  @@index([productId])
+  @@map("purchase_order_items")
+}
+
+// ─── WasteRecord (mermas / desperdicios en depósito o local) ───
+
+model WasteRecord {
+  id           String   @id @default(cuid())
+  locationId   String   @map("location_id")
+  productId    String   @map("product_id")
+  type         String
+  reason       String?
+  quantity     Float
+  unit         String   @default("unidad")
+  recordedById String   @map("recorded_by_id")
+  recordedAt   DateTime @default(now()) @map("recorded_at")
+  notes        String?
+
+  // Relations
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  recordedBy User     @relation(fields: [recordedById], references: [id], onDelete: Restrict)
+
+  @@index([locationId])
+  @@index([productId])
+  @@index([recordedAt])
+  @@index([type])
+  @@map("waste_records")
+}
+
+// ─── StockLevel ───────────────────────────────────────────────
+
+model StockLevel {
+  id            String    @id @default(cuid())
+  productId     String    @map("product_id")
+  locationId    String    @map("location_id")
+  quantity      Float     @default(0)
+  minQuantity   Float     @default(0) @map("min_quantity")
+  maxQuantity   Float?    @map("max_quantity")
+  lastCountedAt DateTime? @map("last_counted_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  product  Product  @relation(fields: [productId], references: [id])
+  location Location @relation(fields: [locationId], references: [id])
+
+  @@unique([productId, locationId])
+  @@index([productId])
+  @@index([locationId])
+  @@map("stock_levels")
+}
+
+// ─── StockMovement ────────────────────────────────────────────
+
+model StockMovement {
+  id            String    @id @default(cuid())
+  productId     String    @map("product_id")
+  locationId    String    @map("location_id")
+  type          String
+  quantity      Float
+  unitCost      Float?    @map("unit_cost")
+  referenceType String?   @map("reference_type")
+  referenceId   String?   @map("reference_id")
+  lotNumber     String?   @map("lot_number")
+  expiryDate    DateTime? @map("expiry_date")
+  notes         String?
+  userId        String    @map("user_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  product  Product  @relation(fields: [productId], references: [id])
+  location Location @relation(fields: [locationId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@index([productId])
+  @@index([locationId])
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([referenceType, referenceId])
+  @@map("stock_movements")
+}
+
+// ─── StockReconciliation (micro balance cierre de jornada) ───
+
+model StockReconciliation {
+  id          String    @id @default(cuid())
+  locationId  String    @map("location_id")
+  userId      String    @map("user_id")
+  shiftLabel  String?   @map("shift_label")
+  status      String    @default("draft")
+  submittedAt DateTime? @map("submitted_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  location Location                    @relation(fields: [locationId], references: [id])
+  user     User                        @relation(fields: [userId], references: [id])
+  items    StockReconciliationItem[]
+
+  @@index([locationId])
+  @@index([userId])
+  @@index([submittedAt])
+  @@index([status])
+  @@map("stock_reconciliations")
+}
+
+model StockReconciliationItem {
+  id                String   @id @default(cuid())
+  reconciliationId  String   @map("reconciliation_id")
+  productId         String   @map("product_id")
+  expectedQuantity  Float    @map("expected_quantity")
+  countedQuantity  Float    @map("counted_quantity")
+  difference       Float
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  reconciliation StockReconciliation @relation(fields: [reconciliationId], references: [id], onDelete: Cascade)
+  product        Product             @relation(fields: [productId], references: [id])
+
+  @@index([reconciliationId])
+  @@index([productId])
+  @@map("stock_reconciliation_items")
+}
+
+model GoodsReceipt {
+  id                   String    @id @default(cuid())
+  locationId           String    @map("location_id")
+  supplierId           String    @map("supplier_id")
+  receiptNumber        String    @unique @map("receipt_number")
+  invoiceNumber        String?   @map("invoice_number")
+  invoiceDate          DateTime? @map("invoice_date")
+  invoiceImageUrl      String?   @map("invoice_image_url")
+  method               String    @default("manual")
+  ocrConfidence        Float?    @map("ocr_confidence")
+  ocrRawData           String?   @map("ocr_raw_data")
+  status               String    @default("draft")
+  totalAmount          Float?    @map("total_amount")
+  notes                String?
+  userId               String    @map("user_id")
+  confirmedById        String?   @map("confirmed_by_id")
+  confirmedAt          DateTime? @map("confirmed_at")
+  receivedByName      String?   @map("received_by_name")
+  receivedBySignature  String?   @map("received_by_signature")
+  purchaseOrderId     String?   @unique @map("purchase_order_id")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  location        Location           @relation(fields: [locationId], references: [id])
+  supplier        Supplier           @relation(fields: [supplierId], references: [id])
+  createdBy       User               @relation("GoodsReceiptCreator", fields: [userId], references: [id])
+  confirmedBy     User?              @relation("GoodsReceiptConfirmer", fields: [confirmedById], references: [id])
+  sourcePurchaseOrder PurchaseOrder?  @relation("GoodsReceiptFromPO", fields: [purchaseOrderId], references: [id], onDelete: SetNull)
+  items           GoodsReceiptItem[]
+  paymentOrder    PaymentOrder?
+  purchaseOrders  PurchaseOrder[]
+
+  @@index([locationId])
+  @@index([supplierId])
+  @@index([userId])
+  @@index([status])
+  @@index([purchaseOrderId])
+  @@map("goods_receipts")
+}
+
+// ─── GoodsReceiptItem ─────────────────────────────────────────
+
+model GoodsReceiptItem {
+  id                 String    @id @default(cuid())
+  receiptId          String    @map("receipt_id")
+  productId          String    @map("product_id")
+  orderedQty         Float?    @map("ordered_qty")
+  receivedQty        Float     @map("received_qty")
+  unitCost           Float     @map("unit_cost")
+  lotNumber          String?   @map("lot_number")
+  expiryDate         DateTime? @map("expiry_date")
+  notes              String?
+  ocrMatchConfidence Float?    @map("ocr_match_confidence")
+  createdAt          DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  receipt GoodsReceipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+  product Product      @relation(fields: [productId], references: [id])
+
+  @@index([receiptId])
+  @@index([productId])
+  @@map("goods_receipt_items")
+}
+
+// ─── Recipe ───────────────────────────────────────────────────
+
+model Recipe {
+  id           String    @id @default(cuid())
+  name         String
+  description  String?
+  category     String?
+  version      String    @default("1.0")
+  yieldQty     Float     @map("yield_qty")
+  yieldUnit    String    @map("yield_unit")
+  productId    String?   @map("product_id")
+  prepTimeMin  Int?      @map("prep_time_min")
+  instructions String?
+  imageUrl     String?   @map("image_url")
+  isActive     Boolean   @default(true) @map("is_active")
+  parentId     String?   @map("parent_id")
+  createdById  String    @map("created_by_id")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  product          Product?           @relation(fields: [productId], references: [id])
+  parent           Recipe?            @relation("RecipeVersion", fields: [parentId], references: [id])
+  children         Recipe[]           @relation("RecipeVersion")
+  createdBy        User               @relation(fields: [createdById], references: [id])
+  ingredients      RecipeIngredient[]
+  productionOrders ProductionOrder[]
+
+  @@index([productId])
+  @@index([parentId])
+  @@index([createdById])
+  @@index([isActive])
+  @@map("recipes")
+}
+
+// ─── RecipeIngredient ─────────────────────────────────────────
+
+model RecipeIngredient {
+  id          String  @id @default(cuid())
+  recipeId    String  @map("recipe_id")
+  productId   String  @map("product_id")
+  qtyPerYield Float   @map("qty_per_yield")
+  unit        String
+  isOptional  Boolean @default(false) @map("is_optional")
+  notes       String?
+  sortOrder   Int     @default(0) @map("sort_order")
+
+  // Relations
+  recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([recipeId])
+  @@index([productId])
+  @@map("recipe_ingredients")
+}
+
+// ─── ProductionOrder ──────────────────────────────────────────
+
+model ProductionOrder {
+  id            String    @id @default(cuid())
+  orderNumber   String    @unique @map("order_number")
+  recipeId      String    @map("recipe_id")
+  locationId    String    @map("location_id")
+  plannedQty    Float     @map("planned_qty")
+  actualQty     Float?    @map("actual_qty")
+  status        String    @default("draft")
+  estimatedCost Float?    @map("estimated_cost")
+  actualCost    Float?    @map("actual_cost")
+  laborCost     Float?    @map("labor_cost")
+  wasteQty      Float     @default(0) @map("waste_qty")
+  wasteNotes    String?   @map("waste_notes")
+  plannedDate   DateTime  @map("planned_date")
+  startedAt     DateTime? @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+  notes         String?
+  createdById   String    @map("created_by_id")
+  startedById   String?   @map("started_by_id")
+  completedById String?   @map("completed_by_id")
+  aiSuggested   Boolean   @default(false) @map("ai_suggested")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  recipe      Recipe                @relation(fields: [recipeId], references: [id])
+  location    Location              @relation(fields: [locationId], references: [id])
+  createdBy   User                  @relation("ProductionOrderCreator", fields: [createdById], references: [id])
+  startedBy   User?                 @relation("ProductionOrderStarter", fields: [startedById], references: [id])
+  completedBy User?                 @relation("ProductionOrderCompleter", fields: [completedById], references: [id])
+  items       ProductionOrderItem[]
+  batches     ProductionBatch[]
+
+  @@index([recipeId])
+  @@index([locationId])
+  @@index([createdById])
+  @@index([status])
+  @@index([plannedDate])
+  @@map("production_orders")
+}
+
+// ─── ProductionOrderItem ──────────────────────────────────────
+
+model ProductionOrderItem {
+  id                String @id @default(cuid())
+  productionOrderId String @map("production_order_id")
+  productId         String @map("product_id")
+  plannedQty        Float  @map("planned_qty")
+  actualQty         Float? @map("actual_qty")
+  unitCost          Float? @map("unit_cost")
+  status            String @default("pending")
+
+  // Relations
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  product         Product         @relation(fields: [productId], references: [id])
+
+  @@index([productionOrderId])
+  @@index([productId])
+  @@map("production_order_items")
+}
+
+// ─── ProductionBatch (lote con QR para trazabilidad) ──────────
+
+model ProductionBatch {
+  id                String    @id @default(cuid())
+  productionOrderId String    @map("production_order_id")
+  productId         String    @map("product_id")
+  quantity          Float
+  unit              String
+  batchCode         String    @unique @map("batch_code")
+  qrCode            String    @map("qr_code")
+  producedAt        DateTime  @default(now()) @map("produced_at")
+  producedById      String    @map("produced_by_id")
+
+  // Relations
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  product        Product          @relation(fields: [productId], references: [id], onDelete: Restrict)
+  producedBy     User             @relation(fields: [producedById], references: [id], onDelete: Restrict)
+
+  @@index([productionOrderId])
+  @@index([productId])
+  @@index([producedAt])
+  @@index([batchCode])
+  @@map("production_batches")
+}
+
+// ─── Shipment ─────────────────────────────────────────────────
+
+model Shipment {
+  id               String    @id @default(cuid())
+  shipmentNumber   String    @unique @map("shipment_number")
+  originId         String    @map("origin_id")
+  destinationId    String    @map("destination_id")
+  status           String    @default("draft")
+  qrCode           String?   @map("qr_code")
+  estimatedArrival    DateTime? @map("estimated_arrival")
+  estimatedDurationMin Int?     @map("estimated_duration_min")
+  routePolyline       String?   @map("route_polyline")
+  actualArrivalAt     DateTime? @map("actual_arrival_at")
+  dispatchedAt        DateTime? @map("dispatched_at")
+  deliveredAt      DateTime? @map("delivered_at")
+  receivedAt          DateTime? @map("received_at")
+  receivedByName      String?   @map("received_by_name")
+  receivedBySignature String?   @map("received_by_signature")
+  receptionNotes      String?   @map("reception_notes")
+  receptionControlStartedAt   DateTime? @map("reception_control_started_at")
+  receptionControlCompletedAt DateTime? @map("reception_control_completed_at")
+  totalItems          Int       @default(0) @map("total_items")
+  notes               String?
+  createdById         String    @map("created_by_id")
+  dispatchedById   String?   @map("dispatched_by_id")
+  receivedById     String?   @map("received_by_id")
+  approvedById     String?   @map("approved_by_id")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  origin       Location       @relation("ShipmentOrigin", fields: [originId], references: [id])
+  destination  Location       @relation("ShipmentDestination", fields: [destinationId], references: [id])
+  createdBy    User           @relation("ShipmentCreator", fields: [createdById], references: [id])
+  dispatchedBy User?          @relation("ShipmentDispatcher", fields: [dispatchedById], references: [id])
+  receivedBy   User?          @relation("ShipmentReceiver", fields: [receivedById], references: [id])
+  approvedBy   User?          @relation("ShipmentApprover", fields: [approvedById], references: [id])
+  items        ShipmentItem[]
+
+  @@index([originId])
+  @@index([destinationId])
+  @@index([createdById])
+  @@index([status])
+  @@map("shipments")
+}
+
+// ─── ShipmentItem ─────────────────────────────────────────────
+
+model ShipmentItem {
+  id           String  @id @default(cuid())
+  shipmentId   String  @map("shipment_id")
+  productId    String  @map("product_id")
+  sentQty      Float   @map("sent_qty")
+  receivedQty  Float?  @map("received_qty")
+  diffReason   String? @map("diff_reason")
+  diffPhotoUrl String? @map("diff_photo_url")
+  unitCost     Float?  @map("unit_cost")
+  lotNumber    String? @map("lot_number")
+  notes        String?
+
+  // Relations
+  shipment Shipment @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+
+  @@index([shipmentId])
+  @@index([productId])
+  @@map("shipment_items")
+}
+
+// ─── Table ────────────────────────────────────────────────────
+
+model Table {
+  id             String   @id @default(cuid())
+  locationId     String   @map("location_id")
+  name           String
+  zone           String
+  capacity       Int      @default(4)
+  shape          String   @default("square")
+  scale          Float    @default(1.0)
+  status         String   @default("available")
+  /** Tipo: 'normal' | 'trash' (tacho basura) | 'errors' (errores comandas) */
+  tableType      String   @default("normal") @map("table_type")
+  currentOrderId String?  @map("current_order_id")
+  positionX      Int?     @map("position_x")
+  positionY      Int?     @map("position_y")
+  sortOrder      Int      @default(0) @map("sort_order")
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  // Relations
+  location Location @relation(fields: [locationId], references: [id])
+  orders   Order[]
+
+  @@index([locationId])
+  @@index([status])
+  @@map("tables")
+}
+
+// ─── Order ────────────────────────────────────────────────────
+
+model Order {
+  id             String    @id @default(cuid())
+  locationId     String    @map("location_id")
+  orderNumber    String    @unique @map("order_number")
+  type           String
+  tableId        String?   @map("table_id")
+  status         String    @default("open")
+  customerCount  Int       @default(1) @map("customer_count")
+  /** Cuenta dividida por comensal (mozo/cajero) */
+  splitMode      Boolean   @default(false) @map("split_mode")
+  /** Asignación ítem → comensal: { "itemId": 1 | { "1": qty, "2": qty }, ... } */
+  itemPayer      Json?     @map("item_payer")
+  subtotal       Float     @default(0)
+  taxAmount      Float     @default(0) @map("tax_amount")
+  discountAmount Float     @default(0) @map("discount_amount")
+  total          Float     @default(0)
+  paymentMethod  String?   @map("payment_method")
+  /** Por comensal cuando la cuenta está dividida: [{ diner: 1, method: "cash", amount: 3000 }, ...] */
+  paymentBreakdown Json?   @map("payment_breakdown")
+  invoiceType    String?   @map("invoice_type")
+  customerId     String?   @map("customer_id")
+  notes          String?
+  waiterId       String?   @map("waiter_id")
+  cashierId      String?   @map("cashier_id")
+  openedAt       DateTime  @default(now()) @map("opened_at")
+  closedAt       DateTime? @map("closed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  location Location    @relation(fields: [locationId], references: [id])
+  table    Table?      @relation(fields: [tableId], references: [id])
+  customer Customer?   @relation(fields: [customerId], references: [id])
+  waiter   User?       @relation("OrderWaiter", fields: [waiterId], references: [id])
+  cashier  User?       @relation("OrderCashier", fields: [cashierId], references: [id])
+  items    OrderItem[]
+
+  @@index([locationId])
+  @@index([tableId])
+  @@index([waiterId])
+  @@index([cashierId])
+  @@index([status])
+  @@index([customerId])
+  @@map("orders")
+}
+
+// ─── OrderItem ────────────────────────────────────────────────
+
+model OrderItem {
+  id           String    @id @default(cuid())
+  orderId      String    @map("order_id")
+  productId    String    @map("product_id")
+  quantity     Int       @default(1)
+  unitPrice    Float     @map("unit_price")
+  sector       String
+  status       String    @default("pending")
+  notes        String?
+  /** Si true, no se anuncia en cocina/cafetería (ej. ítems movidos de otra mesa). */
+  skipComanda  Boolean   @default(false) @map("skip_comanda")
+  startedAt    DateTime? @map("started_at")
+  readyAt      DateTime? @map("ready_at")
+  servedAt     DateTime? @map("served_at")
+  preparedById String?   @map("prepared_by_id")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [productId], references: [id])
+  preparedBy User?   @relation(fields: [preparedById], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@index([status])
+  @@index([sector])
+  @@map("order_items")
+}
+
+// ─── Alert ────────────────────────────────────────────────────
+
+model Alert {
+  id            String    @id @default(cuid())
+  locationId    String?   @map("location_id")
+  type          String
+  priority      String    @default("medium")
+  title         String
+  message       String
+  referenceType String?   @map("reference_type")
+  referenceId   String?   @map("reference_id")
+  status        String    @default("active")
+  readById      String?   @map("read_by_id")
+  readAt        DateTime? @map("read_at")
+  resolvedAt    DateTime? @map("resolved_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  location Location? @relation(fields: [locationId], references: [id])
+  readBy   User?     @relation(fields: [readById], references: [id])
+
+  @@index([locationId])
+  @@index([type])
+  @@index([status])
+  @@index([priority])
+  @@map("alerts")
+}
+
+// ─── AIEvent ──────────────────────────────────────────────────
+
+model AIEvent {
+  id            String    @id @default(cuid())
+  type          String
+  severity      String    @default("info")
+  title         String
+  description   String
+  data          String?
+  relatedEntity String?   @map("related_entity")
+  relatedId     String?   @map("related_id")
+  status        String    @default("active")
+  actionTaken   String?   @map("action_taken")
+  actionById    String?   @map("action_by_id")
+  actionAt      DateTime? @map("action_at")
+  expiresAt     DateTime? @map("expires_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  actionBy User? @relation(fields: [actionById], references: [id])
+
+  @@index([type])
+  @@index([status])
+  @@index([severity])
+  @@map("ai_events")
+}
+
+// ─── AuditLog ─────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?  @map("user_id")
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  oldData    String?  @map("old_data")
+  newData    String?  @map("new_data")
+  ipAddress  String?  @map("ip_address")
+  userAgent  String?  @map("user_agent")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ─── CashRegister ─────────────────────────────────────────────
+
+model CashRegister {
+  id                  String    @id @default(cuid())
+  locationId           String    @map("location_id")
+  name                String    @default("Caja Principal")
+  status              String    @default("closed")
+  shift               String?   // 'morning' | 'afternoon' | 'night'
+  openedAt            DateTime? @map("opened_at")
+  closedAt            DateTime? @map("closed_at")
+  openedById          String?   @map("opened_by_id")
+  closedById          String?   @map("closed_by_id")
+  openingAmount       Float?    @map("opening_amount")
+  closingAmount       Float?    @map("closing_amount")
+  expectedAmount      Float?    @map("expected_amount")
+  difference          Float?
+  salesCash           Float     @default(0) @map("sales_cash")
+  salesDebit          Float     @default(0) @map("sales_debit")
+  salesCredit         Float     @default(0) @map("sales_credit")
+  salesCard           Float     @default(0) @map("sales_card")
+  salesQr             Float     @default(0) @map("sales_qr")
+  salesTransfer       Float     @default(0) @map("sales_transfer")
+  totalSales          Float     @default(0) @map("total_sales")
+  totalCashExpenses   Float     @default(0) @map("total_cash_expenses")
+  totalWithdrawals    Float     @default(0) @map("total_withdrawals")
+  totalExtraIncome    Float     @default(0) @map("total_extra_income")
+  totalOrders         Int       @default(0) @map("total_orders")
+  salesNoTicket       Float     @default(0) @map("sales_no_ticket")
+  internalConsumption Float     @default(0) @map("internal_consumption")
+  notes               String?
+  closedBySignature   String?   @map("closed_by_signature")
+  /** Conteo por denominación: { "10000": 2, "5000": 5, ... } cantidad por valor */
+  closingDenominations Json?    @map("closing_denominations")
+  /** Totales declarados al cierre: { "cards": 1000, "transfer": 500, "qr": 200 } */
+  closingReconciliation Json?   @map("closing_reconciliation")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  location     Location       @relation(fields: [locationId], references: [id])
+  openedBy     User?          @relation("CashRegisterOpener", fields: [openedById], references: [id])
+  closedBy     User?          @relation("CashRegisterCloser", fields: [closedById], references: [id])
+  cashMovements CashMovement[]
+
+  @@index([locationId])
+  @@index([status])
+  @@index([closedAt])
+  @@map("cash_registers")
+}
+
+// ─── Customer (para Factura A por CUIT) ─────────────────────────
+
+model Customer {
+  id         String   @id @default(cuid())
+  locationId String   @map("location_id")
+  name       String
+  cuit       String
+  email      String?
+  address    String?
+  phone      String?
+  isActive   Boolean  @default(true) @map("is_active")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  location Location @relation(fields: [locationId], references: [id])
+  orders   Order[]
+
+  @@unique([locationId, cuit])
+  @@index([locationId])
+  @@index([cuit])
+  @@map("customers")
+}
+
+// ─── CashMovement (ingresos y egresos de caja) ──────────────────
+
+model CashMovement {
+  id              String    @id @default(cuid())
+  locationId      String    @map("location_id")
+  cashRegisterId  String?   @map("cash_register_id")
+  type            String    // 'in' | 'out' | 'expense' | 'withdrawal' | 'extra_income'
+  amount          Float
+  reason          String?
+  createdById     String?   @map("created_by_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  location     Location       @relation(fields: [locationId], references: [id])
+  cashRegister CashRegister?  @relation(fields: [cashRegisterId], references: [id], onDelete: SetNull)
+  createdBy    User?          @relation(fields: [createdById], references: [id])
+
+  @@index([locationId])
+  @@index([cashRegisterId])
+  @@index([createdAt])
+  @@index([type])
+  @@map("cash_movements")
+}

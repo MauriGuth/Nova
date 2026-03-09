@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+/* Dark mode: se activa con la clase .dark en <html> (elegido en Preferencias) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Etiquetas de ejes en gráficos: gris en claro, blanco en oscuro */
+:root { --chart-tick: #374151; }
+.dark { --chart-tick: #ffffff; }
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Responsive: safe area para notches y barras en móvil */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-area-top { padding-top: env(safe-area-inset-top); }
+}
+
+/* Evitar overflow horizontal en toda la app */
+html, body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Placeholder e inputs: texto siempre negro para que se lea bien en todas las bandejas */
+input::placeholder,
+textarea::placeholder {
+  color: #4b5563;
+  opacity: 1;
+}
+input, textarea, select {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  caret-color: #111827;
+}
+select option {
+  color: #111827;
+  background: #fff;
+}
+
+/* Autocompletado del navegador: texto en gris para distinguirlo del contenido escrito */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #6b7280 !important;
+  caret-color: #6b7280;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* En modo oscuro: todas las bandejas (inputs/textarea/select) en estilo oscuro por defecto */
+.dark input, .dark textarea, .dark select {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  border-color: #374151;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+.dark select option {
+  color: #111827;
+  background: #fff;
+}
+/* Autocompletado en bandejas oscuras: texto gris */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  -webkit-text-fill-color: #9ca3af !important;
+  caret-color: #9ca3af;
+}
+
+/* Excepción: barra de búsqueda del topbar en dark mode */
+.dark .topbar-search-input {
+  background-color: transparent !important;
+  color: #e5e7eb !important;
+  -webkit-text-fill-color: #e5e7eb !important;
+  caret-color: #e5e7eb;
+}
+.dark .topbar-search-input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+/* Excepción: página Configuración — refuerzo de bordes en bandejas oscuras */
+.dark .settings-page input,
+.dark .settings-page select,
+.dark .settings-page textarea {
+  border-color: #374151;
+}
+
+/* Excepción: modal Editar/Nuevo Usuario — autocompletado gris */
+.dark .modal-editar-usuario input:-webkit-autofill,
+.dark .modal-editar-usuario input:-webkit-autofill:hover,
+.dark .modal-editar-usuario input:-webkit-autofill:focus,
+.dark .modal-editar-usuario input:-webkit-autofill:active {
+  -webkit-text-fill-color: #9ca3af !important;
+  caret-color: #9ca3af;
+}
+
+/* Excepciones: formularios que deben mantener fondo claro para lectura (POS caja, login) */
+.dark .form-cerrar-caja input,
+.dark .form-cerrar-caja select,
+.dark .form-cerrar-caja textarea,
+.dark .form-abrir-caja input,
+.dark .form-abrir-caja select,
+.dark .form-abrir-caja textarea,
+.dark .pos-productos-section input,
+.dark .pos-productos-section select,
+.dark .pos-productos-section textarea,
+.dark .pos-modal-producto input,
+.dark .pos-modal-producto select,
+.dark .pos-modal-producto textarea,
+.dark .form-login-fields .login-field {
+  background-color: #fff !important;
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  caret-color: #111827;
+  border-color: #d1d5db;
+}
+.dark .form-login-fields .login-field.user-typed,
+.dark .form-login-fields .login-field.user-typed:-webkit-autofill {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+/* Scrollbar en modo oscuro */
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Sidebar scrollbar */
+.bg-slate-900 ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.bg-slate-900 ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Al imprimir (PDF): solo el contenido, sin barra ni menú; fondo blanco */
+@media print {
+  body {
+    background: white;
+  }
+}
+
+/* Formularios de login (login, cajero, mozo, depósito): placeholder/autocompletado gris, texto al escribir negro */
+.form-login-fields .login-field::placeholder {
+  color: #6b7280 !important;
+  opacity: 1;
+}
+.form-login-fields .login-field,
+.form-login-fields .login-field:-webkit-autofill,
+.form-login-fields .login-field:-webkit-autofill:hover,
+.form-login-fields .login-field:-webkit-autofill:focus {
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
+}
+.form-login-fields .login-field.user-typed,
+.form-login-fields .login-field.user-typed:-webkit-autofill {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+/* Cerrar caja (POS): forzar texto negro en todos los campos para que se lea bien */
+.form-cerrar-caja input,
+.form-cerrar-caja select,
+.form-cerrar-caja textarea {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+/* Totales declarados al cierre: solo el placeholder (previsualización) en gris; lo que se escribe sigue en negro */
+.form-cerrar-caja input.totales-declarados-input::placeholder {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
+  opacity: 1;
+}
+.form-cerrar-caja input::placeholder,
+.form-cerrar-caja textarea::placeholder {
+  color: #374151 !important;
+  opacity: 1;
+}
+.form-cerrar-caja select option {
+  color: #111827;
+  background: #fff;
+}
+
+/* Abrir caja (POS): forzar texto negro en todos los campos */
+.form-abrir-caja input,
+.form-abrir-caja select,
+.form-abrir-caja textarea {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.form-abrir-caja input::placeholder,
+.form-abrir-caja textarea::placeholder {
+  color: #374151 !important;
+  opacity: 1;
+}
+.form-abrir-caja select option {
+  color: #111827;
+  background: #fff;
+}
+
+/* Sector productos (POS Caja): texto negro en controles y contenido para que se lea bien */
+.pos-productos-section input,
+.pos-productos-section select,
+.pos-productos-section textarea,
+.pos-productos-section label,
+.pos-productos-section p,
+.pos-productos-section h2,
+.pos-productos-section span:not(button span) {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.pos-productos-section input,
+.pos-productos-section select,
+.pos-productos-section textarea {
+  background-color: #fff !important;
+}
+.pos-productos-section input::placeholder,
+.pos-productos-section textarea::placeholder {
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
+  opacity: 1;
+}
+.pos-productos-section select option {
+  color: #111827 !important;
+  background: #fff !important;
+}
+
+/* Modales Nuevo/Editar producto (POS Caja): texto negro, fondo blanco en controles */
+.pos-modal-producto input,
+.pos-modal-producto select,
+.pos-modal-producto textarea,
+.pos-modal-producto label,
+.pos-modal-producto h3,
+.pos-modal-producto p,
+.pos-modal-producto span:not(button span) {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.pos-modal-producto input,
+.pos-modal-producto select,
+.pos-modal-producto textarea {
+  background-color: #fff !important;
+}
+.pos-modal-producto input::placeholder,
+.pos-modal-producto textarea::placeholder {
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
+  opacity: 1;
+}
+.pos-modal-producto select option {
+  color: #111827 !important;
+  background: #fff !important;
+}
+.pos-modal-producto button[type="submit"] {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.pos-modal-producto .text-red-500,
+.pos-modal-producto [class*="text-red"] {
+  color: #dc2626 !important;
+  -webkit-text-fill-color: #dc2626 !important;
+}
+
+/* Nuevo movimiento (POS Caja): Monto y Motivo con texto negro */
+.form-nuevo-movimiento input,
+.form-nuevo-movimiento select,
+.form-nuevo-movimiento textarea {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.form-nuevo-movimiento input::placeholder,
+.form-nuevo-movimiento textarea::placeholder {
+  color: #374151 !important;
+  opacity: 1;
+}
+
+/* Micro balance (POS Caja): cantidades contadas con texto negro y foco gris */
+.form-micro-balance input,
+.form-micro-balance select,
+.form-micro-balance textarea {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.form-micro-balance input::placeholder,
+.form-micro-balance textarea::placeholder {
+  color: #374151 !important;
+  opacity: 1;
+}
+
+/* Transición suave al cambiar de sección (Recetas, Logística, etc.)
+   Solo opacity para no crear containing block: así los modales fixed se centran en el viewport. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-page-enter {
+  animation: page-enter 0.3s ease-out forwards;
+}
+
+/* Animación al actualizar/recargar contenido (después de guardar, editar, etc.) */
+@keyframes content-updated {
+  0% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animate-content-updated {
+  animation: content-updated 0.35s ease-out forwards;
+}
+
+/* Notificaciones (Sileo): texto siempre negro sobre fondo claro para buena legibilidad */
+[data-sileo-viewport] [data-sileo-title],
+[data-sileo-viewport] [data-sileo-description],
+[data-sileo-viewport] [data-sileo-content],
+[data-sileo-viewport] [data-sileo-content] *,
+[data-sileo-title],
+[data-sileo-description] {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+/* En modo oscuro el toast sigue con fondo claro; forzar texto negro dentro del viewport */
+.dark [data-sileo-viewport] [data-sileo-title],
+.dark [data-sileo-viewport] [data-sileo-description],
+.dark [data-sileo-viewport] [data-sileo-content],
+.dark [data-sileo-viewport] [data-sileo-content] * {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
