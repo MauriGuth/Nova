@@ -3,6 +3,10 @@ const API_URL =
   process.env.next_public_api_url ||
   'http://localhost:4010/api';
 
+export function getApiUrl(): string {
+  return API_URL;
+}
+
 /** Claves por app: cada link tiene su propia sesión para poder tener varias abiertas a la vez */
 function getStationFromUrl(): string | null {
   if (typeof window === 'undefined') return null;
