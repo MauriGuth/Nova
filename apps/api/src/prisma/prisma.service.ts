@@ -9,10 +9,13 @@ export class PrismaService
 {
   constructor() {
     const connectionString = process.env.DATABASE_URL;
-    const adapter = connectionString
-      ? new PrismaPg({ connectionString })
-      : undefined;
-    super(adapter ? { adapter } : ({} as any));
+    if (!connectionString) {
+      throw new Error(
+        'DATABASE_URL no está definida. En Railway, agregá la variable DATABASE_URL al servicio de la API (referencia desde Postgres o copiá la URL de conexión).',
+      );
+    }
+    const adapter = new PrismaPg({ connectionString });
+    super({ adapter });
   }
 
   async onModuleInit() {

@@ -1,0 +1,137 @@
+# Desplegar la API de Elio en Railway
+
+Pasos para tener tu URL de API en producción (ej. `https://elio-api.up.railway.app`).
+
+---
+
+## 1. Crear cuenta y proyecto en Railway
+
+1. Entrá a **[railway.app](https://railway.app)** e iniciá sesión con **GitHub**.
+2. Click en **"New Project"**.
+3. Elegí **"Deploy from GitHub repo"**.
+4. Autorizá Railway para acceder a GitHub si te lo pide.
+5. Seleccioná el repositorio **MauriGuth/Elio** (o el que uses).
+
+---
+
+## 2. Configurar el servicio de la API
+
+Railway crea un servicio por el repo. Tenés que decirle que use solo la carpeta de la API:
+
+1. Entrá al **servicio** (el recuadro que se creó).
+2. **Settings** (o el ícono de engranaje).
+3. En **"Root Directory"** (o "Source"): poné **`apps/api`**.
+4. Guardá si hace falta.
+
+---
+
+## 3. Agregar PostgreSQL
+
+1. En el mismo **proyecto**, click en **"+ New"**.
+2. Elegí **"Database"** → **"PostgreSQL"**.
+3. Railway crea la base y te asigna una **URL de conexión**.
+4. En el servicio de **PostgreSQL**, entrá a **"Variables"** o **"Connect"** y copiá **`DATABASE_URL`** (o la variable que tenga la URL completa).
+
+---
+
+## 4. Variables de entorno del servicio API
+
+En el **servicio de la API** (no en la base de datos):
+
+1. **Variables** (o "Variables" en el menú).
+2. Agregá estas variables:
+
+| Variable         | Valor |
+|------------------|--------|
+| `DATABASE_URL`   | La URL que te dio Railway para PostgreSQL (ej. `postgresql://postgres:xxx@xxx.railway.app:5432/railway`). |
+| `JWT_SECRET`     | Una clave larga y aleatoria solo para producción (ej. generá una con un generador de contraseñas). |
+| `FRONTEND_URL`   | La URL de tu front en Vercel, ej. `https://elio.vercel.app` (podés poner varias separadas por coma). |
+| `PORT`           | No suele hacer falta; Railway la inyecta. Si te pide algo, usá `PORT` y Railway la asigna. |
+
+Opcional (si usás OpenAI en la app):
+
+| Variable         | Valor |
+|------------------|--------|
+| `OPENAI_API_KEY`| Tu API key de OpenAI. |
+
+Para **DATABASE_URL**: en el servicio de PostgreSQL en Railway, en "Variables" o "Connect", copiá la variable que tenga la URL (a veces se llama `DATABASE_URL` o `PGURL`). Si te dan otra nombre, creá en la API una variable `DATABASE_URL` con ese valor.
+
+---
+
+## 5. Build y start en Railway
+
+Railway suele detectar Node y usar `npm run build` y `npm start`. Para este proyecto:
+
+- **Build command** (si lo podés configurar):  
+  `npm install && npx prisma generate && npm run build`
+
+- **Start command** (si lo podés configurar):  
+  `npm run start:prod`  
+  (o `npm run start`; en `package.json` `start:prod` es `node dist/main`)
+
+En muchos casos con **Root Directory** = `apps/api` no hace falta tocar nada; Railway usa el `package.json` de esa carpeta.
+
+Si el deploy falla en el build, en **Settings** del servicio revisá que existan **Build Command** y **Start Command** como arriba.
+
+---
+
+## 6. Dominio público (tu URL de API)
+
+1. En el **servicio de la API**, entrá a **Settings**.
+2. Buscá **"Networking"** o **"Public Networking"**.
+3. **"Generate domain"** (o "Add domain").
+4. Railway te da una URL tipo:  
+   `https://elio-api-production-xxxx.up.railway.app`
+
+Esa es **tu URL de API en producción**.
+
+La API tiene prefijo global `/api`, así que las rutas quedan:
+
+- Base: `https://tu-dominio.up.railway.app`
+- Ejemplo de ruta: `https://tu-dominio.up.railway.app/api/auth/login`
+
+---
+
+## 7. Migraciones de Prisma (primera vez)
+
+En la primera puesta en marcha, la base está vacía. Hay que correr migraciones.
+
+**Opción A – Desde tu máquina (recomendado)**  
+En tu compu, en la carpeta del repo:
+
+```bash
+cd apps/api
+# Poner la misma DATABASE_URL que en Railway (solo para este comando)
+export DATABASE_URL="postgresql://..."
+npx prisma migrate deploy
+```
+
+**Opción B – Desde Railway**  
+En el servicio de la API en Railway, en **Settings**, podés agregar un **"Deploy" hook** o comando que ejecute `npx prisma migrate deploy` antes de `npm run start:prod`. O configurar en **Build Command**:  
+`npm install && npx prisma generate && npx prisma migrate deploy && npm run build`  
+y en **Start**: `npm run start:prod`.
+
+---
+
+## 8. Conectar el frontend (Vercel)
+
+En tu proyecto en **Vercel**:
+
+1. **Settings** → **Environment Variables**.
+2. Definí:
+   - **Name:** `NEXT_PUBLIC_API_URL`
+   - **Value:** `https://tu-dominio.up.railway.app/api`  
+     (la URL que te dio Railway para la API, con `/api` al final).
+3. Guardá y volvé a desplegar el frontend si hace falta.
+
+---
+
+## Resumen
+
+| Dónde       | Qué hacer |
+|------------|-----------|
+| Railway    | Proyecto nuevo → Repo GitHub → Root Directory `apps/api` → PostgreSQL → Variables (DATABASE_URL, JWT_SECRET, FRONTEND_URL) → Generate domain. |
+| Primera vez| Correr `prisma migrate deploy` contra la base de Railway. |
+| Vercel     | `NEXT_PUBLIC_API_URL` = `https://tu-dominio.up.railway.app/api`. |
+
+Tu **URL de API en producción** es la que te asigna Railway al generar el dominio (ej. `https://elio-api-production-xxxx.up.railway.app`).
