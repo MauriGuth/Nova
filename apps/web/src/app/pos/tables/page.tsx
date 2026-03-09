@@ -1097,52 +1097,84 @@ export default function TablesPage() {
   }
 
   return (
-    <div className="flex h-full flex-col">
-      {/* ── Toolbar ── */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3">
-        <div className="flex items-center gap-3">
-          <h1 className="text-lg font-semibold text-gray-800 dark:text-white">
-            Mapa de Mesas
-          </h1>
-          <div className="flex items-center gap-1.5 overflow-x-auto">
-            <button
-              onClick={() => setActiveZone(null)}
-              className={cn(
-                "whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium transition-all",
-                activeZone === null
-                  ? "bg-amber-500 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+    <div className="flex h-full flex-col min-h-0">
+      {/* ── Toolbar: móvil = título + tabs en fila scrollable; acciones debajo ── */}
+      <div className="shrink-0 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-3 sm:px-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-1 items-center justify-between gap-2 sm:justify-start">
+            <h1 className="text-lg font-semibold text-gray-800 dark:text-white shrink-0">
+              Mapa de Mesas
+            </h1>
+            <div className="flex shrink-0 items-center gap-2 sm:hidden">
+              {!editMode && (
+                <button
+                  onClick={async () => {
+                    setRefreshing(true)
+                    try {
+                      await fetchData()
+                    } finally {
+                      setTimeout(() => setRefreshing(false), 500)
+                    }
+                  }}
+                  disabled={refreshing}
+                  title="Actualizar"
+                  className="rounded-lg border border-gray-200 p-2 text-gray-600 transition-all hover:bg-gray-50 active:scale-95 disabled:opacity-70"
+                >
+                  <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                </button>
               )}
-            >
-              Todas
-            </button>
-            {allZones.map((z) => (
+              {!editMode && !isMozo && (
+                <button
+                  onClick={() => setEditMode(true)}
+                  className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600"
+                >
+                  <Edit3 className="h-4 w-4" />
+                  Editar
+                </button>
+              )}
+            </div>
+          </div>
+          {/* Tabs de zona: scroll horizontal en móvil con padding para que no se corte el último */}
+          <div className="flex min-w-0 -mx-1 overflow-x-auto scrollbar-thin pb-1" style={{ scrollbarWidth: 'thin' }}>
+            <div className="flex items-center gap-1.5 pl-1 pr-4 sm:pr-1">
               <button
-                key={z}
-                onClick={() => setActiveZone(activeZone === z ? null : z)}
+                onClick={() => setActiveZone(null)}
                 className={cn(
-                  "whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium transition-all",
-                  activeZone === z
+                  "shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all",
+                  activeZone === null
                     ? "bg-amber-500 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
                 )}
               >
-                {z}
+                Todas
               </button>
-            ))}
-            {!isMozo && (
-              <button
-                onClick={() => setShowZonesModal(true)}
-                title="Gestionar zonas"
-                className="rounded-full border border-dashed border-gray-300 px-3 py-1 text-xs font-medium text-gray-500 hover:border-amber-400 hover:text-amber-600"
-              >
-                <Settings2 className="inline h-3.5 w-3.5" />
-              </button>
-            )}
+              {allZones.map((z) => (
+                <button
+                  key={z}
+                  onClick={() => setActiveZone(activeZone === z ? null : z)}
+                  className={cn(
+                    "shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all",
+                    activeZone === z
+                      ? "bg-amber-500 text-white shadow-sm"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+                  )}
+                >
+                  {z}
+                </button>
+              ))}
+              {!isMozo && (
+                <button
+                  onClick={() => setShowZonesModal(true)}
+                  title="Gestionar zonas"
+                  className="shrink-0 rounded-full border border-dashed border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-500 hover:border-amber-400 hover:text-amber-600 dark:border-gray-600"
+                >
+                  <Settings2 className="inline h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-2">
           {!editMode && (
             <button
               onClick={async () => {
@@ -1244,6 +1276,7 @@ export default function TablesPage() {
             </button>
           ) : null}
         </div>
+        </div>
       </div>
 
       {/* ── Error banner ── */}
@@ -1309,8 +1342,8 @@ export default function TablesPage() {
         </div>
       )}
 
-      {/* ── Floor plan ── */}
-      <div className="flex-1 overflow-auto p-4">
+      {/* ── Floor plan: padding extra en móvil para que no se corten las mesas a la derecha ── */}
+      <div className="flex-1 min-h-0 overflow-auto p-3 pb-6 sm:p-4">
         <div
           ref={containerRef}
           role={drawWallMode ? "button" : undefined}
@@ -1634,17 +1667,17 @@ export default function TablesPage() {
         </div>
       </div>
 
-      {/* ── Status legend ── */}
-      <div className="flex items-center justify-center gap-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2">
+      {/* ── Status legend: wrap en móvil y safe area ── */}
+      <div className="shrink-0 flex flex-wrap items-center justify-center gap-4 sm:gap-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 pb-[env(safe-area-inset-bottom,0.5rem)]">
         {(["available", "occupied", "ordering", "billing"] as const).map(
           (key) => {
             const c = STATUS_CONFIG[key]
             return (
               <div
                 key={key}
-                className="flex items-center gap-1.5 text-xs text-gray-500"
+                className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400"
               >
-                <div className={cn("h-2.5 w-2.5 rounded-full", c.dot)} />
+                <div className={cn("h-2.5 w-2.5 rounded-full shrink-0", c.dot)} />
                 <span>{c.label}</span>
               </div>
             )

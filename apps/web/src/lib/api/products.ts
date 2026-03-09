@@ -1,6 +1,6 @@
 import { api } from '../api';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 export const productsApi = {
   getAll: (params?: { search?: string; categoryId?: string; isActive?: boolean; isSellable?: boolean; isIngredient?: boolean; page?: number; limit?: number }) =>

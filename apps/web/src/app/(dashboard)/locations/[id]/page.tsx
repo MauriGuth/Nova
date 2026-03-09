@@ -480,11 +480,11 @@ export default function LocationDetailPage() {
         )}
       </div>
 
-      {/* -------- KPI Cards (logística no ve Ventas Hoy ni Tickets Hoy) -------- */}
+      {/* -------- KPI Cards: 2x2 en móvil, 4 columnas en desktop -------- */}
       <div
         className={cn(
-          "grid gap-4",
-          isLogisticsRole ? "grid-cols-2" : "grid-cols-4"
+          "grid gap-3 sm:gap-4 grid-cols-2",
+          !isLogisticsRole && "lg:grid-cols-4"
         )}
       >
         {[
@@ -557,8 +557,8 @@ export default function LocationDetailPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* -------- Stock del Local -------- */}
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+        {/* -------- Stock del Local: en móvil layout vertical para no truncar ── */}
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 sm:p-6">
           <div className="mb-4 flex items-center gap-2">
             <Package className="h-4 w-4 text-gray-400 dark:text-gray-500" />
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -583,21 +583,21 @@ export default function LocationDetailPage() {
               return (
                 <div
                   key={item.id ?? product.id ?? name}
-                  className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 px-3 py-2.5"
+                  className="flex flex-col gap-1.5 rounded-lg bg-gray-50 dark:bg-gray-700/50 px-3 py-2.5 sm:flex-row sm:items-center sm:gap-3"
                 >
-                  <span className="w-24 shrink-0 truncate text-left text-xs font-medium text-gray-500 dark:text-gray-300" title={categoryLabel}>
-                    {categoryLabel}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-gray-900 dark:text-white" title={name}>
+                  <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                    <span className="text-xs font-medium text-gray-500 dark:text-gray-300">
+                      {categoryLabel}
+                    </span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white break-words">
                       {name}
-                    </p>
-                    <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 sm:shrink-0 sm:gap-2">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Mín: {formatQuantity(minQty)} {unit}
                     </p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <span className="min-w-[4.5rem] text-right text-sm font-semibold tabular-nums text-gray-900 dark:text-white">
+                    <span className="text-sm font-semibold tabular-nums text-gray-900 dark:text-white whitespace-nowrap">
                       {formatQuantity(quantity)} {unit}
                     </span>
                     <span

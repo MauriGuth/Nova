@@ -152,8 +152,8 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-dvh max-h-screen flex-col bg-gray-50 dark:bg-gray-900 sm:h-screen">
       {forceLight && <ForceLightMode />}
-      {/* ── POS Header ── */}
-      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 shadow-sm sm:px-4">
+      {/* ── POS Header: safe area en móvil para notch/home indicator ── */}
+      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 shadow-sm pt-[env(safe-area-inset-top)] sm:pt-0 sm:px-4">
         {/* Left: menú móvil + brand + navigation (desktop) */}
         <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-4 md:gap-6">
           <button
@@ -174,7 +174,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
 
           {/* Nav: dropdown en móvil/tablet, inline en desktop */}
           {navOpen && (
-            <div className="absolute left-0 right-0 top-14 z-40 flex flex-col border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg md:hidden">
+            <div className="absolute left-0 right-0 top-14 z-40 flex flex-col border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg md:hidden" style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
               {navItems.map((item) => {
                 const isActive = pathname.startsWith(item.href)
                 return (

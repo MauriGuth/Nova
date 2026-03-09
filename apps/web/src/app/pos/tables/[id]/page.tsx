@@ -1733,37 +1733,39 @@ export default function TableOrderPage() {
           )}
         </div>
 
-        {/* Category tabs: scroll horizontal si no entra todo */}
-        <div className="flex shrink-0 gap-2 overflow-x-auto border-b border-gray-200 bg-white px-4 py-2.5">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={cn(
-              "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
-              activeCategory === "all"
-                ? "bg-amber-500 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            )}
-          >
-            Todos
-          </button>
-          {categories.map((cat) => (
+        {/* Category tabs: scroll horizontal en móvil con padding final para ver la última categoría */}
+        <div className="flex shrink-0 overflow-x-auto overflow-y-hidden border-b border-gray-200 bg-white scrollbar-thin -mx-1">
+          <div className="flex gap-2 px-4 py-2.5 pr-6 sm:pr-4 min-w-max">
             <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => setActiveCategory("all")}
               className={cn(
-                "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap",
-                activeCategory === cat.id
+                "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                activeCategory === "all"
                   ? "bg-amber-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
               )}
             >
-              {cat.name}
+              Todos
             </button>
-          ))}
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={cn(
+                  "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap",
+                  activeCategory === cat.id
+                    ? "bg-amber-500 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+                )}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Product grid */}
-        <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-4">
+        {/* Product grid: padding con safe area en móvil */}
+        <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-3 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-4">
           {filteredProducts.length === 0 ? (
             <div className="flex h-32 items-center justify-center">
               <p className="text-sm text-gray-400">

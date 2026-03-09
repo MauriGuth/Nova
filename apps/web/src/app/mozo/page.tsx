@@ -132,25 +132,25 @@ export default function MozoLoginPage() {
 
   if (step === "select-location") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
         <div className="w-full max-w-lg">
-          <div className="rounded-2xl border border-amber-100 bg-white px-8 py-10 shadow-xl dark:bg-white dark:border-gray-200">
-            <div className="mb-8 text-center">
+          <div className="rounded-2xl border border-amber-100 bg-white px-4 py-8 shadow-xl dark:bg-white dark:border-gray-200 sm:px-8 sm:py-10">
+            <div className="mb-6 text-center sm:mb-8">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-500 shadow-lg">
                 <UtensilsCrossed className="h-7 w-7 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Mozo – Elegir sucursal</h1>
+              <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Mozo – Elegir sucursal</h1>
               <p className="mt-1 text-sm text-gray-600">Hola {user?.firstName}, elige la sucursal</p>
             </div>
             {loadingLocations ? (
               <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-amber-500" /></div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {locations.map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => selectLocation(loc)}
-                    className="flex w-full items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-left hover:border-amber-300 hover:bg-amber-50 dark:bg-gray-100 dark:border-gray-300"
+                    className="flex w-full min-h-[52px] items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-left active:scale-[0.99] hover:border-amber-300 hover:bg-amber-50 dark:bg-gray-100 dark:border-gray-300 sm:gap-4 sm:px-5 sm:py-4"
                   >
                     <MapPin className="h-5 w-5 shrink-0 text-amber-600" />
                     <div className="flex-1 min-w-0">
@@ -162,7 +162,7 @@ export default function MozoLoginPage() {
                 ))}
               </div>
             )}
-            {error && <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
+            {error && <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">{error}</div>}
           </div>
         </div>
       </div>
@@ -170,27 +170,27 @@ export default function MozoLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-4">
+    <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
       <div className="w-full max-w-md">
-        <div className="rounded-2xl border border-amber-100 bg-white px-8 py-10 shadow-xl">
+        <div className="rounded-2xl border border-amber-100 bg-white px-4 py-8 shadow-xl dark:border-gray-200 dark:bg-gray-900 sm:px-8 sm:py-10">
           <button
             type="button"
             onClick={() => router.push("/pos")}
-            className="mb-4 flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700"
+            className="mb-4 flex min-h-[44px] items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <ArrowLeft className="h-4 w-4" />
             Volver
           </button>
-          <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500 shadow-lg">
-              <UtensilsCrossed className="h-8 w-8 text-white" />
+          <div className="mb-6 text-center sm:mb-8">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500 shadow-lg sm:h-16 sm:w-16">
+              <UtensilsCrossed className="h-7 w-7 text-white sm:h-8 sm:w-8" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-800">Mozo</h1>
-            <p className="mt-2 text-sm text-gray-500">Solo Mozo, Admin o Gerente</p>
+            <h1 className="text-xl font-bold text-gray-800 dark:text-white sm:text-2xl">Mozo</h1>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Solo Mozo, Admin o Gerente</p>
           </div>
-          <form onSubmit={handleLogin} className="form-login-fields space-y-5">
+          <form onSubmit={handleLogin} className="form-login-fields space-y-4 sm:space-y-5">
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">Correo</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Correo</label>
               <input
                 type="email"
                 autoComplete="email"
@@ -201,11 +201,11 @@ export default function MozoLoginPage() {
                   setUserTypedEmail(v.length > 0)
                 }}
                 placeholder="mozo@roberto"
-                className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base transition-colors focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 ${userTypedEmail ? "user-typed" : ""}`}
+                className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base transition-colors focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedEmail ? "user-typed" : ""}`}
               />
             </div>
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">Contraseña</label>
+              <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Contraseña</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -217,18 +217,18 @@ export default function MozoLoginPage() {
                     setUserTypedPassword(v.length > 0)
                   }}
                   placeholder="••••••••"
-                  className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-base transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 ${userTypedPassword ? "user-typed" : ""}`}
+                  className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-base transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedPassword ? "user-typed" : ""}`}
                 />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-lg p-1 text-gray-400 hover:text-gray-600">
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 dark:text-gray-500">
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
-            {error && <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
+            {error && <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">{error}</div>}
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-amber-600 disabled:opacity-60"
+              className="flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-amber-600 disabled:opacity-60 active:scale-[0.99]"
             >
               {loading ? <><Loader2 className="h-5 w-5 animate-spin" /> Entrando...</> : "Iniciar sesión"}
             </button>

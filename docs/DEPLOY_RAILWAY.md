@@ -92,24 +92,18 @@ La API tiene prefijo global `/api`, así que las rutas quedan:
 
 ---
 
-## 7. Migraciones de Prisma (primera vez)
+## 7. Pre-deploy: migraciones de Prisma
 
-En la primera puesta en marcha, la base está vacía. Hay que correr migraciones.
+Las tablas se crean con un **pre-deploy step** en el servicio de la API (no desde tu máquina, porque la base suele no ser accesible por red pública).
 
-**Opción A – Desde tu máquina (recomendado)**  
-En tu compu, en la carpeta del repo:
-
-```bash
-cd apps/api
-# Poner la misma DATABASE_URL que en Railway (solo para este comando)
-export DATABASE_URL="postgresql://..."
-npx prisma migrate deploy
-```
-
-**Opción B – Desde Railway**  
-En el servicio de la API en Railway, en **Settings**, podés agregar un **"Deploy" hook** o comando que ejecute `npx prisma migrate deploy` antes de `npm run start:prod`. O configurar en **Build Command**:  
-`npm install && npx prisma generate && npx prisma migrate deploy && npm run build`  
-y en **Start**: `npm run start:prod`.
+1. Servicio **Elio** (API) → **Settings** → **Deploy**.
+2. **+ Add pre-deploy step** (o editar el que ya tengas).
+3. Comando (una sola línea):
+   ```bash
+   npx prisma migrate resolve --rolled-back "20260219000001_goods_receipt_received_by_and_po" 2>/dev/null || true && npx prisma migrate deploy
+   ```
+   (El `resolve --rolled-back` solo hace falta si alguna vez falló una migración; en deploys siguientes no molesta.)
+4. Guardá. En cada deploy se ejecutará esto y luego arrancará la API.
 
 ---
 

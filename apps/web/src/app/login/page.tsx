@@ -57,8 +57,9 @@ export default function LoginPage() {
         finishLogin(role)
       }
     } catch (err: unknown) {
+      const raw = err instanceof Error ? err.message : "Error al iniciar sesión"
       const message =
-        err instanceof Error ? err.message : "Error al iniciar sesión"
+        raw === "No autorizado" ? "Correo o contraseña incorrectos." : raw
       setError(message)
       sileo.error({ title: message })
     } finally {

@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 /** Claves por app: cada link tiene su propia sesión para poder tener varias abiertas a la vez */
 function getStationFromUrl(): string | null {
