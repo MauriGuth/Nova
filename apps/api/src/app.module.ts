@@ -27,6 +27,7 @@ import { PaymentOrdersModule } from './payment-orders/payment-orders.module';
 import { PurchaseOrdersModule } from './purchase-orders/purchase-orders.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
+import { AuditorChatModule } from './auditor-chat/auditor-chat.module';
 
 @Module({
   controllers: [AppController],
@@ -58,6 +59,7 @@ import { GoogleMapsModule } from './google-maps/google-maps.module';
     PaymentOrdersModule,
     PurchaseOrdersModule,
     IncidentsModule,
+    AuditorChatModule,
   ],
 })
 export class AppModule {}

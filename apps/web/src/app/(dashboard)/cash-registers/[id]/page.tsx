@@ -18,6 +18,10 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   CheckCircle2,
+  AlertTriangle,
+  Trash2,
+  Clock,
+  TrendingUp,
 } from "lucide-react"
 import { cashRegistersApi } from "@/lib/api/cash-registers"
 import { cn, formatCurrency, formatDate } from "@/lib/utils"
@@ -39,6 +43,7 @@ export default function CashClosureDetailPage() {
   const router = useRouter()
   const id = params.id as string
   const [closure, setClosure] = useState<any>(null)
+  const [shiftMetrics, setShiftMetrics] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -55,6 +60,14 @@ export default function CashClosureDetailPage() {
       })
       .finally(() => setLoading(false))
   }, [id])
+
+  useEffect(() => {
+    if (!id || !closure?.closedAt) return
+    cashRegistersApi
+      .getShiftMetrics(id)
+      .then((data) => data && setShiftMetrics(data))
+      .catch(() => setShiftMetrics(null))
+  }, [id, closure?.closedAt])
 
   if (loading) {
     return (
@@ -295,6 +308,119 @@ export default function CashClosureDetailPage() {
               <span className="font-bold tabular-nums text-gray-900 dark:text-white">{formatCurrency(resultadoDiario)}</span>
             </div>
           </section>
+
+          {/* Informe comparativo con el mismo día de la semana anterior (IA) */}
+          {closure.comparisonReport && (
+            <section>
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-white">
+                Comparación con el mismo día de la semana anterior
+              </h2>
+              <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/80 dark:bg-blue-900/20 p-4">
+                <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800 dark:text-gray-200">
+                  {closure.comparisonReport}
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* Métricas del turno: errores, tacho, demoras, facturación */}
+          {shiftMetrics && (
+            <section>
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-white">
+                Métricas del turno (demoras vs incidentes)
+              </h2>
+              <div className="space-y-4">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/80 dark:bg-amber-900/20 p-4">
+                    <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+                      <AlertTriangle className="h-4 w-4" />
+                      <span className="font-medium">Mesas errores de comanda</span>
+                    </div>
+                    <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                      {shiftMetrics.errorsTable.orderCount} órdenes, {shiftMetrics.errorsTable.itemCount} ítems
+                    </p>
+                    <p className="text-sm font-semibold tabular-nums text-gray-900 dark:text-white">
+                      {formatCurrency(shiftMetrics.errorsTable.totalAmount)}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/80 dark:bg-red-900/20 p-4">
+                    <div className="flex items-center gap-2 text-red-800 dark:text-red-200">
+                      <Trash2 className="h-4 w-4" />
+                      <span className="font-medium">Tacho de basura</span>
+                    </div>
+                    <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                      {shiftMetrics.trashTable.orderCount} órdenes, {shiftMetrics.trashTable.itemCount} ítems
+                    </p>
+                    <p className="text-sm font-semibold tabular-nums text-gray-900 dark:text-white">
+                      {formatCurrency(shiftMetrics.trashTable.totalAmount)}
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-4">
+                  <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
+                    <Clock className="h-4 w-4" />
+                    <span className="font-medium">Demoras de comandas</span>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-4 text-sm">
+                    <span>
+                      Promedio:{" "}
+                      {shiftMetrics.comandaDelays.avgMinutes != null
+                        ? `${shiftMetrics.comandaDelays.avgMinutes} min`
+                        : "—"}
+                    </span>
+                    <span>
+                      Máximo:{" "}
+                      {shiftMetrics.comandaDelays.maxMinutes != null
+                        ? `${shiftMetrics.comandaDelays.maxMinutes} min`
+                        : "—"}
+                    </span>
+                    <span>
+                      Ítems con demora &gt;15 min: {shiftMetrics.comandaDelays.countOver15Minutes ?? 0}
+                    </span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      ({shiftMetrics.comandaDelays.itemCount} ítems con tiempo registrado)
+                    </span>
+                  </div>
+                  {shiftMetrics.comandaDelays.details?.length > 0 && (
+                    <details className="mt-3">
+                      <summary className="cursor-pointer text-xs font-medium text-gray-600 dark:text-gray-400">
+                        Ver detalle de demoras
+                      </summary>
+                      <ul className="mt-2 max-h-40 space-y-1 overflow-y-auto text-xs text-gray-700 dark:text-gray-300">
+                        {shiftMetrics.comandaDelays.details.slice(0, 20).map((d: any, i: number) => (
+                          <li key={i}>
+                            {d.productName}: {d.delayMinutes} min
+                          </li>
+                        ))}
+                        {shiftMetrics.comandaDelays.details.length > 20 && (
+                          <li className="text-gray-500">… y {shiftMetrics.comandaDelays.details.length - 20} más</li>
+                        )}
+                      </ul>
+                    </details>
+                  )}
+                </div>
+                <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-4">
+                  <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
+                    <TrendingUp className="h-4 w-4" />
+                    <span className="font-medium">Facturación del turno</span>
+                  </div>
+                  <div className="mt-2 space-y-1 text-sm">
+                    <p>
+                      Total: <span className="font-semibold tabular-nums">{formatCurrency(shiftMetrics.billing.total)}</span>
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Mesas normales: {formatCurrency(shiftMetrics.billing.normal)} ({shiftMetrics.billing.normalOrderCount} órdenes)
+                    </p>
+                    {(shiftMetrics.billing.errors > 0 || shiftMetrics.billing.trash > 0) && (
+                      <p className="text-gray-600 dark:text-gray-400">
+                        Errores: {formatCurrency(shiftMetrics.billing.errors)} · Tacho: {formatCurrency(shiftMetrics.billing.trash)}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Movimientos del turno */}
           {closure.cashMovements && closure.cashMovements.length > 0 && (

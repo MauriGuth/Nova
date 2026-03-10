@@ -891,10 +891,10 @@ export default function TableOrderPage() {
 
   /* ── close order ── */
   const closeOrder = async () => {
-    const isErrorsTable = table?.tableType === "errors"
+    const isErrorsOrTrashTable = table?.tableType === "errors" || table?.tableType === "trash"
     const effectiveMethod = paymentMethod || "cash"
     if (!order) return
-    if (!isErrorsTable) {
+    if (!isErrorsOrTrashTable) {
       if (!splitMode || Object.keys(splitTotals).length === 0) {
         if (!effectiveMethod) return
       }
@@ -906,7 +906,7 @@ export default function TableOrderPage() {
     setClosing(true)
     setError("")
     try {
-      const hasSplitPayments = !isErrorsTable && splitMode && Object.keys(splitTotals).length > 0
+      const hasSplitPayments = !isErrorsOrTrashTable && splitMode && Object.keys(splitTotals).length > 0
       const payload: {
         paymentMethod: string
         discountAmount?: number
@@ -914,7 +914,7 @@ export default function TableOrderPage() {
         invoiceType?: string
         customerId?: string
         payments?: { diner: number; method: string; amount: number }[]
-      } = isErrorsTable
+      } = isErrorsOrTrashTable
         ? {
             paymentMethod: "cash",
             notes: paymentNotes || undefined,
@@ -2057,7 +2057,7 @@ export default function TableOrderPage() {
             </div>
             <div className="flex-1 overflow-y-auto p-6">
 
-            {table?.tableType !== "errors" && (
+            {(table?.tableType !== "errors" && table?.tableType !== "trash") && (
             <>
             {/* Método de pago: único o por comensal */}
             {splitMode && Object.keys(splitTotals).length > 0 ? (
@@ -2435,7 +2435,7 @@ export default function TableOrderPage() {
             </div>
 
             {/* Resumen por comensal (dividir cuenta) */}
-            {table?.tableType !== "errors" && splitMode && Object.keys(splitTotals).length > 0 && (
+            {(table?.tableType !== "errors" && table?.tableType !== "trash") && splitMode && Object.keys(splitTotals).length > 0 && (
               <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50/50 px-4 py-3">
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-amber-700">
                   Resumen por comensal
@@ -2475,7 +2475,7 @@ export default function TableOrderPage() {
               <button
                 onClick={closeOrder}
                 disabled={
-                  (table?.tableType !== "errors" &&
+                  ((table?.tableType !== "errors" && table?.tableType !== "trash") &&
                     !paymentMethod &&
                     !(splitMode && Object.keys(splitTotals).length > 0)) ||
                   closing

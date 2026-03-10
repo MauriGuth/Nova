@@ -3,6 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
+import OpenAI from 'openai';
 import { PrismaService } from '../prisma/prisma.service';
 import { OpenRegisterDto } from './dto/open-register.dto';
 import { CloseRegisterDto } from './dto/close-register.dto';
@@ -233,12 +234,13 @@ export class CashRegistersService {
           }
         : undefined;
 
-    return this.prisma.cashRegister.update({
+    const closedAt = new Date();
+    const updated = await this.prisma.cashRegister.update({
       where: { id },
       data: {
         status: 'closed',
         shift: data.shift ?? register.shift,
-        closedAt: new Date(),
+        closedAt,
         closedById: userId,
         closingAmount,
         expectedAmount,
@@ -271,6 +273,291 @@ export class CashRegistersService {
         },
       },
     });
+
+    // Métricas del turno (errores, tacho, demoras, facturación) para el cajero y reportes
+    try {
+      const shiftMetrics = await this.getShiftMetrics(id);
+      if (shiftMetrics) (updated as any).shiftMetrics = shiftMetrics;
+    } catch {
+      // no bloquear el cierre
+    }
+
+    // Informe comparativo con el mismo día de la semana anterior (IA)
+    try {
+      const prevSummary = await this.getPreviousWeekSameDaySummary(register.locationId, closedAt);
+      const report = await this.generateClosureComparisonReport(
+        {
+          totalSales,
+          totalOrders: orders.length,
+          salesCash,
+          salesDebit,
+          salesCredit,
+          salesCard,
+          salesQr,
+          salesTransfer,
+          totalCashExpenses: totalCashExpenses + totalWithdrawals,
+          totalExtraIncome,
+        },
+        prevSummary,
+        closedAt,
+      );
+      if (report) {
+        await this.prisma.cashRegister.update({
+          where: { id },
+          data: { comparisonReport: report },
+        });
+        (updated as any).comparisonReport = report;
+      }
+    } catch {
+      // Si falla la IA o la consulta, el cierre ya quedó guardado; no bloquear
+    }
+
+    return updated;
+  }
+
+  /** Cierres del mismo día de la semana anterior (agregados) para comparar */
+  private async getPreviousWeekSameDaySummary(locationId: string, closedAt: Date) {
+    const prevDate = new Date(closedAt);
+    prevDate.setDate(prevDate.getDate() - 7);
+    const start = new Date(prevDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(prevDate);
+    end.setHours(23, 59, 59, 999);
+
+    const closures = await this.prisma.cashRegister.findMany({
+      where: {
+        locationId,
+        status: 'closed',
+        closedAt: { gte: start, lte: end },
+      },
+      select: {
+        totalSales: true,
+        totalOrders: true,
+        salesCash: true,
+        salesDebit: true,
+        salesCredit: true,
+        salesCard: true,
+        salesQr: true,
+        salesTransfer: true,
+        totalCashExpenses: true,
+        totalWithdrawals: true,
+        totalExtraIncome: true,
+      },
+    });
+
+    if (closures.length === 0) return null;
+
+    return {
+      totalSales: closures.reduce((s, c) => s + (c.totalSales ?? 0), 0),
+      totalOrders: closures.reduce((s, c) => s + (c.totalOrders ?? 0), 0),
+      salesCash: closures.reduce((s, c) => s + (c.salesCash ?? 0), 0),
+      salesDebit: closures.reduce((s, c) => s + (c.salesDebit ?? 0), 0),
+      salesCredit: closures.reduce((s, c) => s + (c.salesCredit ?? 0), 0),
+      salesCard: closures.reduce((s, c) => s + (c.salesCard ?? 0), 0),
+      salesQr: closures.reduce((s, c) => s + (c.salesQr ?? 0), 0),
+      salesTransfer: closures.reduce((s, c) => s + (c.salesTransfer ?? 0), 0),
+      totalCashExpenses: closures.reduce(
+        (s, c) => s + (c.totalCashExpenses ?? 0) + (c.totalWithdrawals ?? 0),
+        0,
+      ),
+      totalExtraIncome: closures.reduce((s, c) => s + (c.totalExtraIncome ?? 0), 0),
+      date: start.toISOString().slice(0, 10),
+    };
+  }
+
+  /** Genera informe comparativo en español con OpenAI */
+  private async generateClosureComparisonReport(
+    today: {
+      totalSales: number;
+      totalOrders: number;
+      salesCash: number;
+      salesDebit: number;
+      salesCredit: number;
+      salesCard: number;
+      salesQr: number;
+      salesTransfer: number;
+      totalCashExpenses: number;
+      totalExtraIncome: number;
+    },
+    prevWeek: {
+      totalSales: number;
+      totalOrders: number;
+      salesCash: number;
+      salesDebit: number;
+      salesCredit: number;
+      salesCard: number;
+      salesQr: number;
+      salesTransfer: number;
+      totalCashExpenses: number;
+      totalExtraIncome: number;
+      date: string;
+    } | null,
+    closedAt: Date,
+  ): Promise<string | null> {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) return null;
+
+    const openai = new OpenAI({ apiKey });
+    const dayName = closedAt.toLocaleDateString('es-CL', { weekday: 'long' });
+    const prevDayName = prevWeek
+      ? new Date(prevWeek.date).toLocaleDateString('es-CL', { weekday: 'long' })
+      : '';
+
+    const format = (n: number) =>
+      new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(n);
+
+    const prompt = prevWeek
+      ? `Eres un analista de cierre de caja. Genera un informe breve (2 a 4 párrafos cortos) en español comparando el cierre de hoy con el del mismo día de la semana anterior.
+
+Datos de HOY (cierre actual):
+- Ventas totales: ${format(today.totalSales)} | Cantidad de órdenes: ${today.totalOrders}
+- Efectivo: ${format(today.salesCash)} | Tarjetas (débito+crédito+card): ${format(today.salesDebit + today.salesCredit + today.salesCard)} | Transferencias: ${format(today.salesTransfer)} | QR: ${format(today.salesQr)}
+- Gastos/retiros: ${format(today.totalCashExpenses)} | Ingresos extra: ${format(today.totalExtraIncome)}
+
+Datos del MISMO DÍA de la SEMANA ANTERIOR (${prevDayName} ${prevWeek.date}):
+- Ventas totales: ${format(prevWeek.totalSales)} | Cantidad de órdenes: ${prevWeek.totalOrders}
+- Efectivo: ${format(prevWeek.salesCash)} | Tarjetas: ${format(prevWeek.salesDebit + prevWeek.salesCredit + prevWeek.salesCard)} | Transferencias: ${format(prevWeek.salesTransfer)} | QR: ${format(prevWeek.salesQr)}
+- Gastos/retiros: ${format(prevWeek.totalCashExpenses)} | Ingresos extra: ${format(prevWeek.totalExtraIncome)}
+
+Indica variación en ventas y en cantidad de órdenes (porcentaje y monto). Menciona si hubo más o menos efectivo, tarjetas o transferencias. Sé conciso y directo. No incluyas títulos ni viñetas, solo párrafos de texto.`
+      : `Eres un analista de cierre de caja. En una o dos frases en español, indica que no hay datos del mismo día de la semana anterior (${dayName}) para comparar. Este es el primer cierre de ese día de la semana con registro.`;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      max_tokens: 500,
+      messages: [
+        { role: 'system', content: 'Generas informes de cierre de caja en español, breves y profesionales.' },
+        { role: 'user', content: prompt },
+      ],
+    });
+
+    const content = response.choices[0]?.message?.content?.trim();
+    return content || null;
+  }
+
+  /**
+   * Métricas del turno: mesas errores/tacho, demoras de comandas y facturación.
+   * Solo para cierres (register con openedAt y closedAt).
+   */
+  async getShiftMetrics(registerId: string) {
+    const register = await this.prisma.cashRegister.findUnique({
+      where: { id: registerId },
+      select: { id: true, locationId: true, openedAt: true, closedAt: true, status: true },
+    });
+    if (!register || !register.openedAt || !register.closedAt) {
+      return null;
+    }
+
+    const from = register.openedAt;
+    const to = register.closedAt;
+
+    const orders = await this.prisma.order.findMany({
+      where: {
+        locationId: register.locationId,
+        status: 'closed',
+        closedAt: { gte: from, lte: to },
+      },
+      include: {
+        table: { select: { id: true, tableType: true } },
+        items: {
+          select: {
+            id: true,
+            skipComanda: true,
+            createdAt: true,
+            readyAt: true,
+            quantity: true,
+            product: { select: { name: true } },
+          },
+        },
+      },
+    });
+
+    const tableType = (o: { table?: { tableType: string } | null }) =>
+      o.table?.tableType ?? 'normal';
+
+    let errorsOrderCount = 0;
+    let errorsItemCount = 0;
+    let errorsTotal = 0;
+    let trashOrderCount = 0;
+    let trashItemCount = 0;
+    let trashTotal = 0;
+    let normalOrderCount = 0;
+    let normalTotal = 0;
+    const delayMinutesList: number[] = [];
+    const delayDetails: { productName: string; delayMinutes: number; createdAt: string; readyAt: string }[] = [];
+
+    for (const order of orders) {
+      const type = tableType(order);
+      const total = order.total ?? 0;
+      const itemCount = order.items.length;
+
+      if (type === 'errors') {
+        errorsOrderCount += 1;
+        errorsItemCount += itemCount;
+        errorsTotal += total;
+      } else if (type === 'trash') {
+        trashOrderCount += 1;
+        trashItemCount += itemCount;
+        trashTotal += total;
+      } else {
+        normalOrderCount += 1;
+        normalTotal += total;
+      }
+
+      for (const item of order.items) {
+        if (item.skipComanda || !item.readyAt) continue;
+        const ready = new Date(item.readyAt).getTime();
+        const created = new Date(item.createdAt).getTime();
+        const delayMin = Math.round((ready - created) / 60000);
+        delayMinutesList.push(delayMin);
+        delayDetails.push({
+          productName: item.product?.name ?? 'Producto',
+          delayMinutes: delayMin,
+          createdAt: new Date(item.createdAt).toISOString(),
+          readyAt: new Date(item.readyAt).toISOString(),
+        });
+      }
+    }
+
+    const totalBilling = normalTotal + errorsTotal + trashTotal;
+    const avgDelay =
+      delayMinutesList.length > 0
+        ? Math.round(
+            (delayMinutesList.reduce((a, b) => a + b, 0) / delayMinutesList.length) * 10,
+          ) / 10
+        : null;
+    const maxDelay =
+      delayMinutesList.length > 0 ? Math.max(...delayMinutesList) : null;
+    const countWithDelayOver15 = delayMinutesList.filter((d) => d > 15).length;
+
+    return {
+      shiftFrom: from.toISOString(),
+      shiftTo: to.toISOString(),
+      errorsTable: {
+        orderCount: errorsOrderCount,
+        itemCount: errorsItemCount,
+        totalAmount: Math.round(errorsTotal * 100) / 100,
+      },
+      trashTable: {
+        orderCount: trashOrderCount,
+        itemCount: trashItemCount,
+        totalAmount: Math.round(trashTotal * 100) / 100,
+      },
+      billing: {
+        total: Math.round(totalBilling * 100) / 100,
+        normal: Math.round(normalTotal * 100) / 100,
+        errors: Math.round(errorsTotal * 100) / 100,
+        trash: Math.round(trashTotal * 100) / 100,
+        normalOrderCount,
+      },
+      comandaDelays: {
+        avgMinutes: avgDelay,
+        maxMinutes: maxDelay,
+        itemCount: delayMinutesList.length,
+        countOver15Minutes: countWithDelayOver15,
+        details: delayDetails.sort((a, b) => b.delayMinutes - a.delayMinutes).slice(0, 50),
+      },
+    };
   }
 
   async getCurrentOpen(locationId: string) {

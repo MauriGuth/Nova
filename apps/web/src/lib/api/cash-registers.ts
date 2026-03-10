@@ -10,6 +10,9 @@ export const cashRegistersApi = {
   getById: (id: string) =>
     api.get<any>(`/cash-registers/${id}`),
 
+  getShiftMetrics: (id: string) =>
+    api.get<any>(`/cash-registers/${id}/shift-metrics`),
+
   getReport: (
     locationId: string,
     type: 'daily' | 'weekly' | 'monthly',

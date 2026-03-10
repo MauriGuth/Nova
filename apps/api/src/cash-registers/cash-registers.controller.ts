@@ -45,6 +45,11 @@ export class CashRegistersController {
     );
   }
 
+  @Get(':id/shift-metrics')
+  getShiftMetrics(@Param('id') id: string) {
+    return this.cashRegistersService.getShiftMetrics(id);
+  }
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.cashRegistersService.findById(id);

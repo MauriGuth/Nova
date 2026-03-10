@@ -25,6 +25,7 @@ const pageTitles: Record<string, string> = {
   '/suppliers': 'Proveedores',
   '/locations': 'Locales',
   '/stock-reconciliations': 'Auditoría de stock',
+  '/auditor-chat': 'Chat Auditor',
   '/perfil': 'Mi perfil',
   '/preferencias': 'Preferencias',
 }

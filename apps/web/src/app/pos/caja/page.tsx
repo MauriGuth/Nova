@@ -1281,6 +1281,47 @@ export default function PosCajaPage() {
                       </div>
                     </div>
                   )}
+                  {lastCloseResult.closure?.comparisonReport && (
+                    <div className="rounded-2xl border border-blue-200 bg-blue-50/80 p-4 shadow-sm">
+                      <p className="mb-2 flex items-center gap-2 font-semibold text-blue-900">
+                        <Receipt className="h-4 w-4" />
+                        Comparación con el mismo día de la semana anterior
+                      </p>
+                      <div className="whitespace-pre-wrap text-sm leading-relaxed text-blue-900">
+                        {lastCloseResult.closure.comparisonReport}
+                      </div>
+                    </div>
+                  )}
+                  {lastCloseResult.closure?.shiftMetrics && (
+                    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
+                      <p className="mb-3 font-semibold text-gray-800">Métricas del turno (demoras vs incidentes)</p>
+                      <div className="space-y-3 text-sm">
+                        <div className="flex flex-wrap gap-4">
+                          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+                            <span className="font-medium text-amber-900">Errores comanda:</span>{" "}
+                            {lastCloseResult.closure.shiftMetrics.errorsTable.orderCount} órdenes,{" "}
+                            {formatCurrency(lastCloseResult.closure.shiftMetrics.errorsTable.totalAmount)}
+                          </div>
+                          <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2">
+                            <span className="font-medium text-red-900">Tacho:</span>{" "}
+                            {lastCloseResult.closure.shiftMetrics.trashTable.orderCount} órdenes,{" "}
+                            {formatCurrency(lastCloseResult.closure.shiftMetrics.trashTable.totalAmount)}
+                          </div>
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-white px-3 py-2">
+                          <span className="font-medium text-gray-800">Demoras comandas:</span>{" "}
+                          prom. {lastCloseResult.closure.shiftMetrics.comandaDelays.avgMinutes != null ? `${lastCloseResult.closure.shiftMetrics.comandaDelays.avgMinutes} min` : "—"}, máx.{" "}
+                          {lastCloseResult.closure.shiftMetrics.comandaDelays.maxMinutes != null ? `${lastCloseResult.closure.shiftMetrics.comandaDelays.maxMinutes} min` : "—"} ·{" "}
+                          &gt;15 min: {lastCloseResult.closure.shiftMetrics.comandaDelays.countOver15Minutes ?? 0} ítems
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-white px-3 py-2">
+                          <span className="font-medium text-gray-800">Facturación:</span>{" "}
+                          {formatCurrency(lastCloseResult.closure.shiftMetrics.billing.total)} (normal:{" "}
+                          {formatCurrency(lastCloseResult.closure.shiftMetrics.billing.normal)})
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
               <div className="shrink-0 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">

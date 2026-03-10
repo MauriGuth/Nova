@@ -27,6 +27,7 @@ import {
   Trash2,
   ClipboardList,
   ShoppingCart,
+  MessageCircle,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { locationsApi } from '@/lib/api/locations'
@@ -80,6 +81,7 @@ const navSectionsAll: NavSection[] = [
       { label: 'Cierres de caja', href: '/cash-registers', icon: Receipt },
       { label: 'Auditoría de stock', href: '/stock-reconciliations', icon: ClipboardList },
       { label: 'IA & Alertas', href: '/alerts', icon: Brain },
+      { label: 'Chat Auditor', href: '/auditor-chat', icon: MessageCircle },
     ],
   },
   {
@@ -110,6 +112,7 @@ const roleByPath: Record<string, string[]> = {
   '/cash-registers': ['ADMIN', 'LOCATION_MANAGER', 'CASHIER', 'AUDITOR'],
   '/stock-reconciliations': ['ADMIN', 'AUDITOR'],
   '/alerts': ['ADMIN', 'LOCATION_MANAGER', 'WAREHOUSE_MANAGER', 'LOGISTICS', 'CASHIER', 'AUDITOR'],
+  '/auditor-chat': ['ADMIN', 'LOCATION_MANAGER', 'AUDITOR'],
   '/users': ['ADMIN'],
   '/settings': ['ADMIN'],
 }
