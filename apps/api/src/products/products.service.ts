@@ -11,6 +11,7 @@ export class ProductsService {
   async findAll(filters: {
     search?: string;
     categoryId?: string;
+    familia?: string;
     isActive?: boolean;
     isSellable?: boolean;
     isIngredient?: boolean;
@@ -26,15 +27,19 @@ export class ProductsService {
 
     if (filters.search) {
       where.OR = [
-        { name: { contains: filters.search } },
-        { sku: { contains: filters.search } },
-        { barcode: { contains: filters.search } },
-        { description: { contains: filters.search } },
+        { name: { contains: filters.search, mode: 'insensitive' } },
+        { sku: { contains: filters.search, mode: 'insensitive' } },
+        { barcode: { contains: filters.search, mode: 'insensitive' } },
+        { description: { contains: filters.search, mode: 'insensitive' } },
       ];
     }
 
     if (filters.categoryId) {
       where.categoryId = filters.categoryId;
+    }
+
+    if (filters.familia?.trim()) {
+      where.familia = filters.familia.trim();
     }
 
     if (filters.isActive !== undefined) {

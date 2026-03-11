@@ -23,8 +23,8 @@ export class RecipesService {
 
     if (search) {
       where.OR = [
-        { name: { contains: search } },
-        { description: { contains: search } },
+        { name: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -32,16 +32,14 @@ export class RecipesService {
       where.category = category;
     }
 
-    if (isActive !== undefined) {
-      where.isActive = isActive;
-    }
+    where.isActive = isActive ?? true;
 
     const [data, total] = await Promise.all([
       this.prisma.recipe.findMany({
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { name: 'asc' },
         include: {
           _count: { select: { ingredients: true } },
           createdBy: {

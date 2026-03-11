@@ -607,12 +607,40 @@ export default function TableOrderPage() {
     setLoading(true)
     setError("")
     try {
-      const [tableData, productsData] = await Promise.all([
-        tablesApi.getById(tableId),
-        productsApi.getAll({ isSellable: true }),
-      ])
+      const tableData = await tablesApi.getById(tableId)
       setTable(tableData)
-      setProducts(productsData?.data ?? productsData ?? [])
+
+      const effectiveLocationId = locationId || tableData?.location?.id || ""
+      if (!locationId && tableData?.location?.id) {
+        setLocationId(tableData.location.id)
+      }
+
+      if (effectiveLocationId) {
+        const productsData = await productsApi.getAll({
+          isSellable: true,
+          isActive: true,
+          limit: 5000,
+        })
+        const rawProducts = productsData?.data ?? productsData ?? []
+        const scopedProducts = rawProducts
+          .map((product: any) => {
+            const stockForLocation = Array.isArray(product.stockLevels)
+              ? product.stockLevels.find((level: any) => level.locationId === effectiveLocationId)
+              : null
+
+            if (!stockForLocation) return null
+
+            return {
+              ...product,
+              salePrice: stockForLocation.salePrice ?? product.salePrice ?? 0,
+            }
+          })
+          .filter(Boolean)
+
+        setProducts(scopedProducts)
+      } else {
+        setProducts([])
+      }
 
       // load existing order (división de mesa viene del backend para mozo y cajero)
       if (tableData.currentOrderId) {
@@ -634,10 +662,11 @@ export default function TableOrderPage() {
       }
     } catch {
       setError("Error al cargar datos de la mesa")
+      setProducts([])
     } finally {
       setLoading(false)
     }
-  }, [tableId])
+  }, [tableId, locationId])
 
   useEffect(() => {
     if (tableId) fetchData()

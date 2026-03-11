@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { sileo } from "sileo"
 import {
   Search,
@@ -16,7 +16,7 @@ import { productsApi } from "@/lib/api/products"
 import { cn } from "@/lib/utils"
 
 type ProductOption = { id: string; name: string; sku: string; unit?: string }
-type IngredientRow = { productId: string; qtyPerYield: number; unit: string }
+type IngredientRow = { productId: string; productQuery: string; qtyPerYield: number; unit: string }
 type FormState = {
   name: string
   yieldQty: number
@@ -46,13 +46,41 @@ export default function RecipesPage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
 
+  const productLabel = useCallback((product: ProductOption) => {
+    return product.sku ? `${product.name} (${product.sku})` : product.name
+  }, [])
+
+  const productsById = useMemo(
+    () => new Map(products.map((product) => [product.id, product])),
+    [products]
+  )
+
+  const productsByQuery = useMemo(() => {
+    const map = new Map<string, ProductOption>()
+    for (const product of products) {
+      map.set(productLabel(product).toLowerCase(), product)
+      map.set(product.name.toLowerCase(), product)
+      if (product.sku) {
+        map.set(`${product.sku} - ${product.name}`.toLowerCase(), product)
+        map.set(product.sku.toLowerCase(), product)
+      }
+    }
+    return map
+  }, [productLabel, products])
+
   const fetchRecipes = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      const res = await recipesApi.getAll({ limit: 200 })
+      const res = await recipesApi.getAll({ limit: 1000, isActive: true })
       const data = (res as any).data ?? []
-      setRecipes(Array.isArray(data) ? data : [])
+      setRecipes(
+        Array.isArray(data)
+          ? [...data].sort((a, b) =>
+              (a.name ?? "").localeCompare(b.name ?? "", "es", { sensitivity: "base" })
+            )
+          : []
+      )
     } catch (err: any) {
       const msg = err.message || "Error al cargar recetas"
       setError(msg)
@@ -68,16 +96,18 @@ export default function RecipesPage() {
   }, [fetchRecipes])
 
   useEffect(() => {
-    productsApi.getAll({ limit: 500 }).then((r: any) => {
+    productsApi.getAll({ limit: 5000 }).then((r: any) => {
       const d = (r as any).data ?? []
       setProducts(
         Array.isArray(d)
-          ? d.map((p: any) => ({
-              id: p.id,
-              name: p.name,
-              sku: p.sku ?? "",
-              unit: p.unit ?? "Und",
-            }))
+          ? d
+              .map((p: any) => ({
+                id: p.id,
+                name: p.name,
+                sku: p.sku ?? "",
+                unit: p.unit ?? "Und",
+              }))
+              .sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }))
           : []
       )
     }).catch(() => {})
@@ -104,6 +134,14 @@ export default function RecipesPage() {
         productId: full.productId ?? full.product?.id ?? "",
         ingredients: (full.ingredients ?? []).map((ing: any) => ({
           productId: ing.productId ?? ing.product?.id ?? "",
+          productQuery: ing.product?.name
+            ? productLabel({
+                id: ing.productId ?? ing.product?.id ?? "",
+                name: ing.product.name,
+                sku: ing.product?.sku ?? "",
+                unit: ing.product?.unit ?? ing.unit ?? "Und",
+              })
+            : "",
           qtyPerYield: ing.qtyPerYield ?? 0,
           unit: ing.unit ?? ing.product?.unit ?? "Und",
         })),
@@ -128,7 +166,10 @@ export default function RecipesPage() {
   const addIngredient = () => {
     setForm((f) => ({
       ...f,
-      ingredients: [...f.ingredients, { productId: "", qtyPerYield: 0, unit: "Und" }],
+      ingredients: [
+        ...f.ingredients,
+        { productId: "", productQuery: "", qtyPerYield: 0, unit: "Und" },
+      ],
     }))
   }
 
@@ -145,9 +186,29 @@ export default function RecipesPage() {
       const row = { ...next[index], [field]: value }
       if (field === "productId") {
         const prod = products.find((p) => p.id === value)
-        if (prod) row.unit = prod.unit ?? "Und"
+        if (prod) {
+          row.unit = prod.unit ?? "Und"
+          row.productQuery = productLabel(prod)
+        }
       }
       next[index] = row
+      return { ...f, ingredients: next }
+    })
+  }
+
+  const updateIngredientQuery = (index: number, query: string) => {
+    setForm((f) => {
+      const next = [...f.ingredients]
+      const current = next[index]
+      const match = productsByQuery.get(query.trim().toLowerCase())
+
+      next[index] = {
+        ...current,
+        productQuery: query,
+        productId: match?.id ?? "",
+        unit: match?.unit ?? current.unit,
+      }
+
       return { ...f, ingredients: next }
     })
   }
@@ -194,13 +255,19 @@ export default function RecipesPage() {
     }
   }
 
-  const filtered = searchQuery
-    ? recipes.filter(
-        (r) =>
-          r.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          r.product?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : recipes
+  const filtered = useMemo(() => {
+    const base = searchQuery
+      ? recipes.filter(
+          (r) =>
+            r.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            r.product?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : recipes
+
+    return [...base].sort((a, b) =>
+      (a.name ?? "").localeCompare(b.name ?? "", "es", { sensitivity: "base" })
+    )
+  }, [recipes, searchQuery])
 
   const isModalOpen = modalMode === "create" || modalMode === "edit"
 
@@ -399,19 +466,19 @@ export default function RecipesPage() {
                         key={index}
                         className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50 p-2"
                       >
-                        <select
-                          value={row.productId}
-                          onChange={(e) => updateIngredient(index, "productId", e.target.value)}
+                        <input
+                          list={`recipe-product-options-${index}`}
+                          value={row.productQuery}
+                          onChange={(e) => updateIngredientQuery(index, e.target.value)}
                           aria-label={`Ingrediente ${index + 1}, producto`}
-                          className="min-w-[140px] rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1.5 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        >
-                          <option value="">Producto...</option>
+                          placeholder="Producto..."
+                          className="min-w-[220px] rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                        <datalist id={`recipe-product-options-${index}`}>
                           {products.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.name}
-                            </option>
+                            <option key={p.id} value={productLabel(p)} />
                           ))}
-                        </select>
+                        </datalist>
                         <input
                           type="number"
                           min={0}
@@ -424,7 +491,9 @@ export default function RecipesPage() {
                           aria-label={`Cantidad por rendimiento ingrediente ${index + 1}`}
                           className="w-20 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
-                        <span className="text-sm text-gray-500 dark:text-gray-400">{row.unit}</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                          {row.productId ? productsById.get(row.productId)?.unit ?? row.unit : row.unit}
+                        </span>
                         <button
                           type="button"
                           onClick={() => removeIngredient(index)}

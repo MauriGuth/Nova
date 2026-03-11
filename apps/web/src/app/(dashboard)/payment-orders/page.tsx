@@ -75,7 +75,7 @@ export default function PaymentOrdersPage() {
   const [proofUploading, setProofUploading] = useState(false)
   const [proofError, setProofError] = useState<string | null>(null)
 
-  const apiBase = typeof window !== "undefined" ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api").replace(/\/api\/?$/, "") : ""
+  const apiBase = typeof window !== "undefined" ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4010/api").replace(/\/api\/?$/, "") : ""
 
   const fetchOrders = useCallback(async () => {
     setLoading(true)

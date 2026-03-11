@@ -424,7 +424,11 @@ export default function SuppliersPage() {
       setLoading(true)
       setError(null)
       const response = await suppliersApi.getAll({ limit: 500 })
-      setSuppliers(response.data ?? [])
+      setSuppliers(
+        [...(response.data ?? [])].sort((a, b) =>
+          (a.name ?? "").localeCompare(b.name ?? "", "es", { sensitivity: "base" })
+        )
+      )
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Error al cargar proveedores"
@@ -441,15 +445,23 @@ export default function SuppliersPage() {
 
   // ---------- filtered list ----------
 
-  const filtered = suppliers.filter((s) => {
-    if (!search) return true
-    const q = search.toLowerCase()
-    return (
-      s.name.toLowerCase().includes(q) ||
-      (s.legalName && s.legalName.toLowerCase().includes(q)) ||
-      (s.taxId && s.taxId.toLowerCase().includes(q))
-    )
-  })
+  const filtered = useMemo(
+    () =>
+      suppliers
+        .filter((s) => {
+          if (!search) return true
+          const q = search.toLowerCase()
+          return (
+            s.name.toLowerCase().includes(q) ||
+            (s.legalName && s.legalName.toLowerCase().includes(q)) ||
+            (s.taxId && s.taxId.toLowerCase().includes(q))
+          )
+        })
+        .sort((a, b) =>
+          (a.name ?? "").localeCompare(b.name ?? "", "es", { sensitivity: "base" })
+        ),
+    [suppliers, search]
+  )
 
   // ---------- form helpers ----------
 

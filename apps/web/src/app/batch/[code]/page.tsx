@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Package, User, DollarSign, ListChecks, ArrowLeft, Loader2 } from "lucide-react"
 import { formatCurrency, formatNumber, formatDate, formatTime } from "@/lib/utils"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4010/api"
 
 type BatchData = {
   id: string

@@ -14,6 +14,13 @@
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio",
     "seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts",
+    "prisma:clear-products": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/delete-products-suppliers-recipes.ts",
+    "prisma:load-articulos": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/load-articulos-carta.ts",
+    "prisma:cleanup-recipe-ingredients": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/cleanup-recipe-ingredients.ts",
+    "prisma:cleanup-invalid-recipes": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/cleanup-invalid-recipes.ts",
+    "prisma:repair-gastro2-recipes": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/repair-recetas-gastronomia-local-2.ts",
+    "prisma:sync-gastro-sql": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/sync-recetas-gastronomia-local-sql.ts",
+    "prisma:reassign-non-prod-skus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/scripts/reassign-non-prod-skus.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "prisma": {

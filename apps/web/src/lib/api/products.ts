@@ -1,9 +1,9 @@
 import { api } from '../api';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
 
 export const productsApi = {
-  getAll: (params?: { search?: string; categoryId?: string; isActive?: boolean; isSellable?: boolean; isIngredient?: boolean; page?: number; limit?: number }) =>
+  getAll: (params?: { search?: string; categoryId?: string; familia?: string; isActive?: boolean; isSellable?: boolean; isIngredient?: boolean; page?: number; limit?: number }) =>
     api.get<{ data: any[]; total: number; page: number; limit: number }>('/products', params),
 
   getById: (id: string) => api.get<any>(`/products/${id}`),

@@ -1,0 +1,6707 @@
+[
+  {
+    "nombre": "ADICIONAL ATUN",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL BARRITA SUBMARINO",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 4000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL BOCHA DE HELADO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL COCINA",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL DE CREMA",
+    "precio_coffee_store": 4500,
+    "precio_dorado": 4500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL DIP",
+    "precio_coffee_store": 3500,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL GRANOLA",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL JAMON O QUESO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL JUGO GRANDE",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 4000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL LANGOSTINOS",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL LECHE DE ALMENDRAS",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 3500,
+    "precio_posada": 3000,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL LECHE DE ALMENDRAS JARRITO",
+    "precio_coffee_store": 2000,
+    "precio_dorado": 2000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL LECHUGA O TOMATE",
+    "precio_coffee_store": 3500,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL MENU COMPLETO",
+    "precio_coffee_store": null,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL PALTA",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL PANCETA",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL POLLO",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL POSTRE AL MENU",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL SALMON",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AZUCAR COFFEE STORE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AZUCAR DORADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESCORCHE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 4000,
+    "precio_posada": 20000,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DUO DE COPAS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EDULCORANTE COFFEE STORE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EDULCORANTE DORADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GALLETITAS ACOMP",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PANERA SIN TACC",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": 7000,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "POSTRE + CAFE SUGE",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RAMO DE FLORES",
+    "precio_coffee_store": 36000,
+    "precio_dorado": 36000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SERVICIO DE CUBIERTOS",
+    "precio_coffee_store": null,
+    "precio_dorado": 3500,
+    "precio_posada": 500,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL AVELL",
+    "precio_coffee_store": 3800,
+    "precio_dorado": 3800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL VAINILLA",
+    "precio_coffee_store": 3800,
+    "precio_dorado": 3800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE AWAY",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL CAFÉ ESPECIAL",
+    "precio_coffee_store": 3500,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL CARAMEL",
+    "precio_coffee_store": 3800,
+    "precio_dorado": 3800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AMERICANO DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AMERICANO JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AMERICANO POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AMERICANO TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BRASIL MEDIUM DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BRASIL MEDIUM JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BRASIL MEDIUM POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BRASIL MEDIUM TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ CHICO",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 4400,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ CHOCOLATE DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFE CON LECHE DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFE CON LECHE JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFE CON LECHE POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFE CON LECHE TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ DOBLE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 6100,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ MEDIANO",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 4800,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ VAINILLA DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPPUCCINO",
+    "precio_coffee_store": 8400,
+    "precio_dorado": 8400,
+    "precio_posada": 7600,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPPUCCINO A LA ITALIANA",
+    "precio_coffee_store": 9800,
+    "precio_dorado": 9800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPPUCINO HAZELNUT",
+    "precio_coffee_store": 9800,
+    "precio_dorado": 9800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPSULA 55 BRASIL",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPSULA 55 COLOMBIA",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPSULA 55 COLOMBIAN DECAFF",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPSULA 55 PASSION",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAPSULA 55 PERU",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CHOCOLATADA DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CHOCOLATADA JARRITO",
+    "precio_coffee_store": 5600,
+    "precio_dorado": 5600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CHOCOLATADA TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CORTADO DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CORTADO JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CORTADO POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CORTADO TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DARK DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DARK JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DARK POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DARK TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DECAFF DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DECAFF JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DECAFF POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DECAFF TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ETIOPIA DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ETIOPIA JARRITO",
+    "precio_coffee_store": 5800,
+    "precio_dorado": 5800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ETIOPIA POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ETIOPIA TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G  BRASIL MEDIUM ROAST",
+    "precio_coffee_store": 35000,
+    "precio_dorado": 35000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G  BRASIL SANTOS BOURBON",
+    "precio_coffee_store": 35000,
+    "precio_dorado": 35000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G CHOCOLATE",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G COLOMBIAN DARK",
+    "precio_coffee_store": 42000,
+    "precio_dorado": 42000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G COLOMBIAN DECAFF",
+    "precio_coffee_store": 48000,
+    "precio_dorado": 48000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G EL SALVADOR",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G ETHIOPIA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G HONDURAS",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G INDIA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G NICARAGUA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G PAPUA NUEVA GINEA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G PASSION",
+    "precio_coffee_store": 40000,
+    "precio_dorado": 40000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G PERU",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G RUANDA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GRANO 250 G VAINILLA",
+    "precio_coffee_store": 55000,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G BERRY RED",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G BLACK CHAI COCOA",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G BLACK ORANGE",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G BLACK ORIGINAL",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G GREEN FRESH",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G HERBAL DELIGHT",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HEBRAS 60 G PATAGONIAN BERRIES",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HONDURAS DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HONDURAS JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HONDURAS POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HONDURAS TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ICE TEA CANELA Y CASCARILLAS CACAO",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ICE TEA HIBISCO Y ROSA MOSQUETA",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ICE TEA TE VERDE , HOJAS MENTA Y DURAZNO",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "INDIA DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "INDIA JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "INDIA POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "INDIA TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "IRLANDES",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 9400,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LAGRIMA DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LAGRIMA JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LAGRIMA POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LAGRIMA TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE AVELLANAS DOBLE",
+    "precio_coffee_store": 7900,
+    "precio_dorado": 7900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE AVELLANAS TAZON",
+    "precio_coffee_store": 8400,
+    "precio_dorado": 8400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE CARAMEL DOBLE",
+    "precio_coffee_store": 7900,
+    "precio_dorado": 7900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE CARAMEL TAZON",
+    "precio_coffee_store": 8400,
+    "precio_dorado": 8400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE DOBLE",
+    "precio_coffee_store": 6600,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE VAINILLA DOBLE",
+    "precio_coffee_store": 7900,
+    "precio_dorado": 7900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LATTE VAINILLA TAZON",
+    "precio_coffee_store": 8400,
+    "precio_dorado": 8400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MACHIATTO DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 6600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MACHIATTO JARRITO",
+    "precio_coffee_store": 5100,
+    "precio_dorado": 5100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MACHIATTO POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MACHIATTO TAZON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MATECOCIDO",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MOCACCINO",
+    "precio_coffee_store": 8400,
+    "precio_dorado": 8400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "NICARAGUA DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "NICARAGUA JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "NICARAGUA POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "NICARAGUA TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PAPUA DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PAPUA JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PAPUA POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PAPUA TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PASSION DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PASSION JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PASSION POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PASSION TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PERU DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PERU JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PERU POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PERU TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PRENSA ESPECIALIDAD 1/2",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 12000,
+    "precio_posada": 5300,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PRENSA ESPECIALIDAD LLENA",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RISTRETTO POCILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUANDA DOBLE",
+    "precio_coffee_store": 6800,
+    "precio_dorado": 6800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUANDA JARRITO",
+    "precio_coffee_store": 5800,
+    "precio_dorado": 5800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUANDA POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUANDA TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SALVADOR DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SALVADOR JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SALVADOR POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SALVADOR TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTOS DOBLE",
+    "precio_coffee_store": 7200,
+    "precio_dorado": 7200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTOS JARRITO",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTOS POCILLO",
+    "precio_coffee_store": 5300,
+    "precio_dorado": 5300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTOS TAZON",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SUBMARINO",
+    "precio_coffee_store": 8700,
+    "precio_dorado": 8700,
+    "precio_posada": 8000,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SUBMARINO CARAMEL",
+    "precio_coffee_store": 9300,
+    "precio_dorado": 9300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "T.C CAFÉ AL CHOCOLATE",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS CALIENTES"
+  },
+  {
+    "nombre": "T.C CAFE BOMBON",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS CALIENTES"
+  },
+  {
+    "nombre": "T.C IRLANDES",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": 9400,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS CALIENTES"
+  },
+  {
+    "nombre": "T.C PEANUT COFFE CREAM",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS CALIENTES"
+  },
+  {
+    "nombre": "T.C TENTACION",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS CALIENTES"
+  },
+  {
+    "nombre": "T.F AFFOGATO",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F COLD BREW",
+    "precio_coffee_store": 7300,
+    "precio_dorado": 7300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ESPRESSO TONIC",
+    "precio_coffee_store": 9900,
+    "precio_dorado": 9900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ICE CAPPUCINO",
+    "precio_coffee_store": 10400,
+    "precio_dorado": 10400,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ICE COFFEE",
+    "precio_coffee_store": 7300,
+    "precio_dorado": 7300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ICE LATTE AVELLANAS",
+    "precio_coffee_store": 9900,
+    "precio_dorado": 9900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ICE LATTE CARAMELO",
+    "precio_coffee_store": 9900,
+    "precio_dorado": 9900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F ICE LATTE VAINILLA",
+    "precio_coffee_store": 9900,
+    "precio_dorado": 9900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "T.F SPANISH LATTE",
+    "precio_coffee_store": 9900,
+    "precio_dorado": 9900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": "CAFÉ-TRAGOS FRIOS"
+  },
+  {
+    "nombre": "TE BERRY RED .05",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE BLACK CHAI COCOA .06",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE BLACK ORANGE",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE BLACK ORIGINAL  .73",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE EN HEBRAS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 7000,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE GREEN FRESH  .45",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE HERBAL DELIGHT .20",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE NEGRO NARANJA Y CANELA .42",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE PATAGONIAN BERRIES .28",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TE SAQUITO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": 6000,
+    "tipo": "RECETA",
+    "familia": "BARISTA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO TAKE GRANDE + 2 MEDIALUNAS",
+    "precio_coffee_store": 9500,
+    "precio_dorado": 9500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO TAKE MEDIANO + COOKIE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE CAFE SOLO CHICO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE CAFE SOLO GRANDE",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE CAPPUCINO ITALIANO CHICO",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE CAPPUCINO ITALIANO GRANDE",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE CORTADO CHICO",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE CORTADO GRANDE",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE ESPECIALES CON CREMA GRANDE",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE FRAPPE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE HALZENUT GRANDE",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE ICE LATTE AVELLANAS CHICO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE LATTE AVELLANAS GRANDE",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE LATTE CARAMEL CHICO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE LATTE CARAMEL GRANDE",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE LATTE VAINILLA CHICO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE LATTE VAINILLA GRANDE",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE ICE TEA T",
+    "precio_coffee_store": 7500,
+    "precio_dorado": 7500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE IRLANDES GRANDE",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE LAGRIMA CHICA",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE LAGRIMA GRANDE",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE LIMONADA",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE MACCIATTO CHICO",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE MEDIALUNA",
+    "precio_coffee_store": 3000,
+    "precio_dorado": 3000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TAKE MOCACCINO CHICO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE MOCACCINO GRANDE",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE MOCCA BLANCO GRANDE",
+    "precio_coffee_store": 7500,
+    "precio_dorado": 7500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE MOCCA BLANCO MEDIANO",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE RECARGA VASO REUTILIZABLE",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE REUTILIZABLE ACERO",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE RISTRETTO",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 4000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE SUBMARINO CARAMEL GRANDE",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE SUBMARINO GRANDE",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE TENTACION GRANDE",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "TAKE VASO REUTILIZABLE",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BARISTA-TAKE",
+    "agrupar_carta_digital": "TAKE AWAY"
+  },
+  {
+    "nombre": "AGUA",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": 4000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AGUA CON GAS",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": 4000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AGUA SABORIZADA",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": 4000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GASEOSAS",
+    "precio_coffee_store": 5500,
+    "precio_dorado": 5500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "JUGO NARANJA",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": 7200,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADA BLUE BERRY",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADA SIN ALMIBAR",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADAS FRUTOS ROJOS",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADAS MARACUYA",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADAS MENTA Y JENGIBRE",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LIMONADAS PEPINO",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "POMELADA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL TRAGO PRIMERA LINEA IMPORTADOS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16800,
+    "precio_posada": 18500,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ADICIONAL TRAGOS SEGUNDA LINEA IMPORTADOS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-ADICIONAL",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CERVEZA",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": 6800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-CERVEZA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "APER. APPEROL SPRITZ",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-APERITIVOS"
+  },
+  {
+    "nombre": "APER. CAMPARI ORANGE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-APERITIVOS"
+  },
+  {
+    "nombre": "APER. CLEOPATRA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-APERITIVOS"
+  },
+  {
+    "nombre": "APER. CYNAR JULEP",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-APERITIVOS"
+  },
+  {
+    "nombre": "COCT. BLUE HAWAIAN",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. COSMOPOLITAN",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. DRY MARTINI",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. EXPRESO MARTINI",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. GIN TEA TONIC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. MANHATTAN",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. MARGARITA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. NEGRONI",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. NEW YORK SOUR",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. OLD FASHIONED",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "COCT. SEX ON THE BEACH",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL",
+    "agrupar_carta_digital": "COCTEL-REVERSIONADO"
+  },
+  {
+    "nombre": "MOCK. SHIRLEY TEMPLE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 14300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-COCTEL S/ALCOHOL",
+    "agrupar_carta_digital": "COCTEL-SIN ALCOHOL"
+  },
+  {
+    "nombre": "AUTOR BEATLE JUICE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DE AUTOR",
+    "agrupar_carta_digital": "COCTEL-AUTOR"
+  },
+  {
+    "nombre": "AUTOR BRUMA DEL BOSQUE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DE AUTOR",
+    "agrupar_carta_digital": "COCTEL-AUTOR"
+  },
+  {
+    "nombre": "AUTOR CAIPIORIENTAL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DE AUTOR",
+    "agrupar_carta_digital": "COCTEL-AUTOR"
+  },
+  {
+    "nombre": "AUTOR DORADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DE AUTOR",
+    "agrupar_carta_digital": "COCTEL-AUTOR"
+  },
+  {
+    "nombre": "AUTOR OUT LANDER",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DE AUTOR",
+    "agrupar_carta_digital": "COCTEL-AUTOR"
+  },
+  {
+    "nombre": "COPA CHAMPAGNE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COPA DE SAKE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESTILERIA 1 LINEA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESTILERIA 2 LINEA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "GIN DE LA CASA BEEFEATER",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRAGO NACIONAL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 15000,
+    "precio_posada": 13600,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRAGO SUGERENCIA DEL DÍA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WHISKY BOURBON MEDIA MEDIDA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WHISKY JHONNIE WALKER BLACK MEDIDA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30000,
+    "precio_posada": 19000,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WHISKY JIM BEAM BLACK MEDIDA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WIHSKY JHONNIE WALKER RED MEDIDA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-DESTILERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE BOMBON",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE DULCE DE LECHE",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FRIOREO",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FRIOREO CAPPUCINO",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FROZZEN LATTE AVELLANA",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FROZZEN LATTE CARAMEL",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FROZZEN LATTE VAINILLA",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE FROZZEN PISTACHOS",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE MOCCA",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE MOCCA BLANCO",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FRAPPE TOFFEE",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-FRAPPE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LICUADO AGUA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-LICUADO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LICUADO CON JUGO NARANJA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-LICUADO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LICUADO LECHE",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-LICUADO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MOCK. EXPRESO TONNIC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 14300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-MOCKTAILS",
+    "agrupar_carta_digital": "COCTEL-SIN ALCOHOL"
+  },
+  {
+    "nombre": "MOCK. ICE GREENCH",
+    "precio_coffee_store": 0,
+    "precio_dorado": 14300,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-MOCKTAILS",
+    "agrupar_carta_digital": "COCTEL-SIN ALCOHOL"
+  },
+  {
+    "nombre": "MOCK. JULEP PATAGONIA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 13500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-MOCKTAILS",
+    "agrupar_carta_digital": "COCTEL-SIN ALCOHOL"
+  },
+  {
+    "nombre": "SMOOTHIE DURAZNO NARANJA AGUA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE DURAZNO NARANJA JUGO",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE DURAZNO NARANJA LECHE",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTILLA AGUA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTILLA JUGO",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTILLA LECHE",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTOS ROJOS AGUA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTOS ROJOS JUGO",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE FRUTOS ROJOS LECHE",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE MARACUYA AGUA",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE MARACUYA CON JUGO",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SMOOTHIE MARACUYA LECHE",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 11500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "BEBIDAS-SMOOTHIE",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALAMBRADO BLANCO DULCE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 10400,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALAMBRADO CABERNET",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 13400,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALAMBRADO CHARDONNAY",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 13400,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALAMBRADO MALBEC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 11500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALTOS LAS HORMIGAS MALBEC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 11400,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALTOS LAS HORMIGAS MALBEC 375",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 7500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ANIMAL MALBEC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE BLUSH ROSE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 34000,
+    "precio_posada": 20500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE CABERNET FRANC ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE CABERNET SAUVIGNON INTIMO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": 30800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC  MARCUS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30000,
+    "precio_posada": 14000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 44500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC GRAN RESERVA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 75000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC INTIMO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": 30800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC MARCUS 375 CC",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": 10800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE MALBEC OLD VINEYARD",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 28500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE PINOT NOIR ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 44500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE PINOT NOIR GRAN RESERVA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 79000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE PINOT NOIR OLD VINEYARD",
+    "precio_coffee_store": 0,
+    "precio_dorado": 64000,
+    "precio_posada": 34000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE RED BLEN ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE RIESLING OLD VINEYARD",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 28500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE SAUVIGNON BLANC ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 44500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE SAUVIGNON BLANC MARCUS",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE SAUVIGNON INTIMO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CANALE SEMILLON BLANC OLD VINEYARD",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CATALPA 2020 ASSEMBLAGE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CATENA ZAPATA CABERNET D.V",
+    "precio_coffee_store": 0,
+    "precio_dorado": 68500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CATENA ZAPATA MALBEC D.V",
+    "precio_coffee_store": 0,
+    "precio_dorado": 68500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CATENA ZAPATA MALBEC SAINT FELICIEN",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CHAMPAGNE PARA CORTE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COPA DE VINO PREMIUM",
+    "precio_coffee_store": 0,
+    "precio_dorado": 17000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COPA DE VINO SUGERENCIA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 14500,
+    "precio_posada": 9000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ERNESTO CATENA ALMA NEGRA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 33000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ERNESTO CATENA MALBEC  SIESTA BIO.",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ERNESTO CATENA MALBEC ORG.ANIMAL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE BLANC DE BLANCS ALMA NEGRA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 55000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE DESEADO DULCE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 40000,
+    "precio_posada": 22000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE EXTRA BRUT ANIMAL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 49000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE EXTRA BRUT BARON B",
+    "precio_coffee_store": 0,
+    "precio_dorado": 79000,
+    "precio_posada": 50300,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE EXTRA BRUT CANALE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 49000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE EXTRA BRUT CHANDON",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 26500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ESPUMANTE EXTRA BRUT RUTINI",
+    "precio_coffee_store": 0,
+    "precio_dorado": 82000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LA CELIA CABERNET SAUVIGNON RESERVA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LA CELIA MALBEC PIONEERR",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "LA CELIA PINOT GRIOGIO",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 19500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUTINI MALBEC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 71500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUTINI MALBEC CABERNET",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "RUTINI MALBEC ENCUENTRO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 44000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTA JULIA 375",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 1100,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTA JULIA CHARDONNAY 375",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 1900,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTA JULIA CHENIN DUL",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 9500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SANTA JULIA MALBEC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 2500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS BARREL MALBEC",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": 39000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS BARREL PINOT NOIR",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 39000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS CABERNET",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS CHARDONNAY",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 23000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS MALBEC",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS PINOT NOIR",
+    "precio_coffee_store": 0,
+    "precio_dorado": 54000,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS RED BLEND",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAURUS SAUVIGNON BLANC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER CABERNET FRANC BARREL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 79000,
+    "precio_posada": 39000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER CABERNET FRANC SELECT",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 30000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER CABERNET SAUVIGNON ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER CHARDONAY ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER MALBEC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 105000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER MALBEC BARREL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 75000,
+    "precio_posada": 39000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER MALBEC ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": 25000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER MALBEC SELECT",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 30000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER PINOT NOIR ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER PINOT NOIR SELECT",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 30000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER PINOT NOIT",
+    "precio_coffee_store": 0,
+    "precio_dorado": 105000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER PINOT NOIT BARREL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 79000,
+    "precio_posada": 39000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SCHROEDER SAUVIGNON BLANC ESTATE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 35000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRUMPETER MALBEC 375 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 13500,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRUMPETER MALBEC 750 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 21800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRUMPETER SAUV BLANC 375 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 21800,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRUMPETER SAUV BLANC 750 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 18900,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VINO CHENIN DULCE 355 ML LATA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 612,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ZUCCARDI CABERNET Q",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 32000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ZUCCARDI MALBEC Q",
+    "precio_coffee_store": 0,
+    "precio_dorado": 57000,
+    "precio_posada": 32000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ZUCCARDI MALBEC SERIE A",
+    "precio_coffee_store": 0,
+    "precio_dorado": 37000,
+    "precio_posada": 34000,
+    "tipo": "PRODUCTO",
+    "familia": "BEBIDAS-VINO",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "AMERICANO SIN BEBIDA",
+    "precio_coffee_store": null,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BOWL DE FRUTAS",
+    "precio_coffee_store": 10500,
+    "precio_dorado": 10500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BOWL PARA LLEVAR",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BOWL SALUDABLE",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ/TÉ + 2 MEDIALUNAS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 14500,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CLASICO BUDIN",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "CLASICO CRIOLLO",
+    "precio_coffee_store": 6200,
+    "precio_dorado": 6200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CLASICO MEDIALUNA",
+    "precio_coffee_store": 6200,
+    "precio_dorado": 6200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "CRIOLLO DE MANTECA",
+    "precio_coffee_store": 3000,
+    "precio_dorado": 3000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CRIOLLO SALADO",
+    "precio_coffee_store": 3000,
+    "precio_dorado": 3000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESA. AMERICANO ( HUE-PANC-SALCH-TOST)",
+    "precio_coffee_store": 21300,
+    "precio_dorado": 21300,
+    "precio_posada": 20000,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. CONTINENTAL POSADA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 20000,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESA. CONTINENTAL POSADA NIÑOS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 15000,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "DESA. CRIOLLO",
+    "precio_coffee_store": 12100,
+    "precio_dorado": 12100,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. HUEVOS Y MAS (PANCETA Y TOSTADAS)",
+    "precio_coffee_store": 19400,
+    "precio_dorado": 19400,
+    "precio_posada": 17400,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. MEDIALUNAS",
+    "precio_coffee_store": 12100,
+    "precio_dorado": 12100,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. ROLL CANELA",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. SALUDABLE",
+    "precio_coffee_store": 18700,
+    "precio_dorado": 18700,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. TOST 1 Y 1",
+    "precio_coffee_store": 13200,
+    "precio_dorado": 13200,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. TOSTADAS BLANCAS",
+    "precio_coffee_store": 13200,
+    "precio_dorado": 13200,
+    "precio_posada": 15500,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. TOSTADAS INTEGRALES",
+    "precio_coffee_store": 13200,
+    "precio_dorado": 13200,
+    "precio_posada": 15500,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "DESA. TOSTADAS SIN TACC",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 16500,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "HUEVOS CON PANCETA",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HUEVOS REVUELTOS SOLOS",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": 9000,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "HUEVOS Y TOSTADAS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 15000,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "OMELETTE JYQ+ TOSTON",
+    "precio_coffee_store": 19000,
+    "precio_dorado": 19000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADA BLANCA X 1",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADA INTEGRAL X 1",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS BLANCAS X 2",
+    "precio_coffee_store": 6500,
+    "precio_dorado": 6500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS BLANCAS X 3",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS CON DIPS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 11500,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS INTEGRAL X 2",
+    "precio_coffee_store": 7000,
+    "precio_dorado": 7000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS INTEGRAL X 3",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "DESAYUNOS Y MERIENDAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ENS CAESAR",
+    "precio_coffee_store": 27000,
+    "precio_dorado": 30500,
+    "precio_posada": 24000,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "ENS CAPONATTA BRIE",
+    "precio_coffee_store": 26000,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "ENS MIXTA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 10000,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ENS PERAS ASADAS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30500,
+    "precio_posada": 24000,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "ENS QUINOA",
+    "precio_coffee_store": 26000,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "ENS SALMON Y PALTA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 36500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "ENS TUNA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 24000,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "POKE LANGOSTINOS Y SEMILLAS",
+    "precio_coffee_store": 34000,
+    "precio_dorado": 39000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "POKE SALMON AHUMADO",
+    "precio_coffee_store": 34000,
+    "precio_dorado": 39000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "POKE TOFU Y VEGETALES DE ESTACION",
+    "precio_coffee_store": 30500,
+    "precio_dorado": 32200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "ENSALADAS & POKES",
+    "agrupar_carta_digital": "ENSALADAS & POKES"
+  },
+  {
+    "nombre": "CROQUETAS DE JAMON",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 3700,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EMPANADA DE J&Q X 2",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 12000,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EMPANADAS DE TERNERA X 1",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 6000,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EMPANADAS DE TERNERA X 2",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 12000,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "EMPANADAS DE TERNERA X 6",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROVOLETTA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "ENTRADA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BOWL KETO",
+    "precio_coffee_store": 14800,
+    "precio_dorado": 14800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "ENS KETO",
+    "precio_coffee_store": 29500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "HUEVOS KETO",
+    "precio_coffee_store": 18900,
+    "precio_dorado": 18900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "JUGO VERDE",
+    "precio_coffee_store": 14700,
+    "precio_dorado": 14700,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "OMELLETE KETO",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "SALMON KETO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 42000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "SAND NUBE ATUN KETO",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "SAND NUBE LOMITO KETO",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "KETO",
+    "agrupar_carta_digital": "MENU KETO"
+  },
+  {
+    "nombre": "MENU DEL DIA + CAFÉ Y POSTRE",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 22000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MENU INFANTIL (CINTAS CREMA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 20500,
+    "precio_posada": 16500,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MENU INFANTIL (HAMB C/CHEDDAR Y FRITAS)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MENU INFANTIL (NUGGET C/FRITAS)",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 19500,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MENU INFANTIL (RAVIOLES DE JAMON)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 16500,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DE DOMINGO",
+    "precio_coffee_store": null,
+    "precio_dorado": 22000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (ENSALADA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (FOCACCIA)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (SORREN. CALABAZA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (SORREN. ESPINACA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (SORREN. J Y Q)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (TARTA CAPRESE)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (TARTA ESPINACA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (TARTA JYQ)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (WRAP HUMMUS)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PLATO DEL DIA (WRAP SHAWARMA)",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 16500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SUPREMA DE AVE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 28000,
+    "tipo": "RECETA",
+    "familia": "MENU DEL DIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALFAJOR DE MAICENA",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": 8300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALFAJOR DE PISTACHO C/ FRAMBUESA",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALFAJOR VAINILLA C/DDL Y NUEZ",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALFAJORES ESPECIALES",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": 8300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BROWNNIE BLANCO CON PISTACHO",
+    "precio_coffee_store": null,
+    "precio_dorado": 8700,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE BANANA",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE LIMON",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE LIMON Y AMAPOLAS",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE NARANJA",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE NARANJA Y COCO",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE VAINILLA CON CHIPS",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN DE ZANAHORIA",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN MARMOLADO",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BUDIN PORCION",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": 6200,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": "PASTELERIA"
+  },
+  {
+    "nombre": "BUDIN ZANAHORIA Y CANELA",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE",
+    "precio_coffee_store": 7800,
+    "precio_dorado": 7800,
+    "precio_posada": 6100,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE AMERICANA CLASICO",
+    "precio_coffee_store": 9400,
+    "precio_dorado": 9400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE CARROT",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE CHIPS CHOCOLATE",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE NUTELLA",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE OREO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COOKIE RED VELVET",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CROISSAINT",
+    "precio_coffee_store": 7400,
+    "precio_dorado": 7400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CROISSANT DE PALTA",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": "PASTELERIA"
+  },
+  {
+    "nombre": "CUADRADO BROWNIE",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": 9600,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO BROWNIE OREO",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO CHEESCAKE BLANCO",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO COCO Y DDL",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO CRUMBLE",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO DE BROWNIE CHEESCAKE",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO DE MANZANA",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO FROLA",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO LIMON",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO RED VELVET",
+    "precio_coffee_store": 10800,
+    "precio_dorado": 10800,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MEDIALUNA DULCE X 1",
+    "precio_coffee_store": 3200,
+    "precio_dorado": 3200,
+    "precio_posada": 5250,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MEDIALUNA SALADA X 1",
+    "precio_coffee_store": 3200,
+    "precio_dorado": 3200,
+    "precio_posada": 5250,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MUFFIN ARANDANO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MUFFIN CHIPS",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MUFFIN CHOCOLATE",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PORCION TARTA DEL DIA",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": "PASTELERIA"
+  },
+  {
+    "nombre": "PROMO TORTA DEL DIA ESPECIAL",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": "PASTELERIA"
+  },
+  {
+    "nombre": "STRUDEL DE MANZANA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 15900,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA CRUMBLE",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA DE CHOCO BLANCO CON FRAMBUESAS",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA DE FRUTILLAS",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA ENTERA",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA FRANUI",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA LEMON PIE",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA MAR DEL PLATA",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA NUTELLA",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA PISTACHOS Y FRAMBUESA",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA QUEEN",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TARTA TIRAMISU",
+    "precio_coffee_store": 15400,
+    "precio_dorado": 15400,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA AVA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA BROWNIE DE OREO",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CARROT",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CHAJA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CHEESCAKE DE PISTACHOS",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CHEESCAKE F.R",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CHOCO MARACUYA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA CHOCOTORTA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA MARQUISE F. ROJOS",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": 16300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA MARQUISSE BLANCA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": 16300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA MATILDA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": 16300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA MOCA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA PORCION",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": 16300,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA RED VELVET",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA ROGEL",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA SELVA NEGRA",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA SOUFLE DE NUEZ",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA TIRAMISU",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA TRIPLE MOUSSE",
+    "precio_coffee_store": 17600,
+    "precio_dorado": 17600,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WAFFLEE SOLO",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "PASTELERIA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BOCHA DE HELADO",
+    "precio_coffee_store": null,
+    "precio_dorado": 9000,
+    "precio_posada": 7000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "COPA HELADA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 14000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CREPES",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ENSALADA DE FRUTA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 6000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FLAN CASERO C/CREMA Y DULCE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 15000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "POSTRE BROWNIE CON HELADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18000,
+    "precio_posada": 24000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "POSTRE CREME BRULLE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 19500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": "POSTRES"
+  },
+  {
+    "nombre": "POSTRE HELADO CROCANTE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 24500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": "POSTRES"
+  },
+  {
+    "nombre": "POSTRE PASSION CAKE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 21500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": "POSTRES"
+  },
+  {
+    "nombre": "POSTRE PERABRULE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 24600,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": "POSTRES"
+  },
+  {
+    "nombre": "POSTRE TIRAMISU",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": "POSTRES"
+  },
+  {
+    "nombre": "TIBIO DE BROWNIE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 15000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TIBIO DE BROWNIE X 2",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 24000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TORTA HELADA PORCION",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 25000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WAFFLE C/ BANANA Y DDL",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WAFFLE C/ HELADO Y FRUTOS ROJOS",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 18000,
+    "tipo": "RECETA",
+    "familia": "POSTRES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "BONDIOLA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 32000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MILANESA C/ENSALADA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 21500,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MILANESA C/PURE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 21500,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MILANESA SOLA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 24500,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MILANESA TERNERA PATAG",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 29000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SALMON",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 42000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SUPREMA DE AVE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 28000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TERNERA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 29000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TRUCHA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 38000,
+    "tipo": "RECETA",
+    "familia": "PRINCIPALES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CAFÉ/TÉ Y TOSTADAS CON DIPS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 15500,
+    "tipo": "RECETA",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO ABREBOCA + VINO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 20000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + ALFAJOR ESPECIAL",
+    "precio_coffee_store": 11500,
+    "precio_dorado": 13000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + ALFAJOR MAICENA",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 12000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + BUDIN",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 12000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + COOKIE",
+    "precio_coffee_store": 10500,
+    "precio_dorado": 10500,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + CROISSANT",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + CUADRADO",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + MUFFIN",
+    "precio_coffee_store": 9500,
+    "precio_dorado": 10500,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + SIN TACC",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 14000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO DOBLE + TORTA",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO PIZZA + CERVEZA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 25000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PROMO TAPEOS + BEBIDA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 20000,
+    "precio_posada": 0,
+    "tipo": "PRODUCTO",
+    "familia": "PROMOCIONES",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CROISSANT DE SALMON",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CROISSANT J Y Q",
+    "precio_coffee_store": 10500,
+    "precio_dorado": 10500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CROISSANT MEDITERRANEO",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "FOCACCIA PASTRAMI",
+    "precio_coffee_store": 27500,
+    "precio_dorado": 28500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "FOCACCIA PORKO",
+    "precio_coffee_store": 27500,
+    "precio_dorado": 28500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "HAMBURGUESA CLASICA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "HAMBURGUESA CRIOLLA",
+    "precio_coffee_store": 28000,
+    "precio_dorado": 0,
+    "precio_posada": 28000,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "HAMBURGUESAS"
+  },
+  {
+    "nombre": "HAMBURGUESA CRISPY",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 28000,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MEDIALUNA CON JYQ X 1",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": 6200,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MEDIALUNA CON JYQ X2 DULCES",
+    "precio_coffee_store": 8900,
+    "precio_dorado": 8900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "MEDIALUNA CON JYQ X2 SALADAS",
+    "precio_coffee_store": 8900,
+    "precio_dorado": 8900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAND BONDIOLA EN FOCACCIA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 26000,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SAND MILA EN CHIPA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND MILA EN CIABATTA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND MILA EN FOCACCIA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND POLLO EN CHIPA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND POLLO EN CIABATTA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND POLLO EN FOCACCIA",
+    "precio_coffee_store": 28500,
+    "precio_dorado": 29500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND VEGGIE EN  CHIPA",
+    "precio_coffee_store": 26500,
+    "precio_dorado": 26500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND VEGGIE EN CIABATTA",
+    "precio_coffee_store": 26500,
+    "precio_dorado": 26500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "SAND VEGGIE EN FOCACCIA",
+    "precio_coffee_store": 26500,
+    "precio_dorado": 26500,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "NUESTROS SANDWICH"
+  },
+  {
+    "nombre": "TOSTADO X4 CRUDO Y Q CIABATTA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": 10900,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADO X4 CRUDO Y QUESO MIGA",
+    "precio_coffee_store": 12500,
+    "precio_dorado": 12500,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 CRUDO Y QUESO PAN DE CAMPO",
+    "precio_coffee_store": 12500,
+    "precio_dorado": 12500,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 CRUDO Y QUESO PAN FIGAZZA",
+    "precio_coffee_store": 12500,
+    "precio_dorado": 12500,
+    "precio_posada": 10900,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 JYQ MIGA",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": 9500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 JYQ PAN DE CAMPO",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": 9500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 JYQ PAN FIGAZZA",
+    "precio_coffee_store": 11000,
+    "precio_dorado": 11000,
+    "precio_posada": 9500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 PRIMAVERA PAN DE CAMPO",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 11600,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 PRIMAVERA PAN DE MIGA",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 11600,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X4 PRIMAVERA PAN FIGAZZA",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": 11600,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 CRUDO Y Q CIABATTA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 0,
+    "precio_posada": 16100,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADO X8 CRUDO Y Q FIGAZZA",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 CRUDO Y Q MIGA",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 CRUDO Y Q PAN DE CAMPO",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": 0,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 JYQ FIGAZZA",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": 13500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 JYQ MIGA",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": 13500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "TOSTADO X8 JYQ PAN DE CAMPO",
+    "precio_coffee_store": 16000,
+    "precio_dorado": 16000,
+    "precio_posada": 13500,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": "DESAYUNOS Y MERIENDAS"
+  },
+  {
+    "nombre": "WAFFLE CON JAMON Y QUESO",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SANDWICHES & HAMBURGUESAS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "ALFAJOR DE MAICENA SIN TACC",
+    "precio_coffee_store": 10000,
+    "precio_dorado": 10000,
+    "precio_posada": 8600,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO CRUMBLE SIN TACC",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": 10600,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO DE BROWNIE SIN TACC",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": 15000,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO DE COCO SIN TACC",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": 10600,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO DE LIMON SIN TACC",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": 10600,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "CUADRADO FROLA SIN TACC",
+    "precio_coffee_store": 13000,
+    "precio_dorado": 13000,
+    "precio_posada": 10600,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "PEBETE J Y Q SIN TACC",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS SIN TACC (solas)",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "TOSTADAS SIN TACC (solas)",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "PRODUCTO",
+    "familia": "SIN TACC",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINO DE CALABAZA (SALSA ROSA)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINO DE TRUCHA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINOS DE CALABAZ (SALSA BLANCA)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINOS DE CALABAZA (BOLOGNESA)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINOS DE CALABAZA (FILETO)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SORRENTINOS DE CALABAZA (SALSA MIXTA)",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 22000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "SUGE (CHOW MEIN LANGOSTINO)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 36000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (CHOW MEIN POLLO)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (CORDON BLUE)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 30500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (OJO DE BIFE)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 35000,
+    "precio_posada": 34000,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (PETIT BEEF)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 38000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (PORKO A LA BBQ )",
+    "precio_coffee_store": 0,
+    "precio_dorado": 35200,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (RAV. TERNERA Y CREM HONGOS)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 31000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (RAV. TRUCHA Y RIS)",
+    "precio_coffee_store": 0,
+    "precio_dorado": 31000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "SUGE (SALMON GRILLE )",
+    "precio_coffee_store": 0,
+    "precio_dorado": 42000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "SUGERANCIA DEL CHEF",
+    "agrupar_carta_digital": "SUGERENCIA DEL CHEF"
+  },
+  {
+    "nombre": "ABREB. ESCABECHE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "ABREBOCAS"
+  },
+  {
+    "nombre": "ABREB. HUMMUS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 9800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "ABREBOCAS"
+  },
+  {
+    "nombre": "BAOS CERDO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "BAOS TERNERA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18900,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "BRUS AVOCADO TOAST",
+    "precio_coffee_store": 0,
+    "precio_dorado": 27000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS CAPRESE",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS CROQUE MADAME",
+    "precio_coffee_store": 21000,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "ESPECIALES MONTADOS"
+  },
+  {
+    "nombre": "BRUS JYQ",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS MEDITERANEA",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS PALTA",
+    "precio_coffee_store": 25000,
+    "precio_dorado": 0,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS SALMON",
+    "precio_coffee_store": 0,
+    "precio_dorado": 27000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BRUS STRACCIATELLA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "BRUSCHETTAS"
+  },
+  {
+    "nombre": "BUÑUELO DE ESPINACA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 15800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "DEGUSTACION DE QUESOS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 52000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TABLAS"
+  },
+  {
+    "nombre": "EBI FURAI - LANGO REBOSADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 24500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "FALAFEL",
+    "precio_coffee_store": 0,
+    "precio_dorado": 15800,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "GYOZA CERDO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "GYOZA HONGO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "MONTADO BURRATA",
+    "precio_coffee_store": 21000,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "ESPECIALES MONTADOS"
+  },
+  {
+    "nombre": "MONTADO VEGGIE",
+    "precio_coffee_store": 21000,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "ESPECIALES MONTADOS"
+  },
+  {
+    "nombre": "PAPAS CHEDDAR Y PANCETA CROC",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "PAPAS FRITAS",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 12000,
+    "precio_posada": 15000,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "PAPAS HONGOS",
+    "precio_coffee_store": 0,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "TAPEOS CALIENTES"
+  },
+  {
+    "nombre": "PAPAS RUSTICAS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": 2400,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "WRAPS CERDO",
+    "precio_coffee_store": 27000,
+    "precio_dorado": 30500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "WRAPS"
+  },
+  {
+    "nombre": "WRAPS POLLO PANKO",
+    "precio_coffee_store": 27000,
+    "precio_dorado": 30500,
+    "precio_posada": null,
+    "tipo": "RECETA",
+    "familia": "TAPEOS",
+    "agrupar_carta_digital": "WRAPS"
+  },
+  {
+    "nombre": "VAJ BARCO TCS CHICO",
+    "precio_coffee_store": 21330,
+    "precio_dorado": 21350,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BARCO TCS GRANDE",
+    "precio_coffee_store": 35800,
+    "precio_dorado": 35800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOTELLAS AGUA LOCAL",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL CHICO COLOR TCS",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL ENSALADA AFRA",
+    "precio_coffee_store": 28000,
+    "precio_dorado": 28000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL POKE AFRA",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL SALUDABLE BLANCO TCS",
+    "precio_coffee_store": 23000,
+    "precio_dorado": 23000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL SALUDABLE COLOR GDE",
+    "precio_coffee_store": 23000,
+    "precio_dorado": 23000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ BOWL SALUDABLE COLOR TCS",
+    "precio_coffee_store": 23000,
+    "precio_dorado": 23000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA AGUA 490 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA CHAMPAGNE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 5200,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA DE FRUTA",
+    "precio_coffee_store": 3000,
+    "precio_dorado": 3000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA MARGARITA 295 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA MARTINI",
+    "precio_coffee_store": 0,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPA SAKE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPON DE VINO",
+    "precio_coffee_store": 4800,
+    "precio_dorado": 4800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPON GIN 600 CC",
+    "precio_coffee_store": 0,
+    "precio_dorado": 6800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPON HUEVO",
+    "precio_coffee_store": null,
+    "precio_dorado": 2800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ COPON LICUADO",
+    "precio_coffee_store": 2800,
+    "precio_dorado": 2800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUCHARAS CHICAS DE POCIL",
+    "precio_coffee_store": 1800,
+    "precio_dorado": 1800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUCHARAS DOBLES",
+    "precio_coffee_store": 2100,
+    "precio_dorado": 2100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUCHARAS POSTRE GDES",
+    "precio_coffee_store": 2500,
+    "precio_dorado": 2500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUCHARAS SUBM LARGAS",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 4000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUCHILLO",
+    "precio_coffee_store": 5000,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUENCO AFRA GRANDE",
+    "precio_coffee_store": 12000,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ CUENCO POSTRE BLANCO CREAM B",
+    "precio_coffee_store": 14000,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ DIP AFRA",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ DIP CERAMICA BLANC",
+    "precio_coffee_store": 3000,
+    "precio_dorado": 3000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ DIP MANICERO",
+    "precio_coffee_store": 0,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ DIP VIDRIO TE",
+    "precio_coffee_store": 2800,
+    "precio_dorado": 2800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ DOBLE TCS",
+    "precio_coffee_store": 6700,
+    "precio_dorado": 6700,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ FRAPERAS METAL",
+    "precio_coffee_store": 7500,
+    "precio_dorado": 7500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ FRAPPERA VIDRIO",
+    "precio_coffee_store": null,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ JARRAS DE VIDRIO",
+    "precio_coffee_store": null,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ JARRITA DE LECHE TCS",
+    "precio_coffee_store": 8300,
+    "precio_dorado": 8300,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ JARRITO TCS",
+    "precio_coffee_store": 5748,
+    "precio_dorado": 5800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ JARRO CAPPUCCINO GRANDE",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ LAJA NEGRA CHICA",
+    "precio_coffee_store": 0,
+    "precio_dorado": 32000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ LAJA NEGRA GRANDE",
+    "precio_coffee_store": 0,
+    "precio_dorado": 40000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PANERA",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PINZA DE HIELO",
+    "precio_coffee_store": 5800,
+    "precio_dorado": 5800,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 16 TCS (MEDIALUNA)",
+    "precio_coffee_store": 6200,
+    "precio_dorado": 6200,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 BAMBU PLAST",
+    "precio_coffee_store": null,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 BLANCO TCS",
+    "precio_coffee_store": 23000,
+    "precio_dorado": 23000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 BORDE BEIGE",
+    "precio_coffee_store": null,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 BORDE GRIS TAP",
+    "precio_coffee_store": null,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 BORDE NEGRO TAP",
+    "precio_coffee_store": null,
+    "precio_dorado": 14000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 DE COLOR TCS",
+    "precio_coffee_store": 25000,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO 21 GRIS TAPEO",
+    "precio_coffee_store": null,
+    "precio_dorado": 12000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO AFRA CHICO PORCION",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO AFRA RECTANGULAR",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 18000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO AFRA REDONDO CHICO",
+    "precio_coffee_store": 8500,
+    "precio_dorado": 8500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO CAFE TCS",
+    "precio_coffee_store": null,
+    "precio_dorado": 29100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO CHICO TCS",
+    "precio_coffee_store": 3310,
+    "precio_dorado": 3310,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO DOBLE TCS",
+    "precio_coffee_store": 5900,
+    "precio_dorado": 5910,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO HONDO POSTRE",
+    "precio_coffee_store": 26000,
+    "precio_dorado": 26000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO HONDO TCS",
+    "precio_coffee_store": 29100,
+    "precio_dorado": 29000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO OVAL CHICO AFRA",
+    "precio_coffee_store": 20000,
+    "precio_dorado": 20000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO OVAL GRANDE AFRA",
+    "precio_coffee_store": 25000,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO PASTA HONDO TCS",
+    "precio_coffee_store": 29100,
+    "precio_dorado": 29100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO PLAYO 26 TCS",
+    "precio_coffee_store": 29100,
+    "precio_dorado": 29100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO PLAYO GRANDE TCS",
+    "precio_coffee_store": 29100,
+    "precio_dorado": 29100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO RECTANGULAR AFRA CHICO",
+    "precio_coffee_store": 21000,
+    "precio_dorado": 21000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO RECTANGULAR AFRA GRANDE",
+    "precio_coffee_store": 25000,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO RECTANGULAR TCS",
+    "precio_coffee_store": 29000,
+    "precio_dorado": 29000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO TETERAS IMPR 3D",
+    "precio_coffee_store": 18000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO TORTA GDE AFRA",
+    "precio_coffee_store": 15000,
+    "precio_dorado": 15000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ PLATO TORTA GRANDE REDONDO",
+    "precio_coffee_store": 25000,
+    "precio_dorado": 25000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ POCILLO TCS",
+    "precio_coffee_store": 4873,
+    "precio_dorado": 5000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ SACA CORCHOS",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ SALERO Y PIMENT",
+    "precio_coffee_store": 4000,
+    "precio_dorado": 4000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ SODINES",
+    "precio_coffee_store": 932,
+    "precio_dorado": 950,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TAZA CAPPUCCINO/SUBMA",
+    "precio_coffee_store": 3500,
+    "precio_dorado": 3100,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TAZA DOBLE AFRA",
+    "precio_coffee_store": 6000,
+    "precio_dorado": 6000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TAZA SUBMA VIDRIO",
+    "precio_coffee_store": 3300,
+    "precio_dorado": 3300,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TAZON AFRA",
+    "precio_coffee_store": 7500,
+    "precio_dorado": 7500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TAZON TCS",
+    "precio_coffee_store": 8000,
+    "precio_dorado": 8000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TENEDOR",
+    "precio_coffee_store": 2500,
+    "precio_dorado": 2500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ TETERAS HIERRO",
+    "precio_coffee_store": 84700,
+    "precio_dorado": 84700,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ UNTADOR",
+    "precio_coffee_store": 2500,
+    "precio_dorado": 2500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO ALTO FACETADO  330 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO ALTO FACETADO  400 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO DE PINTA",
+    "precio_coffee_store": 3500,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO ERLENMAYER IRISH",
+    "precio_coffee_store": 9000,
+    "precio_dorado": 9000,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO OLD FASHION",
+    "precio_coffee_store": 3430,
+    "precio_dorado": 3500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO SODERO 140 CC",
+    "precio_coffee_store": null,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO TRAGO LARGO GRANDE",
+    "precio_coffee_store": 2500,
+    "precio_dorado": 2500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO TRAGO LARGO VIDRIO",
+    "precio_coffee_store": 1500,
+    "precio_dorado": 1500,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  },
+  {
+    "nombre": "VAJ VASO WHISKY TALLADO",
+    "precio_coffee_store": 0,
+    "precio_dorado": null,
+    "precio_posada": null,
+    "tipo": "INSUMOS",
+    "familia": "VAJILLA",
+    "agrupar_carta_digital": null
+  }
+]

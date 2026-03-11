@@ -112,11 +112,11 @@ export class SuppliersService {
 
     if (search) {
       where.OR = [
-        { name: { contains: search } },
-        { legalName: { contains: search } },
-        { contactName: { contains: search } },
-        { contactEmail: { contains: search } },
-        { taxId: { contains: search } },
+        { name: { contains: search, mode: 'insensitive' } },
+        { legalName: { contains: search, mode: 'insensitive' } },
+        { contactName: { contains: search, mode: 'insensitive' } },
+        { contactEmail: { contains: search, mode: 'insensitive' } },
+        { taxId: { contains: search, mode: 'insensitive' } },
       ];
     }
 

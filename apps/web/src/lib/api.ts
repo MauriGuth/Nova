@@ -1,4 +1,23 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+/** En producción (Vercel) usa /api para que el rewrite envíe la petición a Railway (NEXT_PUBLIC_API_URL). */
+function getApiUrl(): string {
+  if (typeof window === 'undefined') {
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
+  }
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
+  }
+  return `${window.location.origin}/api`;
+}
+
+function getApiStorageSuffix(): string {
+  const apiUrl = getApiUrl();
+  return apiUrl.replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '').toLowerCase();
+}
+
+function scopedStorageKey(base: string): string {
+  if (typeof window === 'undefined') return base;
+  return `${base}__${getApiStorageSuffix()}`;
+}
 
 /** Claves por app: cada link tiene su propia sesión para poder tener varias abiertas a la vez */
 function getStationFromUrl(): string | null {
@@ -10,36 +29,36 @@ export function getTokenKey(): string {
   if (typeof window === 'undefined') return 'elio_token';
   const p = window.location.pathname;
   const station = getStationFromUrl();
-  if (p.startsWith('/cajero')) return 'elio_token_cajero';
-  if (p.startsWith('/mozo')) return 'elio_token_mozo';
-  if (p.startsWith('/deposito')) return 'elio_token_deposito';
+  if (p.startsWith('/cajero')) return scopedStorageKey('elio_token_cajero');
+  if (p.startsWith('/mozo')) return scopedStorageKey('elio_token_mozo');
+  if (p.startsWith('/deposito')) return scopedStorageKey('elio_token_deposito');
   if (p.startsWith('/pos')) {
-    if (station === 'cajero') return 'elio_token_cajero';
-    if (station === 'mozo') return 'elio_token_mozo';
-    if (station === 'deposito') return 'elio_token_deposito';
-    return 'elio_token_pos';
+    if (station === 'cajero') return scopedStorageKey('elio_token_cajero');
+    if (station === 'mozo') return scopedStorageKey('elio_token_mozo');
+    if (station === 'deposito') return scopedStorageKey('elio_token_deposito');
+    return scopedStorageKey('elio_token_pos');
   }
-  if (p.startsWith('/kitchen')) return 'elio_token_kitchen';
-  if (p.startsWith('/cafeteria')) return 'elio_token_cafeteria';
-  return 'elio_token';
+  if (p.startsWith('/kitchen')) return scopedStorageKey('elio_token_kitchen');
+  if (p.startsWith('/cafeteria')) return scopedStorageKey('elio_token_cafeteria');
+  return scopedStorageKey('elio_token');
 }
 
 export function getUserKey(): string {
   if (typeof window === 'undefined') return 'elio_user';
   const p = window.location.pathname;
   const station = getStationFromUrl();
-  if (p.startsWith('/cajero')) return 'elio_user_cajero';
-  if (p.startsWith('/mozo')) return 'elio_user_mozo';
-  if (p.startsWith('/deposito')) return 'elio_user_deposito';
+  if (p.startsWith('/cajero')) return scopedStorageKey('elio_user_cajero');
+  if (p.startsWith('/mozo')) return scopedStorageKey('elio_user_mozo');
+  if (p.startsWith('/deposito')) return scopedStorageKey('elio_user_deposito');
   if (p.startsWith('/pos')) {
-    if (station === 'cajero') return 'elio_user_cajero';
-    if (station === 'mozo') return 'elio_user_mozo';
-    if (station === 'deposito') return 'elio_user_deposito';
-    return 'elio_user_pos';
+    if (station === 'cajero') return scopedStorageKey('elio_user_cajero');
+    if (station === 'mozo') return scopedStorageKey('elio_user_mozo');
+    if (station === 'deposito') return scopedStorageKey('elio_user_deposito');
+    return scopedStorageKey('elio_user_pos');
   }
-  if (p.startsWith('/kitchen')) return 'elio_user_kitchen';
-  if (p.startsWith('/cafeteria')) return 'elio_user_cafeteria';
-  return 'elio_user';
+  if (p.startsWith('/kitchen')) return scopedStorageKey('elio_user_kitchen');
+  if (p.startsWith('/cafeteria')) return scopedStorageKey('elio_user_cafeteria');
+  return scopedStorageKey('elio_user');
 }
 
 /** Para que los links del POS mantengan la sesión por pestaña (cajero/mozo) */
@@ -53,15 +72,15 @@ export function getLocationKey(): string {
   if (typeof window === 'undefined') return 'elio_pos_location';
   const p = window.location.pathname;
   const station = getStationFromUrl();
-  if (p.startsWith('/cajero')) return 'elio_cajero_location';
-  if (p.startsWith('/mozo')) return 'elio_mozo_location';
-  if (p.startsWith('/deposito')) return 'elio_deposito_location';
+  if (p.startsWith('/cajero')) return scopedStorageKey('elio_cajero_location');
+  if (p.startsWith('/mozo')) return scopedStorageKey('elio_mozo_location');
+  if (p.startsWith('/deposito')) return scopedStorageKey('elio_deposito_location');
   if (p.startsWith('/pos')) {
-    if (station === 'cajero') return 'elio_cajero_location';
-    if (station === 'mozo') return 'elio_mozo_location';
-    if (station === 'deposito') return 'elio_deposito_location';
+    if (station === 'cajero') return scopedStorageKey('elio_cajero_location');
+    if (station === 'mozo') return scopedStorageKey('elio_mozo_location');
+    if (station === 'deposito') return scopedStorageKey('elio_deposito_location');
   }
-  return 'elio_pos_location';
+  return scopedStorageKey('elio_pos_location');
 }
 
 class ApiClient {
@@ -76,8 +95,8 @@ class ApiClient {
     const key = getTokenKey();
     let token = localStorage.getItem(key);
     // Si estás en el dashboard y no hay token de panel, usar el del POS (por si iniciaste sesión como Admin en POS)
-    if (!token && key === 'elio_token') {
-      token = localStorage.getItem('elio_token_pos');
+    if (!token && key === scopedStorageKey('elio_token')) {
+      token = localStorage.getItem(scopedStorageKey('elio_token_pos'));
     }
     return token;
   }
@@ -102,7 +121,7 @@ class ApiClient {
       (headers as Record<string, string>)['Content-Type'] = 'application/json';
     }
 
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const response = await fetch(`${getApiUrl()}${endpoint}`, {
       ...options,
       headers,
     });
@@ -131,8 +150,8 @@ class ApiClient {
       const error = await response.json().catch(() => ({ message: 'Error del servidor' }));
       // Si 403 en dashboard, limpiar token del panel para que la próxima petición use el del POS (por si es Admin)
       if (response.status === 403 && typeof window !== 'undefined' && !window.location.pathname.startsWith('/pos')) {
-        localStorage.removeItem('elio_token');
-        localStorage.removeItem('elio_user');
+        localStorage.removeItem(scopedStorageKey('elio_token'));
+        localStorage.removeItem(scopedStorageKey('elio_user'));
       }
       const message = response.status === 403
         ? (error.message || 'No tienes permiso. Inicia sesión en el panel con un usuario Admin (/login).')

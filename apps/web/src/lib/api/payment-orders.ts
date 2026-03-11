@@ -1,6 +1,6 @@
 import { api } from '../api';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
 
 export const paymentOrdersApi = {
   getAll: (params?: { status?: string; supplierId?: string; page?: number; limit?: number }) =>

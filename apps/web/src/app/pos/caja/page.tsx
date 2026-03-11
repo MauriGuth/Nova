@@ -67,7 +67,9 @@ interface ProductRow {
   unit: string
   avgCost: number
   salePrice: number
+  imageUrl?: string | null
   category: { id: string; name: string; icon: string; color: string }
+  stockQuantity: number
 }
 
 const defaultProductForm = {
@@ -498,33 +500,49 @@ export default function PosCajaPage() {
   }
 
   const fetchProducts = useCallback(async () => {
+    if (!locationId) {
+      setProducts([])
+      return
+    }
+
     setLoadingProd(true)
     try {
-      const res = await productsApi.getAll({ limit: 300 })
+      const res = await productsApi.getAll({ limit: 5000, isActive: true })
       const list = res?.data ?? []
       setProducts(
-        list.map((p: any) => ({
-          id: p.id,
-          sku: p.sku,
-          name: p.name,
-          unit: p.unit,
-          avgCost: p.avgCost ?? 0,
-          salePrice: p.salePrice ?? 0,
-          imageUrl: p.imageUrl ?? null,
-          category: p.category ?? {
-            id: "",
-            name: "Sin categoría",
-            icon: "📦",
-            color: "#6b7280",
-          },
-        }))
+        list
+          .map((p: any) => {
+            const stockForLocation = Array.isArray(p.stockLevels)
+              ? p.stockLevels.find((level: any) => level.locationId === locationId)
+              : null
+
+            if (!stockForLocation) return null
+
+            return {
+              id: p.id,
+              sku: p.sku,
+              name: p.name,
+              unit: p.unit,
+              avgCost: p.avgCost ?? 0,
+              salePrice: stockForLocation.salePrice ?? p.salePrice ?? 0,
+              stockQuantity: stockForLocation.quantity ?? 0,
+              imageUrl: p.imageUrl ?? null,
+              category: p.category ?? {
+                id: "",
+                name: "Sin categoría",
+                icon: "📦",
+                color: "#6b7280",
+              },
+            }
+          })
+          .filter(Boolean)
       )
     } catch {
       setProducts([])
     } finally {
       setLoadingProd(false)
     }
-  }, [])
+  }, [locationId])
 
   useEffect(() => {
     if (tab === "productos") {
@@ -1095,7 +1113,9 @@ export default function PosCajaPage() {
               <p className="py-8 text-center text-sm text-gray-500">
                 {productSearch.trim()
                   ? "No hay productos que coincidan con la búsqueda"
-                  : "Aún no hay productos. Agrega el primero."}
+                  : locationId
+                    ? "No hay productos cargados para este local."
+                    : "Seleccioná un local para ver sus productos."}
               </p>
             ) : (
               <ul className="divide-y divide-gray-100">

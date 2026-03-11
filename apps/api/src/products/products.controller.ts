@@ -53,6 +53,7 @@ export class ProductsController {
   findAll(
     @Query('search') search?: string,
     @Query('categoryId') categoryId?: string,
+    @Query('familia') familia?: string,
     @Query('isActive') isActive?: string,
     @Query('isSellable') isSellable?: string,
     @Query('isIngredient') isIngredient?: string,
@@ -63,6 +64,7 @@ export class ProductsController {
     return this.productsService.findAll({
       search,
       categoryId,
+      familia,
       isActive: isActive !== undefined ? isActive === 'true' : undefined,
       isSellable: isSellable !== undefined ? isSellable === 'true' : undefined,
       isIngredient: isIngredient !== undefined ? isIngredient === 'true' : undefined,
