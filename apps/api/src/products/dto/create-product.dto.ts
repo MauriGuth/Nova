@@ -30,11 +30,6 @@ export class CreateProductDto {
   @IsString()
   categoryId: string;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
-  familia?: string;
-
   @IsString()
   @MaxLength(20)
   unit: string;

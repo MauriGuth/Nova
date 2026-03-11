@@ -500,10 +500,7 @@ export default function PosCajaPage() {
   const fetchProducts = useCallback(async () => {
     setLoadingProd(true)
     try {
-      const res = await productsApi.getAll({
-        limit: 5000,
-        ...(locationId ? { locationId } : {}),
-      })
+      const res = await productsApi.getAll({ limit: 300 })
       const list = res?.data ?? []
       setProducts(
         list.map((p: any) => ({
@@ -527,7 +524,7 @@ export default function PosCajaPage() {
     } finally {
       setLoadingProd(false)
     }
-  }, [locationId])
+  }, [])
 
   useEffect(() => {
     if (tab === "productos") {

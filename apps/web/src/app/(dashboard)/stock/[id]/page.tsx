@@ -124,12 +124,6 @@ const unitOptions = [
   { value: "ml", label: "Mililitro (ml)" },
 ]
 
-/** Quita prefijos "Tipo:", "Familia:", "Agrupar:" del nombre de categoría para mostrar solo el valor. */
-function getCategoryDisplayName(name: string | null | undefined): string {
-  if (!name) return ""
-  return name.replace(/^(Tipo|Familia|Agrupar):\s*/i, "").trim() || name
-}
-
 // ---------- API → UI mapping ----------
 
 interface ApiStockLevel {
@@ -148,7 +142,6 @@ interface ApiProduct {
   name: string
   description?: string
   categoryId: string
-  familia?: string | null
   unit: string
   imageUrl?: string | null
   avgCost: number
@@ -201,7 +194,6 @@ interface ProcessedProduct {
   id: string
   sku: string
   name: string
-  familia?: string | null
   unit: string
   imageUrl?: string | null
   avgCost: number
@@ -276,7 +268,6 @@ function processProduct(p: ApiProduct): ProcessedProduct {
     id: p.id,
     sku: p.sku,
     name: p.name,
-    familia: p.familia ?? undefined,
     unit: p.unit,
     imageUrl: p.imageUrl ?? undefined,
     avgCost: p.avgCost ?? 0,
@@ -423,7 +414,6 @@ export default function ProductDetailPage() {
     sku: "",
     name: "",
     categoryId: "",
-    familia: "" as string,
     unit: "unidad",
     imageUrl: "" as string,
     avgCost: 0,
@@ -482,17 +472,15 @@ export default function ProductDetailPage() {
     if (showEditModal && categories.length === 0) {
       categoriesApi.getAll({ isActive: true }).then((res: any) => {
         const list = Array.isArray(res) ? res : res?.data ?? []
-        const mapped = (list as Array<{ id: string; name: string; slug: string; icon?: string; color?: string }>).map((c) => ({
-          id: c.id,
-          name: c.name,
-          slug: c.slug,
-          icon: c.icon ?? "",
-          color: c.color ?? "",
-        }))
-        mapped.sort((a, b) =>
-          getCategoryDisplayName(a.name).localeCompare(getCategoryDisplayName(b.name), "es", { sensitivity: "base" })
+        setCategories(
+          (list as Array<{ id: string; name: string; slug: string; icon?: string; color?: string }>).map((c) => ({
+            id: c.id,
+            name: c.name,
+            slug: c.slug,
+            icon: c.icon ?? "",
+            color: c.color ?? "",
+          }))
         )
-        setCategories(mapped)
       }).catch(() => {})
     }
   }, [showEditModal, categories.length])
@@ -503,7 +491,6 @@ export default function ProductDetailPage() {
       sku: product.sku,
       name: product.name,
       categoryId: product.category.id,
-      familia: product.familia ?? "",
       unit: product.unit,
       imageUrl: product.imageUrl ?? "",
       avgCost: product.avgCost,
@@ -533,7 +520,6 @@ export default function ProductDetailPage() {
         sku: editForm.sku,
         name: editForm.name,
         categoryId: editForm.categoryId,
-        familia: editForm.familia || undefined,
         unit: editForm.unit,
         imageUrl,
         avgCost: editForm.avgCost,
@@ -681,13 +667,8 @@ export default function ProductDetailPage() {
                   className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium"
                   style={getCategoryBadgeStyle(product.category.color)}
                 >
-                  {getCategoryDisplayName(product.category.name)}
+                  {product.category.name}
                 </span>
-                {product.familia && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-300">
-                    {product.familia}
-                  </span>
-                )}
                 <span
                   className={cn(
                     "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium",
@@ -858,7 +839,7 @@ export default function ProductDetailPage() {
               </div>
               <div>
                 <label htmlFor="edit-category" className="block text-sm font-medium text-gray-700 dark:text-white">
-                  Categoría (tipo)
+                  Categoría
                 </label>
                 <select
                   id="edit-category"
@@ -872,26 +853,10 @@ export default function ProductDetailPage() {
                   <option value="">Seleccionar categoría</option>
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>
-                      {getCategoryDisplayName(c.name)}
+                      {c.name}
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
-                <label htmlFor="edit-familia" className="block text-sm font-medium text-gray-700 dark:text-white">
-                  Familia
-                </label>
-                <input
-                  id="edit-familia"
-                  type="text"
-                  value={editForm.familia}
-                  onChange={(e) =>
-                    setEditForm((f) => ({ ...f, familia: e.target.value }))
-                  }
-                  placeholder="Ej. ADICIONAL, TAPEOS"
-                  className="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  aria-label="Familia del producto"
-                />
               </div>
               <div>
                 <label htmlFor="edit-unit" className="block text-sm font-medium text-gray-700 dark:text-white">

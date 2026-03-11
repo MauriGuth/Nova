@@ -11,9 +11,6 @@ export class ProductsService {
   async findAll(filters: {
     search?: string;
     categoryId?: string;
-    familia?: string;
-    /** Si se envía, solo devuelve productos que tienen stock (StockLevel) en ese local. Para POS/cajas por local. */
-    locationId?: string;
     isActive?: boolean;
     isSellable?: boolean;
     isIngredient?: boolean;
@@ -27,28 +24,17 @@ export class ProductsService {
 
     const where: Prisma.ProductWhereInput = {};
 
-    if (filters.locationId?.trim()) {
-      where.stockLevels = {
-        some: { locationId: filters.locationId.trim() },
-      };
-    }
-
-    if (filters.search?.trim()) {
-      const term = filters.search.trim();
+    if (filters.search) {
       where.OR = [
-        { name: { contains: term, mode: 'insensitive' } },
-        { sku: { contains: term, mode: 'insensitive' } },
-        { barcode: { contains: term, mode: 'insensitive' } },
-        { description: { contains: term, mode: 'insensitive' } },
+        { name: { contains: filters.search } },
+        { sku: { contains: filters.search } },
+        { barcode: { contains: filters.search } },
+        { description: { contains: filters.search } },
       ];
     }
 
     if (filters.categoryId) {
       where.categoryId = filters.categoryId;
-    }
-
-    if (filters.familia?.trim()) {
-      where.familia = filters.familia.trim();
     }
 
     if (filters.isActive !== undefined) {
