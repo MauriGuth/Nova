@@ -34,8 +34,22 @@ export class ArcaWsaaService {
         : 'testing';
     this.service = this.config.get<string>('ARCA_SERVICE', 'wsfev1');
     this.cuit = this.config.get<string>('ARCA_CUIT', '').trim();
-    this.certPath = this.config.get<string>('ARCA_CERT_PATH', '').trim();
-    this.keyPath = this.config.get<string>('ARCA_KEY_PATH', '').trim();
+    const certPathEnv = this.config.get<string>('ARCA_CERT_PATH', '').trim();
+    const keyPathEnv = this.config.get<string>('ARCA_KEY_PATH', '').trim();
+    const certBase64 = this.config.get<string>('ARCA_CERT_BASE64', '').trim().replace(/\s/g, '');
+    const keyBase64 = this.config.get<string>('ARCA_KEY_BASE64', '').trim().replace(/\s/g, '');
+
+    if (certPathEnv && keyPathEnv) {
+      this.certPath = certPathEnv;
+      this.keyPath = keyPathEnv;
+    } else if (certBase64 && keyBase64) {
+      const { certPath, keyPath } = this.writeTempCertAndKey(certBase64, keyBase64);
+      this.certPath = certPath;
+      this.keyPath = keyPath;
+    } else {
+      this.certPath = '';
+      this.keyPath = '';
+    }
     this.enabled = this.config.get<string>('ARCA_ENABLED', 'false') === 'true';
     this.wsaaUrl = this.config.get<string>(
       'ARCA_WSAA_URL',
@@ -47,6 +61,28 @@ export class ArcaWsaaService {
         .update(`${this.environment}:${this.service}:${this.cuit}:${this.certPath}`)
         .digest('hex')}.json`,
     );
+  }
+
+  /**
+   * Escribe certificado y clave desde base64 en archivos temporales (para Railway/env sin volumen).
+   * Usado cuando ARCA_CERT_BASE64 y ARCA_KEY_BASE64 están definidos y no hay ARCA_CERT_PATH/ARCA_KEY_PATH.
+   */
+  private writeTempCertAndKey(certBase64: string, keyBase64: string): { certPath: string; keyPath: string } {
+    const dir = path.join(os.tmpdir(), 'elio-arca-certs');
+    fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
+    const certPath = path.join(dir, 'cert.pem');
+    const keyPath = path.join(dir, 'key.pem');
+    try {
+      const certBuf = Buffer.from(certBase64, 'base64');
+      const keyBuf = Buffer.from(keyBase64, 'base64');
+      fs.writeFileSync(certPath, certBuf, { mode: 0o644 });
+      fs.writeFileSync(keyPath, keyBuf, { mode: 0o600 });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Error escribiendo cert/key';
+      this.logger.warn(`ARCA: no se pudieron escribir cert/key en temp: ${msg}`);
+      return { certPath: '', keyPath: '' };
+    }
+    return { certPath, keyPath };
   }
 
   isEnabled(): boolean {
@@ -79,7 +115,7 @@ export class ArcaWsaaService {
   async getLoginTicket(): Promise<ArcaWsaaCredentials> {
     if (!this.isEnabled()) {
       throw new Error(
-        'ARCA no está habilitado o faltan ARCA_CUIT / ARCA_CERT_PATH / ARCA_KEY_PATH / ARCA_WSAA_URL.',
+        'ARCA no está habilitado. Definí ARCA_ENABLED=true, ARCA_CUIT y (ARCA_CERT_PATH+ARCA_KEY_PATH o ARCA_CERT_BASE64+ARCA_KEY_BASE64).',
       );
     }
 
