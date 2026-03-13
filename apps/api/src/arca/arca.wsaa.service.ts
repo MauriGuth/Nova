@@ -32,7 +32,7 @@ export class ArcaWsaaService {
       this.config.get<string>('ARCA_ENV', 'testing') === 'production'
         ? 'production'
         : 'testing';
-    this.service = this.config.get<string>('ARCA_SERVICE', 'wsfev1');
+    this.service = this.config.get<string>('ARCA_SERVICE', 'wsfe');
     this.cuit = this.config.get<string>('ARCA_CUIT', '').trim();
     const certPathEnv = this.config.get<string>('ARCA_CERT_PATH', '').trim();
     const keyPathEnv = this.config.get<string>('ARCA_KEY_PATH', '').trim();

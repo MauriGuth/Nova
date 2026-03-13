@@ -54,6 +54,8 @@ Opcional (si usás OpenAI en la app):
 |------------------|--------|
 | `OPENAI_API_KEY`| Tu API key de OpenAI. |
 
+Opcional (facturación ARCA/AFIP en producción): `ARCA_ENABLED=true`, `ARCA_CUIT`, `ARCA_PTO_VTA`, `ARCA_WSAA_URL`, `ARCA_WSFEV1_URL` y certificado/clave. En Railway, si no usás volumen, podés definir **`ARCA_CERT_BASE64`** y **`ARCA_KEY_BASE64`** (contenido del cert y de la clave en base64); ver `docs/INTEGRACION_ARCA.md`.
+
 Para **DATABASE_URL**: en el servicio de PostgreSQL en Railway, en "Variables" o "Connect", copiá la variable que tenga la URL (a veces se llama `DATABASE_URL` o `PGURL`). Si te dan otra nombre, creá en la API una variable `DATABASE_URL` con ese valor.
 
 ---
@@ -228,15 +230,27 @@ railway run npx prisma migrate deploy
 **Opción A: Clonar toda la BD local → remota**  
 Útil si en remoto no tenés datos que quieras conservar (o es un entorno de prueba). **Cuidado:** reemplaza toda la base remota.
 
+En macOS, si `pg_dump` no se encuentra (`command not found`), usá la ruta de **libpq** de Homebrew (o agregá el bin al PATH una vez):
+
+```bash
+# Opción: agregar libpq al PATH para esta sesión (Homebrew en Apple Silicon)
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+```
+
+Luego:
+
 ```bash
 # 1. Exportar la BD local a un archivo (desde tu máquina)
 pg_dump "postgresql://usuario@localhost:5432/elio" --no-owner --no-acl -F c -f elio_local.dump
 
 # 2. Copiá la DATABASE_URL del servicio PostgreSQL en Railway (Variables en el dashboard).
 
-# 3. Restaurar en la BD remota (desde tu máquina, reemplazá REMOTE_DATABASE_URL)
+# 3. Restaurar en la BD remota (reemplazá REMOTE_DATABASE_URL por la URL real)
 pg_restore --no-owner --no-acl -d "REMOTE_DATABASE_URL" -c elio_local.dump
 ```
+
+Si preferís no usar PATH, podés llamar a los binarios con la ruta completa:  
+`/opt/homebrew/opt/libpq/bin/pg_dump ...` y `/opt/homebrew/opt/libpq/bin/pg_restore ...`
 
 Si `pg_restore` falla por permisos o extensiones, probá sin `-c` la primera vez o revisá que la URL sea la correcta (incluye usuario, contraseña, host y nombre de base).
 

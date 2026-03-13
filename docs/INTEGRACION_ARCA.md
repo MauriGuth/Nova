@@ -55,6 +55,13 @@ ARCA_DEFAULT_INVOICE_TYPE=factura_b
 ARCA_DEFAULT_IVA_ID=5
 ```
 
+**En Railway (sin volumen):** si no podés montar archivos, usá certificado y clave en base64:
+
+- `ARCA_CERT_BASE64`: contenido del archivo `.pem` del certificado, codificado en base64 (ej. `cat certificado.pem | base64`).
+- `ARCA_KEY_BASE64`: contenido de la clave privada en base64 (ej. `cat clave.key | base64`).
+
+Si están definidos `ARCA_CERT_BASE64` y `ARCA_KEY_BASE64`, la API los escribe en archivos temporales al arrancar y usa esos paths; no hace falta `ARCA_CERT_PATH` ni `ARCA_KEY_PATH`.
+
 Para producción, activá `ARCA_ENABLED=true`, cambiá URLs al entorno productivo y configurá certificado, clave, CUIT y punto de venta reales.
 
 ### 3.3 Pasos para usar ventas reales (producción AFIP)
