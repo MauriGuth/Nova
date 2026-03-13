@@ -64,6 +64,39 @@ export class UsersController {
     return { url: `/uploads/avatars/${file.filename}` };
   }
 
+  /**
+   * Sincronización: sube un avatar con nombre fijo (para que la URL en BD siga siendo válida).
+   * Uso: script que envía avatares locales al API remota. Requiere Admin.
+   */
+  @Post('sync-avatar')
+  @Roles(Role.ADMIN)
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/avatars',
+        filename: (req, _file, cb) => {
+          const name = (req.query?.filename as string)?.trim();
+          if (!name || !/^avatar-[a-zA-Z0-9_.-]+\.(jpg|jpeg|png|gif|webp)$/i.test(name)) {
+            cb(new BadRequestException('Query filename obligatorio y debe ser tipo avatar-xxx.(jpg|png|gif|webp)'), '');
+            return;
+          }
+          cb(null, name);
+        },
+      }),
+      fileFilter: (_req, file, cb) => {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
+          return cb(new BadRequestException('Solo se permiten imágenes (jpg, png, gif, webp)'), false);
+        }
+        cb(null, true);
+      },
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  syncAvatar(@UploadedFile() file: Express.Multer.File, @Query('filename') filename: string) {
+    if (!file) throw new BadRequestException('No se recibió ninguna imagen');
+    return { url: `/uploads/avatars/${file.filename}` };
+  }
+
   @Post()
   @Roles(Role.ADMIN)
   async create(@Body() createUserDto: CreateUserDto) {

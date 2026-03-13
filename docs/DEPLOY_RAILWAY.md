@@ -75,6 +75,34 @@ Si el deploy falla en el build, en **Settings** del servicio revisá que existan
 
 ---
 
+## 5b. Desplegar desde la terminal (Railway CLI)
+
+Si tenés Railway instalado en la terminal (`railway` en el PATH):
+
+1. **Enlazar el proyecto** (solo la primera vez, desde la raíz del repo):
+   ```bash
+   cd /ruta/al/repo/Elio
+   railway link
+   ```
+   Elegí el proyecto y el **servicio de la API** (no el de PostgreSQL).
+
+2. **Subir el código** entrando a la carpeta de la API y haciendo deploy:
+   ```bash
+   cd apps/api
+   railway up
+   ```
+   Railway empaqueta y sube `apps/api` y dispara un nuevo deploy con ese código.
+
+3. **Migraciones** (si hiciste cambios en Prisma):
+   ```bash
+   railway run npx prisma migrate deploy
+   ```
+   (ejecutado desde `apps/api` o con el proyecto ya vinculado y Root Directory = `apps/api` en el servicio).
+
+En el dashboard de Railway el **Root Directory** del servicio debe seguir siendo **`apps/api`** para que el build use el `package.json` correcto. Al hacer `railway up` desde `apps/api`, el contenido que subís es ya esa carpeta, así que coincide.
+
+---
+
 ## 6. Dominio público (tu URL de API)
 
 1. En el **servicio de la API**, entrá a **Settings**.
@@ -96,14 +124,17 @@ La API tiene prefijo global `/api`, así que las rutas quedan:
 
 Las tablas se crean con un **pre-deploy step** en el servicio de la API (no desde tu máquina, porque la base suele no ser accesible por red pública).
 
-1. Servicio **Nova** (API) → **Settings** → **Deploy**.
-2. **+ Add pre-deploy step** (o editar el que ya tengas).
-3. Comando (una sola línea):
+1. Servicio de la **API** en Railway → **Settings** → **Deploy** (o **Build**).
+2. **Custom Build Command** o **Pre-deploy / Deploy Command**: si Railway permite un comando previo al start, agregá:
    ```bash
-   npx prisma migrate resolve --rolled-back "20260219000001_goods_receipt_received_by_and_po" 2>/dev/null || true && npx prisma migrate deploy
+   npx prisma migrate deploy
    ```
-   (El `resolve --rolled-back` solo hace falta si alguna vez falló una migración; en deploys siguientes no molesta.)
-4. Guardá. En cada deploy se ejecutará esto y luego arrancará la API.
+   Si usás **Build Command** custom, podés dejar:  
+   `npm install && npx prisma generate && npx prisma migrate deploy && npm run build`  
+   y **Start**: `npm run start:prod`.
+3. Si no tenés pre-deploy: después de cada deploy con migraciones nuevas, ejecutá migraciones una vez desde tu máquina con la URL de Railway (si te dan acceso) o desde Railway CLI:  
+   `railway run npx prisma migrate deploy` (con el proyecto vinculado y Root Directory `apps/api`).
+4. Guardá. En cada deploy se aplicarán las migraciones pendientes y luego arrancará la API.
 
 ---
 
@@ -119,6 +150,102 @@ En tu proyecto en **Vercel**:
 3. Guardá y **volvé a desplegar** el frontend (Deployments → ⋮ en el último deploy → Redeploy).
 
 **Importante:** Sin esta variable, en producción fallan el login, el Chat Auditor y todas las llamadas a la API (ej. "Cannot GET/POST /api/..."). El front usa un proxy hacia Railway solo cuando `NEXT_PUBLIC_API_URL` está configurado.
+
+---
+
+## 9. Avatares de usuario en la API remota
+
+En Railway el disco del contenedor es **efímero**: si el servicio se reinicia o redepliega, los archivos subidos (avatars, imágenes) se pierden. Para que las fotos de perfil se vean en producción tenés dos opciones:
+
+### Opción A: Volumen persistente (recomendado)
+
+1. En el servicio de la **API** en Railway → **Settings** → **Volumes**.
+2. Agregá un volumen y montalo en la ruta donde la API escribe avatares, por ejemplo: **Mount Path** `uploads` (o la ruta que use tu app, ej. `apps/api/uploads` si el working directory es `apps/api`). Revisá en el código que la ruta sea la correcta (en este proyecto es `./uploads/avatars` desde el cwd del proceso, que en Railway suele ser la raíz del servicio, ej. `apps/api`).
+3. Así los archivos subidos persisten entre redeploys.
+
+### Opción B: Sincronizar avatares desde tu máquina al remoto
+
+Si los avatares ya existen en tu entorno local (BD local + carpeta `apps/api/uploads/avatars/`), podés subirlos al API remota con el script:
+
+```bash
+# Desde la raíz del repo. NODE_PATH hace que encuentre pg (apps/api/node_modules).
+REMOTE_API_ORIGIN=https://tu-dominio.up.railway.app \
+ADMIN_EMAIL=tu-admin@ejemplo.com \
+ADMIN_PASSWORD=tu-password \
+NODE_PATH=apps/api/node_modules \
+node scripts/sync-avatars-to-remote.js
+```
+
+- El script lee de la **BD local** los `avatar_url` de los usuarios, toma cada archivo desde `apps/api/uploads/avatars/` y lo envía a `POST /api/users/sync-avatar?filename=...` en el remoto (requiere usuario Admin).
+- Podés usar **ADMIN_TOKEN** en lugar de email/password si ya tenés un JWT:  
+  `REMOTE_API_ORIGIN=https://... ADMIN_TOKEN=eyJ... node scripts/sync-avatars-to-remote.js`
+- La BD de producción ya debe tener los mismos `avatar_url` (mismas rutas `/uploads/avatars/avatar-xxx.jpg`). Si solo sincronizaste código y migraciones, los usuarios en producción ya tienen esas URLs; solo faltaba tener los archivos en el servidor. Después de correr el script, las fotos se sirven desde la API remota.
+
+Si no usás volumen, cada vez que redeploys la API en Railway tendrás que volver a ejecutar el script para restaurar los avatares, o usar Opción A.
+
+---
+
+## 10. Subir todos los cambios (código, schema y datos)
+
+Cuando en local tenés más productos (u otros datos) que en la API remota y querés dejar el remoto al día:
+
+### 1. Subir el código
+
+**Si Railway está conectado a GitHub** (deploy automático al hacer push):
+
+```bash
+cd /ruta/al/repo/Elio
+git add -A
+git status   # revisar qué se sube
+git commit -m "Sync: código y migraciones"
+git push origin main
+```
+
+**Si desplegás con Railway CLI** (sin depender del push):
+
+```bash
+cd /ruta/al/repo/Elio
+railway link   # solo la primera vez: elegí proyecto y servicio API
+cd apps/api
+railway up
+```
+
+El frontend (Vercel) suele hacer deploy automático al hacer `git push`; si no, en Vercel → Deployments → Redeploy.
+
+### 2. Aplicar migraciones en la base remota
+
+Después de subir código que incluye cambios en el schema (Prisma):
+
+```bash
+cd /ruta/al/repo/Elio/apps/api
+railway run npx prisma migrate deploy
+```
+
+(Requiere tener el proyecto vinculado con `railway link` y que el servicio API use Root Directory `apps/api`.)
+
+### 3. Copiar datos de la BD local a la remota (productos, etc.)
+
+**Opción A: Clonar toda la BD local → remota**  
+Útil si en remoto no tenés datos que quieras conservar (o es un entorno de prueba). **Cuidado:** reemplaza toda la base remota.
+
+```bash
+# 1. Exportar la BD local a un archivo (desde tu máquina)
+pg_dump "postgresql://usuario@localhost:5432/elio" --no-owner --no-acl -F c -f elio_local.dump
+
+# 2. Copiá la DATABASE_URL del servicio PostgreSQL en Railway (Variables en el dashboard).
+
+# 3. Restaurar en la BD remota (desde tu máquina, reemplazá REMOTE_DATABASE_URL)
+pg_restore --no-owner --no-acl -d "REMOTE_DATABASE_URL" -c elio_local.dump
+```
+
+Si `pg_restore` falla por permisos o extensiones, probá sin `-c` la primera vez o revisá que la URL sea la correcta (incluye usuario, contraseña, host y nombre de base).
+
+**Opción B: Solo agregar lo que falta**  
+Si en remoto ya hay órdenes, usuarios, etc., y solo querés “subir” productos/categorías que faltan, no hay un comando único. Podés:
+
+- Usar un script que lea de la BD local y llame a la API remota (POST/PATCH de productos y categorías) con un usuario Admin; si lo necesitás, se puede agregar algo tipo `scripts/sync-products-to-remote.js` similar al de avatares.
+
+Mientras tanto, la forma segura de igualar productos es Opción A solo si podés permitirte reemplazar toda la base remota por una copia de la local.
 
 ---
 
