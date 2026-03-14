@@ -1,4 +1,4 @@
-# ELIO — Sistema de Gestión Integral Gastronómica
+# Nova — Sistema de Gestión Integral Gastronómica
 
 **Plataforma de Stock, Logística, Producción y Operaciones Multi-Local con Inteligencia Artificial**
 
@@ -50,8 +50,8 @@ La documentación completa se encuentra en la carpeta `docs/`:
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/tu-org/elio.git
-cd elio
+git clone https://github.com/tu-org/nova.git
+cd nova
 
 # Instalar dependencias
 pnpm install
@@ -72,7 +72,7 @@ pnpm dev
 ## Estructura del Proyecto
 
 ```
-elio/
+nova/
 ├── apps/
 │   ├── web/          # Frontend (Next.js)
 │   ├── api/          # Backend (NestJS)
