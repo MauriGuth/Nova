@@ -6,6 +6,7 @@ import { ordersApi } from "@/lib/api/orders"
 import { authApi } from "@/lib/api/auth"
 import { api, getLocationKey } from "@/lib/api"
 import { cn } from "@/lib/utils"
+import { unlockAudio, speakAnnouncement, cancelSpeech, speakShort } from "@/lib/speech"
 import {
   Coffee,
   Clock,
@@ -57,23 +58,6 @@ function formatWait(dateStr: string): string {
   return rem > 0 ? `${h}h ${rem}m` : `${h}h`
 }
 
-function speakText(text: string) {
-  if (typeof window === "undefined" || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  setTimeout(() => {
-    const utt = new SpeechSynthesisUtterance(text)
-    utt.lang = "es-AR"
-    utt.rate = 0.88
-    utt.volume = 1
-    const voices = window.speechSynthesis.getVoices()
-    const esVoice =
-      voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
-      voices.find((v) => v.lang.startsWith("es"))
-    if (esVoice) utt.voice = esVoice
-    window.speechSynthesis.speak(utt)
-  }, 120)
-}
-
 export default function CafeteriaDisplayPage() {
   const router = useRouter()
   const [locationId, setLocationId] = useState("")
@@ -88,10 +72,12 @@ export default function CafeteriaDisplayPage() {
   const prevOrderIdsRef = useRef<Set<string>>(new Set())
   const prevItemIdsRef = useRef<Map<string, Set<string>>>(new Map())
 
-  const [voiceEnabled, setVoiceEnabled] = useState(true)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [speakingText, setSpeakingText] = useState<string | null>(null)
   const announcementQueueRef = useRef<string[]>([])
   const isSpeakingRef = useRef(false)
   const announcedUrgentRef = useRef<Set<string>>(new Set())
+  const voiceUnlockedRef = useRef(false)
 
   useEffect(() => {
     const isAuth = authApi.isAuthenticated()
@@ -173,24 +159,14 @@ export default function CafeteriaDisplayPage() {
   }, [locationId, voiceEnabled, sectorFilter])
 
   const processQueue = useCallback(() => {
-    if (announcementQueueRef.current.length === 0) { isSpeakingRef.current = false; return }
+    if (announcementQueueRef.current.length === 0) { isSpeakingRef.current = false; setSpeakingText(null); return }
     isSpeakingRef.current = true
     const text = announcementQueueRef.current.shift()!
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel()
-      setTimeout(() => {
-        const utt = new SpeechSynthesisUtterance(text)
-        utt.lang = "es-AR"
-        utt.rate = 0.88
-        utt.volume = 1
-        const voices = window.speechSynthesis.getVoices()
-        const esVoice = voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) || voices.find((v) => v.lang.startsWith("es"))
-        if (esVoice) utt.voice = esVoice
-        utt.onend = () => setTimeout(processQueue, 400)
-        utt.onerror = () => setTimeout(processQueue, 400)
-        window.speechSynthesis.speak(utt)
-      }, 120)
-    } else { isSpeakingRef.current = false }
+    setSpeakingText(text)
+    speakAnnouncement(text, () => {
+      setSpeakingText(null)
+      setTimeout(processQueue, 350)
+    })
   }, [])
 
   useEffect(() => { if (typeof window !== "undefined" && window.speechSynthesis) { window.speechSynthesis.getVoices(); window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices() } }, [])
@@ -239,7 +215,7 @@ export default function CafeteriaDisplayPage() {
     try {
       await Promise.all(itemIds.map((id) => ordersApi.updateItemStatus(id, { status: "ready" })))
       const order = orders.find((o) => o.id === orderId)
-      if (order && voiceEnabled) { speakText(`¡${order.tableName || order.table?.name || `Pedido #${order.orderNumber}`} lista! Pedido de cafetería terminado.`) }
+      if (order && voiceEnabled) { speakShort(`¡${order.tableName || order.table?.name || `Pedido #${order.orderNumber}`} lista! Pedido de cafetería terminado.`) }
       await fetchOrders()
     } catch { setError("Error al actualizar estado") } finally { setUpdating(null) }
   }
@@ -265,7 +241,16 @@ export default function CafeteriaDisplayPage() {
           <div className="flex items-center gap-1 rounded-lg bg-stone-800 p-1">
             {SECTOR_FILTERS.map((s) => (<button key={s.value} onClick={() => setSectorFilter(s.value)} className={cn("flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors", sectorFilter === s.value ? "bg-amber-600 text-white" : "text-stone-400 hover:bg-stone-700 hover:text-stone-200")}><s.icon className="h-3.5 w-3.5" /><span className="hidden md:inline">{s.label}</span></button>))}
           </div>
-          <button onClick={() => { setVoiceEnabled(!voiceEnabled); if (voiceEnabled) window.speechSynthesis?.cancel() }} className={cn("flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors", voiceEnabled ? "bg-amber-500/20 text-amber-400" : "bg-stone-800 text-stone-500 hover:text-stone-300")}>
+          <button
+            onClick={() => {
+              const next = !voiceEnabled
+              setVoiceEnabled(next)
+              if (next) {
+                if (!voiceUnlockedRef.current) { unlockAudio(); voiceUnlockedRef.current = true }
+              } else { cancelSpeech() }
+            }}
+            className={cn("flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors", voiceEnabled ? "bg-amber-500/20 text-amber-400" : "bg-stone-800 text-stone-500 hover:text-stone-300")}
+          >
             {voiceEnabled ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
             <span className="hidden sm:inline">{voiceEnabled ? "Voz ON" : "Voz OFF"}</span>
           </button>
@@ -273,6 +258,15 @@ export default function CafeteriaDisplayPage() {
           <button onClick={handleLogout} className="flex items-center gap-1.5 rounded-lg bg-stone-800 px-3 py-1.5 text-xs text-stone-400 hover:bg-red-900 hover:text-red-300"><LogOut className="h-3.5 w-3.5" /><span className="hidden sm:inline">Salir</span></button>
         </div>
       </div>
+
+      {speakingText && voiceEnabled && (
+        <div className="border-b border-amber-800 bg-amber-950/90 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-amber-200">
+            <Volume2 className="mr-1.5 inline h-4 w-4 text-amber-400" />
+            Ahora dice: <span className="text-amber-100">{speakingText}</span>
+          </p>
+        </div>
+      )}
 
       {error && (<div className="flex items-center gap-2 border-b border-red-800 bg-red-900/50 px-4 py-2 text-sm text-red-300"><AlertTriangle className="h-4 w-4 shrink-0" />{error}</div>)}
 

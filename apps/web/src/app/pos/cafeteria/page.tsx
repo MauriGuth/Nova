@@ -5,6 +5,7 @@ import { ordersApi } from "@/lib/api/orders"
 import { authApi } from "@/lib/api/auth"
 import { getLocationKey } from "@/lib/api"
 import { cn } from "@/lib/utils"
+import { unlockAudio, speakAnnouncement, cancelSpeech, speakShort } from "@/lib/speech"
 import {
   Coffee,
   Clock,
@@ -55,21 +56,6 @@ function formatWait(dateStr: string): string {
   return rem > 0 ? `${h}h ${rem}m` : `${h}h`
 }
 
-function speakText(text: string) {
-  if (typeof window === "undefined" || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  const utt = new SpeechSynthesisUtterance(text)
-  utt.lang = "es-AR"
-  utt.rate = 0.95
-  utt.volume = 1
-  const voices = window.speechSynthesis.getVoices()
-  const esVoice =
-    voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
-    voices.find((v) => v.lang.startsWith("es"))
-  if (esVoice) utt.voice = esVoice
-  window.speechSynthesis.speak(utt)
-}
-
 /* ══════════════════════════════════════
    MAIN COMPONENT — POS Cafetería Display
    ══════════════════════════════════════ */
@@ -86,10 +72,12 @@ export default function PosCafeteriaPage() {
   const prevItemIdsRef = useRef<Map<string, Set<string>>>(new Map())
 
   /* ── voice state ── */
-  const [voiceEnabled, setVoiceEnabled] = useState(true)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [speakingText, setSpeakingText] = useState<string | null>(null)
   const announcementQueueRef = useRef<string[]>([])
   const isSpeakingRef = useRef(false)
   const announcedUrgentRef = useRef<Set<string>>(new Set())
+  const voiceUnlockedRef = useRef(false)
 
   /* ── resolve location from POS storage ── */
   useEffect(() => {
@@ -209,29 +197,16 @@ export default function PosCafeteriaPage() {
   const processQueue = useCallback(() => {
     if (announcementQueueRef.current.length === 0) {
       isSpeakingRef.current = false
+      setSpeakingText(null)
       return
     }
     isSpeakingRef.current = true
     const text = announcementQueueRef.current.shift()!
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel()
-      setTimeout(() => {
-        const utt = new SpeechSynthesisUtterance(text)
-        utt.lang = "es-AR"
-        utt.rate = 0.88
-        utt.volume = 1
-        const voices = window.speechSynthesis.getVoices()
-        const esVoice =
-          voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
-          voices.find((v) => v.lang.startsWith("es"))
-      if (esVoice) utt.voice = esVoice
-      utt.onend = () => setTimeout(processQueue, 400)
-      utt.onerror = () => setTimeout(processQueue, 400)
-      window.speechSynthesis.speak(utt)
-      }, 120)
-    } else {
-      isSpeakingRef.current = false
-    }
+    setSpeakingText(text)
+    speakAnnouncement(text, () => {
+      setSpeakingText(null)
+      setTimeout(processQueue, 350)
+    })
   }, [])
 
   useEffect(() => {
@@ -328,7 +303,7 @@ export default function PosCafeteriaPage() {
       const order = orders.find((o) => o.id === orderId)
       if (order && voiceEnabled) {
         const tableName = order.tableName || order.table?.name || `Pedido #${order.orderNumber}`
-        speakText(`¡${tableName} lista! Pedido de cafetería terminado.`)
+        speakShort(`¡${tableName} lista! Pedido de cafetería terminado.`)
       }
       await fetchOrders()
     } catch {
@@ -386,8 +361,16 @@ export default function PosCafeteriaPage() {
 
           <button
             onClick={() => {
-              setVoiceEnabled(!voiceEnabled)
-              if (voiceEnabled) window.speechSynthesis?.cancel()
+              const next = !voiceEnabled
+              setVoiceEnabled(next)
+              if (next) {
+                if (!voiceUnlockedRef.current) {
+                  unlockAudio()
+                  voiceUnlockedRef.current = true
+                }
+              } else {
+                cancelSpeech()
+              }
             }}
             className={cn(
               "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
@@ -415,6 +398,15 @@ export default function PosCafeteriaPage() {
         <div className="flex items-center gap-2 border-b border-red-800 bg-red-900/50 px-4 py-2 text-sm text-red-300">
           <AlertTriangle className="h-4 w-4 shrink-0" />
           {error}
+        </div>
+      )}
+
+      {speakingText && voiceEnabled && (
+        <div className="border-b border-amber-800 bg-amber-950/90 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-amber-200">
+            <Volume2 className="mr-1.5 inline h-4 w-4 text-amber-400" />
+            Ahora dice: <span className="text-amber-100">{speakingText}</span>
+          </p>
         </div>
       )}
 

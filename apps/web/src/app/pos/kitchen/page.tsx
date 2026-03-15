@@ -5,6 +5,7 @@ import { ordersApi } from "@/lib/api/orders"
 import { authApi } from "@/lib/api/auth"
 import { getLocationKey } from "@/lib/api"
 import { cn } from "@/lib/utils"
+import { unlockAudio, speakAnnouncement as speakAnnouncementChunked, cancelSpeech, speakShort } from "@/lib/speech"
 import {
   ChefHat,
   Coffee,
@@ -106,24 +107,6 @@ function buildAnnouncement(
     text: `Nueva comanda, ${tableName}. ${parts.join(". ")}`,
     sector: mainSector,
   }
-}
-
-function speakAnnouncement(text: string, rate = 0.88) {
-  if (typeof window === "undefined" || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  setTimeout(() => {
-    const utt = new SpeechSynthesisUtterance(text)
-    utt.lang = "es-AR"
-    utt.rate = rate
-    utt.pitch = 1
-    utt.volume = 1
-    const voices = window.speechSynthesis.getVoices()
-    const esVoice = voices.find(
-      (v) => v.lang.startsWith("es") && v.name.includes("Google")
-    ) || voices.find((v) => v.lang.startsWith("es"))
-    if (esVoice) utt.voice = esVoice
-    window.speechSynthesis.speak(utt)
-  }, 120)
 }
 
 interface AnnouncementItem {
@@ -308,9 +291,11 @@ export default function KitchenPage() {
   const prevItemIdsRef = useRef<Map<string, Set<string>>>(new Map()) // orderId → Set<itemId>
 
   /* ── voice state ── */
-  const [voiceEnabled, setVoiceEnabled] = useState(true)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [speakingText, setSpeakingText] = useState<string | null>(null)
   const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([])
   const announcementQueueRef = useRef<AnnouncementItem[]>([])
+  const voiceUnlockedRef = useRef(false)
   const isSpeakingRef = useRef(false)
 
   /* ── resolve location ── */
@@ -439,31 +424,16 @@ export default function KitchenPage() {
   const processAnnouncementQueue = useCallback(() => {
     if (announcementQueueRef.current.length === 0) {
       isSpeakingRef.current = false
+      setSpeakingText(null)
       return
     }
     isSpeakingRef.current = true
     const next = announcementQueueRef.current.shift()!
-
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel()
-      setTimeout(() => {
-        const utt = new SpeechSynthesisUtterance(next.text)
-        utt.lang = "es-AR"
-        utt.rate = 0.88
-        utt.pitch = 1
-        utt.volume = 1
-        const voices = window.speechSynthesis.getVoices()
-      const esVoice =
-        voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
-        voices.find((v) => v.lang.startsWith("es"))
-      if (esVoice) utt.voice = esVoice
-      utt.onend = () => setTimeout(() => processAnnouncementQueue(), 400)
-      utt.onerror = () => setTimeout(() => processAnnouncementQueue(), 400)
-      window.speechSynthesis.speak(utt)
-      }, 120)
-    } else {
-      isSpeakingRef.current = false
-    }
+    setSpeakingText(next.text)
+    speakAnnouncementChunked(next.text, () => {
+      setSpeakingText(null)
+      setTimeout(processAnnouncementQueue, 350)
+    })
   }, [])
 
   // Preload voices
@@ -561,7 +531,7 @@ export default function KitchenPage() {
       const order = orders.find((o) => o.id === orderId)
       if (order && voiceEnabled) {
         const tableName = order.tableName || order.table?.name || `Pedido #${order.orderNumber}`
-        speakAnnouncement(`¡${tableName} lista! Comanda terminada.`)
+        speakShort(`¡${tableName} lista! Comanda terminada.`)
       }
       await fetchOrders()
     } catch {
@@ -622,12 +592,18 @@ export default function KitchenPage() {
             ))}
           </div>
 
-          {/* Voice toggle */}
+          {/* Voice toggle — al activar, desbloquear audio (necesario en móvil) */}
           <button
             onClick={() => {
-              setVoiceEnabled(!voiceEnabled)
-              if (voiceEnabled && typeof window !== "undefined") {
-                window.speechSynthesis?.cancel()
+              const next = !voiceEnabled
+              setVoiceEnabled(next)
+              if (next) {
+                if (!voiceUnlockedRef.current) {
+                  unlockAudio()
+                  voiceUnlockedRef.current = true
+                }
+              } else {
+                cancelSpeech()
               }
             }}
             title={voiceEnabled ? "Desactivar anuncios de voz" : "Activar anuncios de voz"}
@@ -664,6 +640,16 @@ export default function KitchenPage() {
         <div className="flex items-center gap-2 border-b border-red-800 bg-red-900/50 px-4 py-2 text-sm text-red-300">
           <AlertTriangle className="h-4 w-4 shrink-0" />
           {error}
+        </div>
+      )}
+
+      {/* Banner: texto que se anuncia por voz (por si no se entiende en TV/móvil) */}
+      {speakingText && voiceEnabled && (
+        <div className="border-b border-amber-800 bg-amber-950/90 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-amber-200">
+            <Volume2 className="mr-1.5 inline h-4 w-4 text-amber-400" />
+            Ahora dice: <span className="text-amber-100">{speakingText}</span>
+          </p>
         </div>
       )}
 
