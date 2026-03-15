@@ -60,16 +60,18 @@ function formatWait(dateStr: string): string {
 function speakText(text: string) {
   if (typeof window === "undefined" || !window.speechSynthesis) return
   window.speechSynthesis.cancel()
-  const utt = new SpeechSynthesisUtterance(text)
-  utt.lang = "es-AR"
-  utt.rate = 0.95
-  utt.volume = 1
-  const voices = window.speechSynthesis.getVoices()
-  const esVoice =
-    voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
-    voices.find((v) => v.lang.startsWith("es"))
-  if (esVoice) utt.voice = esVoice
-  window.speechSynthesis.speak(utt)
+  setTimeout(() => {
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.lang = "es-AR"
+    utt.rate = 0.88
+    utt.volume = 1
+    const voices = window.speechSynthesis.getVoices()
+    const esVoice =
+      voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
+      voices.find((v) => v.lang.startsWith("es"))
+    if (esVoice) utt.voice = esVoice
+    window.speechSynthesis.speak(utt)
+  }, 120)
 }
 
 export default function CafeteriaDisplayPage() {
@@ -122,9 +124,9 @@ export default function CafeteriaDisplayPage() {
       const prevItemMap = prevItemIdsRef.current
       const newItemMap = new Map<string, Set<string>>()
 
-      if (prevIds.size > 0) {
-        const newOnes = list.filter((o: any) => !prevIds.has(o.id))
-        if (newOnes.length > 0) {
+      // Incluir primera carga: si no hay prevIds, tratar todas las órdenes actuales como nuevas para anunciar
+      const newOnes = prevIds.size > 0 ? list.filter((o: any) => !prevIds.has(o.id)) : list
+      if (newOnes.length > 0) {
           const hasNew = newOnes.some((o: any) => (o.items ?? []).some((i: any) => i.status === "pending" && CAFE_SECTORS.includes(i.sector)))
           if (hasNew) { setHasNewOrders(true); setTimeout(() => setHasNewOrders(false), 5_000) }
           if (voiceEnabled) {
@@ -142,7 +144,7 @@ export default function CafeteriaDisplayPage() {
         // Detect new items added to EXISTING orders
         if (voiceEnabled) {
           for (const order of list) {
-            if (!prevIds.has(order.id)) continue
+            if (!prevIds.has(order.id)) continue // skip brand-new (already announced above)
             const prevItemIds = prevItemMap.get(order.id)
             if (!prevItemIds) continue
             const addedItems = (order.items ?? []).filter(
@@ -158,7 +160,6 @@ export default function CafeteriaDisplayPage() {
           }
           if (announcementQueueRef.current.length > 0 && !isSpeakingRef.current) processQueue()
         }
-      }
 
       // Update tracking refs
       for (const order of list) {
@@ -177,14 +178,18 @@ export default function CafeteriaDisplayPage() {
     const text = announcementQueueRef.current.shift()!
     if (typeof window !== "undefined" && window.speechSynthesis) {
       window.speechSynthesis.cancel()
-      const utt = new SpeechSynthesisUtterance(text)
-      utt.lang = "es-AR"; utt.rate = 0.95; utt.volume = 1
-      const voices = window.speechSynthesis.getVoices()
-      const esVoice = voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) || voices.find((v) => v.lang.startsWith("es"))
-      if (esVoice) utt.voice = esVoice
-      utt.onend = () => setTimeout(processQueue, 500)
-      utt.onerror = () => setTimeout(processQueue, 500)
-      window.speechSynthesis.speak(utt)
+      setTimeout(() => {
+        const utt = new SpeechSynthesisUtterance(text)
+        utt.lang = "es-AR"
+        utt.rate = 0.88
+        utt.volume = 1
+        const voices = window.speechSynthesis.getVoices()
+        const esVoice = voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) || voices.find((v) => v.lang.startsWith("es"))
+        if (esVoice) utt.voice = esVoice
+        utt.onend = () => setTimeout(processQueue, 400)
+        utt.onerror = () => setTimeout(processQueue, 400)
+        window.speechSynthesis.speak(utt)
+      }, 120)
     } else { isSpeakingRef.current = false }
   }, [])
 

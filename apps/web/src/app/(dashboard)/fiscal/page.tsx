@@ -75,6 +75,7 @@ function formatInvoiceType(value: string | undefined) {
   if (value === "factura_a") return "Factura A"
   if (value === "factura_b") return "Factura B"
   if (value === "factura_c") return "Factura C"
+  if (value === "eventual") return "Eventual"
   return "Consumidor final"
 }
 

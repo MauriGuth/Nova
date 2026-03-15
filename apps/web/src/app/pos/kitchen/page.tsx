@@ -108,21 +108,22 @@ function buildAnnouncement(
   }
 }
 
-function speakAnnouncement(text: string, rate = 0.95) {
+function speakAnnouncement(text: string, rate = 0.88) {
   if (typeof window === "undefined" || !window.speechSynthesis) return
   window.speechSynthesis.cancel()
-  const utt = new SpeechSynthesisUtterance(text)
-  utt.lang = "es-AR"
-  utt.rate = rate
-  utt.pitch = 1
-  utt.volume = 1
-  // Try to pick a Spanish voice
-  const voices = window.speechSynthesis.getVoices()
-  const esVoice = voices.find(
-    (v) => v.lang.startsWith("es") && v.name.includes("Google")
-  ) || voices.find((v) => v.lang.startsWith("es"))
-  if (esVoice) utt.voice = esVoice
-  window.speechSynthesis.speak(utt)
+  setTimeout(() => {
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.lang = "es-AR"
+    utt.rate = rate
+    utt.pitch = 1
+    utt.volume = 1
+    const voices = window.speechSynthesis.getVoices()
+    const esVoice = voices.find(
+      (v) => v.lang.startsWith("es") && v.name.includes("Google")
+    ) || voices.find((v) => v.lang.startsWith("es"))
+    if (esVoice) utt.voice = esVoice
+    window.speechSynthesis.speak(utt)
+  }, 120)
 }
 
 interface AnnouncementItem {
@@ -343,9 +344,9 @@ export default function KitchenPage() {
       const prevItemMap = prevItemIdsRef.current
       const newItemMap = new Map<string, Set<string>>()
 
-      if (prevIds.size > 0) {
-        const newOnes = list.filter((o: any) => !prevIds.has(o.id))
-        if (newOnes.length > 0) {
+      // Incluir primera carga: si no hay prevIds, tratar todas las órdenes como nuevas para anunciar
+      const newOnes = prevIds.size > 0 ? list.filter((o: any) => !prevIds.has(o.id)) : list
+      if (newOnes.length > 0) {
           setHasNewOrders(true)
           setTimeout(() => setHasNewOrders(false), 5_000)
 
@@ -377,7 +378,7 @@ export default function KitchenPage() {
 
         // Detect new items added to EXISTING orders (solo anuncia si son de cocina/delivery)
         for (const order of list) {
-          if (!prevIds.has(order.id)) continue // skip brand-new orders
+          if (!prevIds.has(order.id)) continue // skip brand-new orders (already announced above)
           const prevItemIds = prevItemMap.get(order.id)
           if (!prevItemIds) continue
           const addedItems = (order.items ?? []).filter(
@@ -418,7 +419,6 @@ export default function KitchenPage() {
         if (voiceEnabled && announcementQueueRef.current.length > 0 && !isSpeakingRef.current) {
           processAnnouncementQueue()
         }
-      }
 
       // Update tracking refs
       for (const order of list) {
@@ -446,23 +446,21 @@ export default function KitchenPage() {
 
     if (typeof window !== "undefined" && window.speechSynthesis) {
       window.speechSynthesis.cancel()
-      const utt = new SpeechSynthesisUtterance(next.text)
-      utt.lang = "es-AR"
-      utt.rate = 0.95
-      utt.pitch = 1
-      utt.volume = 1
-      const voices = window.speechSynthesis.getVoices()
+      setTimeout(() => {
+        const utt = new SpeechSynthesisUtterance(next.text)
+        utt.lang = "es-AR"
+        utt.rate = 0.88
+        utt.pitch = 1
+        utt.volume = 1
+        const voices = window.speechSynthesis.getVoices()
       const esVoice =
         voices.find((v) => v.lang.startsWith("es") && v.name.includes("Google")) ||
         voices.find((v) => v.lang.startsWith("es"))
       if (esVoice) utt.voice = esVoice
-      utt.onend = () => {
-        setTimeout(() => processAnnouncementQueue(), 500)
-      }
-      utt.onerror = () => {
-        setTimeout(() => processAnnouncementQueue(), 500)
-      }
+      utt.onend = () => setTimeout(() => processAnnouncementQueue(), 400)
+      utt.onerror = () => setTimeout(() => processAnnouncementQueue(), 400)
       window.speechSynthesis.speak(utt)
+      }, 120)
     } else {
       isSpeakingRef.current = false
     }
