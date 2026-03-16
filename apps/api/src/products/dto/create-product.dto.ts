@@ -7,6 +7,7 @@ import {
   MinLength,
   MaxLength,
   Min,
+  IsObject,
 } from 'class-validator';
 
 export class CreateProductDto {
@@ -86,5 +87,11 @@ export class CreateProductDto {
 
   /** Precio de venta por local (locationId -> precio). Si no se indica, se usa salePrice. */
   @IsOptional()
+  @IsObject()
   salePriceByLocation?: Record<string, number>;
+
+  /** Alias en PascalCase por si el cliente o proxy envía así (forbidNonWhitelisted). */
+  @IsOptional()
+  @IsObject()
+  SalePriceByLocation?: Record<string, number>;
 }

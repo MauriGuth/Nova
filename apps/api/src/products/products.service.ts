@@ -115,7 +115,7 @@ export class ProductsService {
   }
 
   async create(data: CreateProductDto) {
-    const { locationIds = [], salePriceByLocation = {}, ...productData } = data;
+    const { locationIds = [], salePriceByLocation = {}, SalePriceByLocation: _skip, ...productData } = data as CreateProductDto & { SalePriceByLocation?: Record<string, number> };
 
     const existing = await this.prisma.product.findUnique({
       where: { sku: productData.sku },
@@ -146,7 +146,10 @@ export class ProductsService {
     }
 
     const priceByLoc =
-      salePriceByLocation && typeof salePriceByLocation === 'object' ? salePriceByLocation : {};
+      (salePriceByLocation && typeof salePriceByLocation === 'object' ? salePriceByLocation : null) ??
+      ((data as any).SalePriceByLocation && typeof (data as any).SalePriceByLocation === 'object'
+        ? (data as any).SalePriceByLocation
+        : {});
 
     return this.prisma.product.create({
       data: {
@@ -182,7 +185,7 @@ export class ProductsService {
   }
 
   async update(id: string, data: UpdateProductDto) {
-    const { locationIds, salePriceByLocation, ...productData } = data;
+    const { locationIds, salePriceByLocation, SalePriceByLocation: _skip, ...productData } = data as UpdateProductDto & { SalePriceByLocation?: Record<string, number> };
     const product = await this.prisma.product.findUnique({
       where: { id },
     });
@@ -222,11 +225,14 @@ export class ProductsService {
       }
     }
 
-    const priceByLoc =
-      salePriceByLocation && typeof salePriceByLocation === 'object' ? salePriceByLocation : {};
-
     const defaultSalePrice =
       productData.salePrice !== undefined ? productData.salePrice : product.salePrice;
+
+    const priceByLoc =
+      (salePriceByLocation && typeof salePriceByLocation === 'object' ? salePriceByLocation : null) ??
+      ((data as any).SalePriceByLocation && typeof (data as any).SalePriceByLocation === 'object'
+        ? (data as any).SalePriceByLocation
+        : {});
 
     await this.prisma.$transaction(async (tx) => {
       await tx.product.update({

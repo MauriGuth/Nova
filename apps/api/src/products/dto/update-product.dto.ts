@@ -7,6 +7,7 @@ import {
   MinLength,
   MaxLength,
   Min,
+  IsObject,
 } from 'class-validator';
 
 export class UpdateProductDto {
@@ -90,5 +91,11 @@ export class UpdateProductDto {
 
   /** Precio de venta por local (locationId -> precio). Si no se indica para un local, se usa salePrice del producto. */
   @IsOptional()
+  @IsObject()
   salePriceByLocation?: Record<string, number>;
+
+  /** Alias en PascalCase por si el cliente o proxy envía así (forbidNonWhitelisted). */
+  @IsOptional()
+  @IsObject()
+  SalePriceByLocation?: Record<string, number>;
 }
