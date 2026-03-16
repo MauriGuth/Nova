@@ -21,8 +21,11 @@ export class StockReconciliationsController {
   ) {}
 
   @Get('products-for-count')
-  getProductsForCount(@Query('locationId') locationId: string) {
-    return this.stockReconciliationsService.getProductsForCount(locationId);
+  getProductsForCount(
+    @Query('locationId') locationId: string,
+    @Query('shiftLabel') shiftLabel?: string,
+  ) {
+    return this.stockReconciliationsService.getProductsForCount(locationId, shiftLabel);
   }
 
   @Post('draft')

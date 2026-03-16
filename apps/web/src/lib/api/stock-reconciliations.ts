@@ -1,10 +1,16 @@
 import { api } from '../api';
 
+export type ProductForCount = {
+  productId: string
+  product: { id: string; name: string; sku: string; unit: string; familia?: string }
+  unit: string
+}
+
 export const stockReconciliationsApi = {
-  getProductsForCount: (locationId: string) =>
-    api.get<Array<{ productId: string; product: { id: string; name: string; sku: string; unit: string }; unit: string }>>(
+  getProductsForCount: (locationId: string, shiftLabel?: string) =>
+    api.get<ProductForCount[]>(
       '/stock-reconciliations/products-for-count',
-      { locationId }
+      shiftLabel ? { locationId, shiftLabel } : { locationId }
     ),
 
   getOrCreateDraft: (data: { locationId: string; shiftLabel?: string }) =>

@@ -8,8 +8,12 @@ import { Prisma } from '../../generated/prisma';
 export class StockReconciliationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /** Productos con stock en la ubicación para conteo (sin cantidad: el cajero no ve el sistema) */
-  async getProductsForCount(locationId: string) {
+  /**
+   * Productos con stock en la ubicación para conteo (solo de este local; sin cantidad para no influir).
+   * Si shiftLabel === 'afternoon', devuelve solo los productos cuyas familias corresponden al día de la semana,
+   * rotando en 7 días para cubrir todas las familias del local.
+   */
+  async getProductsForCount(locationId: string, shiftLabel?: string) {
     const location = await this.prisma.location.findUnique({
       where: { id: locationId },
     });
@@ -25,16 +29,31 @@ export class StockReconciliationsService {
             name: true,
             sku: true,
             unit: true,
+            familia: true,
           },
         },
       },
       orderBy: [{ product: { name: 'asc' } }],
     });
-    return levels.map((l) => ({
+    let rows = levels.map((l) => ({
       productId: l.productId,
-      product: l.product,
+      product: { ...l.product, familia: l.product.familia ?? '' },
       unit: l.product.unit,
     }));
+
+    if (shiftLabel === 'afternoon') {
+      const familias = [...new Set(rows.map((r) => r.product.familia ?? ''))].sort();
+      if (familias.length > 0) {
+        const dayOfWeek = new Date().getDay();
+        const familiasHoy = familias.filter((_, i) => i % 7 === dayOfWeek);
+        if (familiasHoy.length > 0) {
+          rows = rows.filter((r) => familiasHoy.includes(r.product.familia ?? ''));
+        }
+        // Si hoy no toca ninguna familia (ej. pocas familias y es día 5 o 6), se muestran todos para poder cerrar.
+      }
+    }
+
+    return rows;
   }
 
   /** Crear borrador de micro balance (cierre de jornada) */

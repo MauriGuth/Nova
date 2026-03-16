@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState, useEffect, useCallback, useRef, useMemo } from "react"
 import { authApi } from "@/lib/api/auth"
 import { getLocationKey } from "@/lib/api"
 import { cashMovementsApi } from "@/lib/api/cash-movements"
@@ -86,7 +86,7 @@ const defaultProductForm = {
 
 interface ProductForCount {
   productId: string
-  product: { id: string; name: string; sku: string; unit: string }
+  product: { id: string; name: string; sku: string; unit: string; familia?: string }
   unit: string
 }
 
@@ -606,7 +606,7 @@ export default function PosCajaPage() {
           return
         }
         return Promise.all([
-          stockReconciliationsApi.getProductsForCount(locationId),
+          stockReconciliationsApi.getProductsForCount(locationId, "afternoon"),
           stockReconciliationsApi.getOrCreateDraft({ locationId, shiftLabel: "afternoon" }),
         ])
       })
@@ -699,6 +699,17 @@ export default function PosCajaPage() {
       window.removeEventListener("beforeunload", onBeforeUnload)
     }
   }, [flushMicroBalanceToStorage])
+
+  /** Agrupar productos del micro balance por familia para mostrar por secciones */
+  const productsForCountByFamily = useMemo(() => {
+    const map: Record<string, ProductForCount[]> = {}
+    for (const p of productsForCount) {
+      const fam = p.product?.familia?.trim() || "Sin familia"
+      if (!map[fam]) map[fam] = []
+      map[fam].push(p)
+    }
+    return Object.entries(map).sort(([a], [b]) => a.localeCompare(b))
+  }, [productsForCount])
 
   const handleSubmitMicroBalance = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -1733,37 +1744,46 @@ export default function PosCajaPage() {
               <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
                 <div className="sticky top-0 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-4 py-3">
                   <h2 className="text-sm font-semibold text-gray-700">
-                    Cantidad contada por producto
+                    Cantidad contada por producto (por familia)
                   </h2>
                   <p className="text-xs text-gray-500">
-                    Ingresá la cantidad que contaste (dejá 0 o vacío si no hay)
+                    Hoy solo se listan las familias del día. En la semana se completan todas. Ingresá la cantidad contada (0 o vacío si no hay).
                   </p>
                 </div>
                 <ul className="divide-y divide-gray-100">
-                  {productsForCount.map((p) => (
-                    <li key={p.productId} className="flex items-center justify-between gap-4 px-4 py-3">
-                      <div className="min-w-0 flex-1">
-                        <p className="font-medium text-gray-900">{p.product.name}</p>
-                        <p className="text-xs text-gray-500">
-                          {p.product.sku} · {p.unit}
-                        </p>
+                  {productsForCountByFamily.map(([familia, prods]) => (
+                    <li key={familia}>
+                      <div className="bg-gray-50 dark:bg-gray-800/60 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-400">
+                        {familia}
                       </div>
-                      <div className="w-24 shrink-0">
-                        <input
-                          type="text"
-                          inputMode="decimal"
-                          placeholder="0"
-                          value={countByProductId[p.productId] ?? ""}
-                          onChange={(e) =>
-                            setCountByProductId((prev) => ({
-                              ...prev,
-                              [p.productId]: e.target.value,
-                            }))
-                          }
-                          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-right text-sm tabular-nums placeholder:text-gray-500 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-300"
-                          aria-label={`Cantidad contada: ${p.product.name}`}
-                        />
-                      </div>
+                      <ul className="divide-y divide-gray-100">
+                        {prods.map((p) => (
+                          <li key={p.productId} className="flex items-center justify-between gap-4 px-4 py-3">
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-gray-900">{p.product.name}</p>
+                              <p className="text-xs text-gray-500">
+                                {p.product.sku} · {p.unit}
+                              </p>
+                            </div>
+                            <div className="w-24 shrink-0">
+                              <input
+                                type="text"
+                                inputMode="decimal"
+                                placeholder="0"
+                                value={countByProductId[p.productId] ?? ""}
+                                onChange={(e) =>
+                                  setCountByProductId((prev) => ({
+                                    ...prev,
+                                    [p.productId]: e.target.value,
+                                  }))
+                                }
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-right text-sm tabular-nums placeholder:text-gray-500 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-300"
+                                aria-label={`Cantidad contada: ${p.product.name}`}
+                              />
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                     </li>
                   ))}
                 </ul>
