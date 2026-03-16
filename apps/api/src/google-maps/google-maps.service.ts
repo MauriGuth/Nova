@@ -13,6 +13,11 @@ export class GoogleMapsService {
     this.apiKey = this.config.get<string>('GOOGLE_MAPS_API_KEY');
   }
 
+  /** Indica si la API de Google Maps está configurada (clave definida). */
+  isConfigured(): boolean {
+    return !!this.apiKey?.trim();
+  }
+
   /**
    * Obtiene la duración estimada del trayecto en minutos (solo conducción).
    * @param originAddress Dirección de origen (texto o "lat,lng")

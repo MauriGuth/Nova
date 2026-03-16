@@ -10,7 +10,10 @@ export const shipmentsApi = {
     api.patch<any>(`/shipments/${shipmentId}/items/${itemId}`, data),
 
   getEstimateDuration: (originId: string, destinationId: string) =>
-    api.get<{ durationMin: number | null }>('/shipments/estimate-duration', { originId, destinationId }),
+    api.get<{ durationMin: number | null; reason?: 'no_api_key' | 'no_address' }>(
+      '/shipments/estimate-duration',
+      { originId, destinationId }
+    ),
 
   create: (data: any) => api.post<any>('/shipments', data),
 

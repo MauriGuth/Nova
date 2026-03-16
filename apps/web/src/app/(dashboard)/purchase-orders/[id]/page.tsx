@@ -202,11 +202,14 @@ export default function PurchaseOrderDetailPage() {
           )}
         </div>
 
-        {/* Detalle de ítems */}
+        {/* Detalle de ítems: todos los artículos de la orden */}
         <div className="px-6 py-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
             Detalle
           </h2>
+          <p className="mb-3 text-xs text-gray-500 dark:text-gray-400">
+            {Array.isArray(po.items) ? po.items.length : 0} artículo{(Array.isArray(po.items) ? po.items.length : 0) !== 1 ? "s" : ""} en esta orden
+          </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -219,7 +222,7 @@ export default function PurchaseOrderDetailPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                {po.items?.map((item: any) => {
+                {(Array.isArray(po.items) ? po.items : []).map((item: any) => {
                   const displayQty = po?.status === "draft"
                     ? (editingQuantities[item.id] ?? item.quantity ?? 0)
                     : (item.quantity ?? 0)

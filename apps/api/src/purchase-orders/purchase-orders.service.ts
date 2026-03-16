@@ -382,6 +382,7 @@ export class PurchaseOrdersService {
           },
         },
         items: {
+          orderBy: { product: { name: 'asc' } },
           include: {
             product: {
               select: { id: true, name: true, sku: true, unit: true, categoryId: true, category: { select: { name: true } } },

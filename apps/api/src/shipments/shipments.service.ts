@@ -214,9 +214,12 @@ export class ShipmentsService {
   async getEstimateDuration(
     originId?: string,
     destinationId?: string,
-  ): Promise<{ durationMin: number | null }> {
+  ): Promise<{ durationMin: number | null; reason?: 'no_api_key' | 'no_address' }> {
     if (!originId || !destinationId) {
       return { durationMin: null };
+    }
+    if (!this.googleMaps.isConfigured()) {
+      return { durationMin: null, reason: 'no_api_key' };
     }
     const [origin, destination] = await Promise.all([
       this.prisma.location.findUnique({
@@ -229,7 +232,7 @@ export class ShipmentsService {
       }),
     ]);
     if (!origin?.address?.trim() || !destination?.address?.trim()) {
-      return { durationMin: null };
+      return { durationMin: null, reason: 'no_address' };
     }
     const durationMin =
       await this.googleMaps.getRouteDurationInMinutes(

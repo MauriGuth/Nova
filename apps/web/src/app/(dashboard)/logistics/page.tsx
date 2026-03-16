@@ -179,24 +179,34 @@ export default function LogisticsPage() {
     Array<{ productId: string; sentQty: number }>
   >([{ productId: "", sentQty: 1 }])
   const [estimateDurationMin, setEstimateDurationMin] = useState<number | null>(null)
+  const [estimateReason, setEstimateReason] = useState<'no_api_key' | 'no_address' | null>(null)
   const [estimateLoading, setEstimateLoading] = useState(false)
 
   // Estimate duration when origin/destination change (Google Maps opcional)
   useEffect(() => {
     if (!showCreateModal || !newShipment.originId || !newShipment.destinationId) {
       setEstimateDurationMin(null)
+      setEstimateReason(null)
       return
     }
     let cancelled = false
     setEstimateLoading(true)
     setEstimateDurationMin(null)
+    setEstimateReason(null)
     shipmentsApi
       .getEstimateDuration(newShipment.originId, newShipment.destinationId)
       .then((res: any) => {
-        if (!cancelled && res?.durationMin != null) setEstimateDurationMin(res.durationMin)
+        if (cancelled) return
+        if (res?.durationMin != null) {
+          setEstimateDurationMin(res.durationMin)
+          setEstimateReason(null)
+        } else {
+          setEstimateReason(res?.reason ?? null)
+        }
       })
       .catch(() => {
         if (!cancelled) setEstimateDurationMin(null)
+        if (!cancelled) setEstimateReason(null)
       })
       .finally(() => {
         if (!cancelled) setEstimateLoading(false)
@@ -860,7 +870,11 @@ export default function LogisticsPage() {
                       </span>
                     ) : (
                       <span className="text-gray-500">
-                        Sin estimación (configura direcciones en los locales para usar Google Maps)
+                        {estimateReason === "no_api_key"
+                          ? "Sin estimación: configurá la variable GOOGLE_MAPS_API_KEY en la API (Railway)."
+                          : estimateReason === "no_address"
+                            ? "Sin estimación: cargá la dirección en Origen y Destino (Dashboard → Locales → editar cada local)."
+                            : "Sin estimación (configurá direcciones en los locales y GOOGLE_MAPS_API_KEY en la API)."}
                       </span>
                     )}
                   </div>
