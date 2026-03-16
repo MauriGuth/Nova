@@ -464,12 +464,12 @@ export default function ProductDetailPage() {
     [categories]
   )
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (forceRefresh?: boolean) => {
     setLoading(true)
     setError(null)
     try {
       const [productRes, movementsRes] = await Promise.all([
-        productsApi.getById(productId),
+        productsApi.getById(productId, forceRefresh),
         stockApi.getMovements({ productId }),
       ])
 
@@ -595,7 +595,7 @@ export default function ProductDetailPage() {
         isPerishable: editForm.isPerishable,
       })
       setShowEditModal(false)
-      await fetchData()
+      await fetchData(true)
       sileo.success({ title: "Producto actualizado correctamente" })
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Error al guardar"

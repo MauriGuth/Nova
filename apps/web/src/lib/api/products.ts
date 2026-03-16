@@ -3,10 +3,12 @@ import { api } from '../api';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4010/api';
 
 export const productsApi = {
-  getAll: (params?: { search?: string; categoryId?: string; familia?: string; isActive?: boolean; isSellable?: boolean; isIngredient?: boolean; page?: number; limit?: number }) =>
+  getAll: (params?: { search?: string; categoryId?: string; familia?: string; isActive?: boolean; isSellable?: boolean; isIngredient?: boolean; page?: number; limit?: number; _refresh?: number }) =>
     api.get<{ data: any[]; total: number; page: number; limit: number }>('/products', params),
 
-  getById: (id: string) => api.get<any>(`/products/${id}`),
+  /** Si pasás _refresh (ej. Date.now()) se evita caché y se ven de inmediato los cambios de ubicaciones. */
+  getById: (id: string, noCache?: boolean) =>
+    api.get<any>(`/products/${id}`, noCache ? { _refresh: Date.now() } : undefined),
 
   getStock: (id: string) => api.get<any[]>(`/products/${id}/stock`),
 

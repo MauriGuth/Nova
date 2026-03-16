@@ -563,7 +563,7 @@ export default function StockPage() {
   }, [selectedLocation])
 
   // Fetch products when API-supported filters change
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (forceRefresh?: boolean) => {
     setLoading(true)
     setError(null)
     try {
@@ -571,6 +571,7 @@ export default function StockPage() {
       if (debouncedSearch) params.search = debouncedSearch
       if (selectedCategory) params.categoryId = selectedCategory
       if (selectedFamilia) params.familia = selectedFamilia
+      if (forceRefresh) params._refresh = Date.now()
 
       const response = await productsApi.getAll(params)
       const processed = (response.data || [])
@@ -683,7 +684,7 @@ export default function StockPage() {
         salePriceByLocation: newProduct.locationIds.length > 0 ? salePriceByLocation : undefined,
       })
       closeCreateProductModal()
-      fetchProducts()
+      await fetchProducts(true)
       sileo.success({ title: "Producto creado correctamente" })
     } catch (err: any) {
       const msg = err.message || "Error al crear el producto"
