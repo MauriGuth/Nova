@@ -862,6 +862,10 @@ model Order {
   fiscalLastError String?  @map("fiscal_last_error")
   fiscalAttemptedAt DateTime? @map("fiscal_attempted_at")
   fiscalIssuedAt DateTime? @map("fiscal_issued_at")
+  /** Cuenta corriente: pending | remito_sent | invoiced */
+  cuentaCorrienteStatus String? @map("cuenta_corriente_status")
+  remitoSentAt   DateTime? @map("remito_sent_at")
+  invoicedAt     DateTime? @map("invoiced_at")
   notes          String?
   waiterId       String?   @map("waiter_id")
   cashierId      String?   @map("cashier_id")
@@ -886,6 +890,8 @@ model Order {
   @@index([status])
   @@index([customerId])
   @@index([fiscalStatus])
+  @@index([invoiceType])
+  @@index([cuentaCorrienteStatus])
   @@map("orders")
 }
 
@@ -1026,6 +1032,8 @@ model CashRegister {
   totalWithdrawals    Float     @default(0) @map("total_withdrawals")
   totalExtraIncome    Float     @default(0) @map("total_extra_income")
   totalOrders         Int       @default(0) @map("total_orders")
+  /** Ventas a cuenta corriente (no cobradas en el momento) */
+  totalCuentaCorriente Float    @default(0) @map("total_cuenta_corriente")
   salesNoTicket       Float     @default(0) @map("sales_no_ticket")
   internalConsumption Float     @default(0) @map("internal_consumption")
   notes               String?
@@ -1051,7 +1059,7 @@ model CashRegister {
   @@map("cash_registers")
 }
 
-// ─── Customer (para Factura A por CUIT) ─────────────────────────
+// ─── Customer (Factura A por CUIT + Cuenta corriente) ───────────
 
 model Customer {
   id         String   @id @default(cuid())
@@ -1066,6 +1074,8 @@ model Customer {
   address    String?
   phone      String?
   isActive   Boolean  @default(true) @map("is_active")
+  /** Límite de cuenta corriente (si null, no tiene cuenta corriente). */
+  creditLimit Float?  @map("credit_limit")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 

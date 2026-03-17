@@ -23,8 +23,9 @@ export class CustomersController {
   findAll(
     @Query('locationId') locationId: string,
     @Query('search') search?: string,
+    @Query('runningAccountOnly') runningAccountOnly?: string,
   ) {
-    return this.customersService.findAll(locationId, search);
+    return this.customersService.findAll(locationId, search, runningAccountOnly === 'true');
   }
 
   @Get('by-cuit')

@@ -160,6 +160,7 @@ export class CashRegistersService {
         total: true,
         paymentMethod: true,
         paymentBreakdown: true,
+        invoiceType: true,
       },
     });
 
@@ -170,8 +171,15 @@ export class CashRegistersService {
     let salesQr = 0;
     let salesTransfer = 0;
     let totalSales = 0;
+    let totalCuentaCorriente = 0;
 
     for (const order of orders) {
+      const isCuentaCorriente =
+        order.invoiceType === 'cuenta_corriente' || order.paymentMethod === 'cuenta_corriente';
+      if (isCuentaCorriente) {
+        totalCuentaCorriente += order.total;
+        continue;
+      }
       totalSales += order.total;
       const items = paymentBreakdownToItems(order.paymentBreakdown);
       if (items.length > 0) {
@@ -258,6 +266,7 @@ export class CashRegistersService {
         totalWithdrawals: Math.round(totalWithdrawals * 100) / 100,
         totalExtraIncome: Math.round(totalExtraIncome * 100) / 100,
         totalOrders: orders.length,
+        totalCuentaCorriente: Math.round(totalCuentaCorriente * 100) / 100,
         salesNoTicket: data.salesNoTicket ?? 0,
         internalConsumption: data.internalConsumption ?? 0,
         notes: data.notes ?? undefined,
@@ -578,7 +587,7 @@ Indica variación en ventas y en cantidad de órdenes (porcentaje y monto). Menc
       return register;
     }
 
-    // Totales en vivo: órdenes cerradas en este turno (excluir mesas errores de comandas y tacho de basura)
+    // Totales en vivo: órdenes cerradas en este turno (excluir mesas errores de comandas y tacho de basura; excluir cuenta corriente del cierre de caja)
     const orders = await this.prisma.order.findMany({
       where: {
         locationId: register.locationId,
@@ -589,7 +598,7 @@ Indica variación en ventas y en cantidad de órdenes (porcentaje y monto). Menc
           { table: { tableType: { notIn: ['errors', 'trash'] } } },
         ],
       },
-      select: { total: true, paymentMethod: true, paymentBreakdown: true },
+      select: { total: true, paymentMethod: true, paymentBreakdown: true, invoiceType: true },
     });
 
     let salesCash = 0;
@@ -600,6 +609,8 @@ Indica variación en ventas y en cantidad de órdenes (porcentaje y monto). Menc
     let salesTransfer = 0;
     let totalSales = 0;
     for (const order of orders) {
+      const isCuentaCorriente = order.invoiceType === 'cuenta_corriente' || order.paymentMethod === 'cuenta_corriente';
+      if (isCuentaCorriente) continue;
       totalSales += order.total;
       const items = paymentBreakdownToItems(order.paymentBreakdown);
       if (items.length > 0) {

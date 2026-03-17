@@ -28,6 +28,7 @@ import {
   ClipboardList,
   ShoppingCart,
   MessageCircle,
+  BookOpen,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { locationsApi } from '@/lib/api/locations'
@@ -79,6 +80,7 @@ const navSectionsAll: NavSection[] = [
     items: [
       { label: 'Reportes', href: '/reports', icon: BarChart3 },
       { label: 'Cierres de caja', href: '/cash-registers', icon: Receipt },
+      { label: 'Cuentas corrientes', href: '/running-accounts', icon: BookOpen },
       { label: 'Fiscalización ARCA', href: '/fiscal', icon: Receipt },
       { label: 'Auditoría de stock', href: '/stock-reconciliations', icon: ClipboardList },
       { label: 'IA & Alertas', href: '/alerts', icon: Brain },
@@ -111,6 +113,7 @@ const roleByPath: Record<string, string[]> = {
   '/pos': ['ADMIN', 'LOCATION_MANAGER', 'CASHIER', 'WAITER', 'KITCHEN', 'CAFETERIA'],
   '/reports': ['ADMIN', 'LOCATION_MANAGER', 'WAREHOUSE_MANAGER', 'CASHIER', 'AUDITOR'],
   '/cash-registers': ['ADMIN', 'LOCATION_MANAGER', 'CASHIER', 'AUDITOR'],
+  '/running-accounts': ['ADMIN', 'LOCATION_MANAGER', 'CASHIER', 'AUDITOR'],
   '/fiscal': ['ADMIN', 'LOCATION_MANAGER', 'CASHIER', 'AUDITOR'],
   '/stock-reconciliations': ['ADMIN', 'AUDITOR'],
   '/alerts': ['ADMIN', 'LOCATION_MANAGER', 'WAREHOUSE_MANAGER', 'LOGISTICS', 'CASHIER', 'AUDITOR'],

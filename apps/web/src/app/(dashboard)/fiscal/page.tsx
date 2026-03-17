@@ -98,6 +98,7 @@ export default function FiscalPage() {
   const [locations, setLocations] = useState<any[]>([])
   const [selectedLocation, setSelectedLocation] = useState("")
   const [closedOrders, setClosedOrders] = useState<any[]>([])
+  const [cuentaCorrienteOrders, setCuentaCorrienteOrders] = useState<any[]>([])
   const [fiscalStatuses, setFiscalStatuses] = useState<Record<string, any>>({})
   const [loading, setLoading] = useState(true)
   const [loadingFiscal, setLoadingFiscal] = useState(false)
@@ -136,6 +137,7 @@ export default function FiscalPage() {
   const fetchFiscalOrders = useCallback(async () => {
     if (!selectedLocation) {
       setClosedOrders([])
+      setCuentaCorrienteOrders([])
       setFiscalStatuses({})
       return
     }
@@ -144,35 +146,57 @@ export default function FiscalPage() {
     setError(null)
 
     try {
-      const closedOrdersRes = await ordersApi.getAll({
-        locationId: selectedLocation,
-        status: "closed",
-        limit: 20,
-      })
+      const [closedOrdersRes, cuentaCorrienteRes] = await Promise.all([
+        ordersApi.getAll({
+          locationId: selectedLocation,
+          status: "closed",
+          limit: 20,
+        }),
+        ordersApi.getAll({
+          locationId: selectedLocation,
+          status: "closed",
+          invoiceType: "cuenta_corriente",
+          limit: 50,
+        }),
+      ])
       const recentClosedOrders = closedOrdersRes?.data ?? []
+      const ccOrders = cuentaCorrienteRes?.data ?? []
       setClosedOrders(recentClosedOrders)
+      setCuentaCorrienteOrders(ccOrders)
 
-      if (recentClosedOrders.length === 0) {
+      const allOrderIds = Array.from(
+        new Set([
+          ...recentClosedOrders.map((o: any) => o.id),
+          ...ccOrders.map((o: any) => o.id),
+        ])
+      )
+
+      if (allOrderIds.length === 0) {
         setFiscalStatuses({})
         return
       }
 
+      const formatFiscalError = (err: unknown): string => {
+        const msg = err instanceof Error ? err.message : "No se pudo cargar el estado fiscal."
+        if (/fetch failed|failed to fetch|network error/i.test(msg))
+          return "No se pudo conectar con la API. Verificá que el backend esté corriendo y la URL (NEXT_PUBLIC_API_URL en .env)."
+        return msg
+      }
+
       const entries = await Promise.all(
-        recentClosedOrders.map(async (order) => {
+        allOrderIds.map(async (orderId) => {
+          const order = recentClosedOrders.find((o: any) => o.id === orderId) ?? ccOrders.find((o: any) => o.id === orderId)
           try {
-            const status = await arcaApi.getOrderStatus(order.id)
-            return [order.id, status] as const
+            const status = await arcaApi.getOrderStatus(orderId)
+            return [orderId, status] as const
           } catch (err) {
             return [
-              order.id,
+              orderId,
               {
-                orderId: order.id,
-                orderNumber: order.orderNumber,
-                fiscalStatus: order.fiscalStatus ?? "pending",
-                fiscalLastError:
-                  err instanceof Error
-                    ? err.message
-                    : "No se pudo cargar el estado fiscal.",
+                orderId,
+                orderNumber: order?.orderNumber,
+                fiscalStatus: order?.fiscalStatus ?? "error",
+                fiscalLastError: formatFiscalError(err),
                 voucher: null,
               },
             ] as const
@@ -183,6 +207,7 @@ export default function FiscalPage() {
       setFiscalStatuses(Object.fromEntries(entries))
     } catch (err) {
       setClosedOrders([])
+      setCuentaCorrienteOrders([])
       setFiscalStatuses({})
       setError(
         err instanceof Error
@@ -368,13 +393,15 @@ export default function FiscalPage() {
           </div>
         )}
 
-        {closedOrders.length === 0 ? (
+        {closedOrders.filter((o: any) => o.invoiceType !== "cuenta_corriente").length === 0 &&
+        cuentaCorrienteOrders.length === 0 ? (
           <div className="mt-4 rounded-lg border border-dashed border-gray-200 dark:border-gray-700 px-4 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
             No hay órdenes cerradas recientes para este local.
           </div>
         ) : (
+          <>
           <div className="mt-4 space-y-3">
-            {closedOrders.map((order) => {
+            {closedOrders.filter((o: any) => o.invoiceType !== "cuenta_corriente").map((order) => {
               const fiscal = fiscalStatuses[order.id]
               const fiscalStatus = fiscal?.fiscalStatus ?? order.fiscalStatus
               const fiscalCfg = getFiscalStatusConfig(fiscalStatus)
@@ -503,6 +530,147 @@ export default function FiscalPage() {
               )
             })}
           </div>
+
+          {cuentaCorrienteOrders.length > 0 && (
+            <div className="mt-8">
+              <h3 className="mb-3 text-base font-semibold text-gray-900 dark:text-white">
+                Cuentas corrientes
+              </h3>
+              <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                Facturas A emitidas desde Cuentas corrientes (marcar facturado/pagado).
+              </p>
+              <div className="space-y-3">
+                {cuentaCorrienteOrders.map((order) => {
+                  const fiscal = fiscalStatuses[order.id]
+                  const fiscalStatus = fiscal?.fiscalStatus ?? order.fiscalStatus
+                  const fiscalCfg = getFiscalStatusConfig(fiscalStatus)
+                  const FiscalIcon = fiscalCfg.icon
+                  const voucher = fiscal?.voucher
+                  const canRetry =
+                    fiscalStatus === "error" ||
+                    fiscalStatus === "pending" ||
+                    fiscalStatus === "disabled" ||
+                    fiscalStatus === "skipped"
+
+                  return (
+                    <div
+                      key={order.id}
+                      className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/20 p-4"
+                    >
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div className="space-y-3">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                              {order.orderNumber}
+                            </span>
+                            <span
+                              className={cn(
+                                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium",
+                                fiscalCfg.bg,
+                                fiscalCfg.text,
+                                fiscalCfg.border
+                              )}
+                            >
+                              <FiscalIcon
+                                className={cn(
+                                  "h-3.5 w-3.5",
+                                  fiscalStatus === "processing" && "animate-spin"
+                                )}
+                              />
+                              {fiscalCfg.label}
+                            </span>
+                            <span className="rounded-full bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-200">
+                              Factura A
+                            </span>
+                          </div>
+
+                          <div className="grid gap-2 text-sm text-gray-600 dark:text-gray-400 sm:grid-cols-2 xl:grid-cols-5">
+                            <div>
+                              <span className="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-500">
+                                Mesa
+                              </span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {order.table?.name ?? "Sin mesa"}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-500">
+                                Total
+                              </span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                ${Number(order.total ?? 0).toLocaleString("es-AR")}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-500">
+                                CAE
+                              </span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {voucher?.cae ?? "—"}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-500">
+                                Comprobante
+                              </span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {voucher?.cbteDesde
+                                  ? `${voucher.ptoVta ?? "—"}-${String(voucher.cbteDesde).padStart(8, "0")}`
+                                  : "—"}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-500">
+                                Vencimiento CAE
+                              </span>
+                              <span className="font-medium text-gray-900 dark:text-white">
+                                {voucher?.caeVto
+                                  ? new Date(voucher.caeVto).toLocaleDateString("es-AR")
+                                  : "—"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {(fiscal?.fiscalLastError || voucher?.errorMessage) && (
+                            <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-3 py-2 text-sm text-red-700 dark:text-red-300">
+                              {voucher?.errorMessage ?? fiscal?.fiscalLastError}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="flex shrink-0 items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setViewingOrderId(order.id)}
+                            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+                          >
+                            <Eye className="h-4 w-4" />
+                            Ver
+                          </button>
+                          {canRetry && (
+                            <button
+                              type="button"
+                              onClick={() => handleRetryFiscal(order.id)}
+                              disabled={retryingOrderId === order.id}
+                              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                              {retryingOrderId === order.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <RotateCcw className="h-4 w-4" />
+                              )}
+                              Reintentar
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+          </>
         )}
       </div>
 

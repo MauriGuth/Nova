@@ -22,6 +22,7 @@ type FormState = {
   name: string
   yieldQty: number
   yieldUnit: string
+  prepTimeMin: number | ""
   productId: string
   ingredients: IngredientRow[]
 }
@@ -30,6 +31,7 @@ const emptyForm: FormState = {
   name: "",
   yieldQty: 1,
   yieldUnit: "porción",
+  prepTimeMin: "",
   productId: "",
   ingredients: [],
 }
@@ -138,6 +140,7 @@ export default function RecipesPage() {
         name: full.name ?? "",
         yieldQty: full.yieldQty ?? 1,
         yieldUnit: full.yieldUnit ?? "porción",
+        prepTimeMin: full.prepTimeMin != null ? full.prepTimeMin : "",
         productId: full.productId ?? full.product?.id ?? "",
         ingredients: (full.ingredients ?? []).map((ing: any) => ({
           productId: ing.productId ?? ing.product?.id ?? "",
@@ -239,6 +242,7 @@ export default function RecipesPage() {
         name: form.name.trim(),
         yieldQty: form.yieldQty,
         yieldUnit: form.yieldUnit.trim() || "porción",
+        prepTimeMin: form.prepTimeMin !== "" && form.prepTimeMin != null ? Number(form.prepTimeMin) : undefined,
         productId: form.productId || undefined,
         ingredients: form.ingredients
           .filter((i) => i.productId && i.qtyPerYield > 0)
@@ -471,6 +475,24 @@ export default function RecipesPage() {
                     className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-white">Tiempo de elaboración (min)</label>
+                <input
+                  type="number"
+                  min={0}
+                  step={1}
+                  value={form.prepTimeMin === "" ? "" : form.prepTimeMin}
+                  onChange={(e) => {
+                    const v = e.target.value
+                    setForm((f) => ({ ...f, prepTimeMin: v === "" ? "" : Math.max(0, parseInt(v, 10) || 0) }))
+                  }}
+                  placeholder="Ej: 45"
+                  aria-label="Tiempo de elaboración en minutos"
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+                <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">Opcional. Se usa para comparar con el tiempo real al finalizar la producción.</p>
               </div>
 
               <div className="relative">

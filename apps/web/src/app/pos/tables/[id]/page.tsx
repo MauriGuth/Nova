@@ -433,7 +433,7 @@ export default function TableOrderPage() {
   const [selectedItemIdsForMove, setSelectedItemIdsForMove] = useState<string[]>([])
   const [changingTable, setChangingTable] = useState(false)
   const [changeTableError, setChangeTableError] = useState<string | null>(null)
-  const [invoiceType, setInvoiceType] = useState<"consumidor" | "eventual" | "factura_a">("consumidor")
+  const [invoiceType, setInvoiceType] = useState<"consumidor" | "eventual" | "cuenta_corriente" | "factura_a">("consumidor")
   const [customerId, setCustomerId] = useState<string | null>(null)
   const [customerSearch, setCustomerSearch] = useState("")
   const [cuitSearchResult, setCuitSearchResult] = useState<any>(null)
@@ -444,6 +444,17 @@ export default function TableOrderPage() {
   const [newCustomerName, setNewCustomerName] = useState("")
   const [newCustomerCuit, setNewCustomerCuit] = useState("")
   const [addingCustomer, setAddingCustomer] = useState(false)
+  /** Clientes con cuenta corriente (para cerrar mesa a cuenta) */
+  const [runningAccountCustomers, setRunningAccountCustomers] = useState<any[]>([])
+  const [loadingRunningCustomers, setLoadingRunningCustomers] = useState(false)
+
+  useEffect(() => {
+    if (invoiceType !== "cuenta_corriente" || !locationId) return
+    setLoadingRunningCustomers(true)
+    customersApi.getAll(locationId, undefined, true).then((list) => {
+      setRunningAccountCustomers(Array.isArray(list) ? list : [])
+    }).catch(() => setRunningAccountCustomers([])).finally(() => setLoadingRunningCustomers(false))
+  }, [invoiceType, locationId])
 
   /** Después de "Pre cierre de control" (impresión), se muestra Cerrar Cuenta para esta orden. */
   const [preCierreOrderId, setPreCierreOrderId] = useState<string | null>(null)
@@ -1044,11 +1055,16 @@ export default function TableOrderPage() {
         setError("Para Factura A seleccioná o agregá un cliente por CUIT")
         return
       }
+      if (invoiceType === "cuenta_corriente" && !customerId) {
+        setError("Para Cuenta corriente seleccioná un cliente con cuenta corriente")
+        return
+      }
     }
     setClosing(true)
     setError("")
     try {
-      const hasSplitPayments = !isErrorsOrTrashTable && splitMode && Object.keys(splitTotals).length > 0
+      const isCuentaCorriente = invoiceType === "cuenta_corriente"
+      const hasSplitPayments = !isErrorsOrTrashTable && !isCuentaCorriente && splitMode && Object.keys(splitTotals).length > 0
       const payload: {
         paymentMethod: string
         discountAmount?: number
@@ -1061,13 +1077,21 @@ export default function TableOrderPage() {
             paymentMethod: "cash",
             notes: paymentNotes || undefined,
           }
-        : {
-            paymentMethod: effectiveMethod,
-            discountAmount: discount > 0 ? discount : undefined,
-            notes: paymentNotes || undefined,
-            invoiceType: invoiceType === "factura_a" ? "factura_a" : invoiceType === "eventual" ? "eventual" : "consumidor",
-            customerId: customerId || undefined,
-          }
+        : isCuentaCorriente
+          ? {
+              paymentMethod: "cuenta_corriente",
+              discountAmount: discount > 0 ? discount : undefined,
+              notes: paymentNotes || undefined,
+              invoiceType: "cuenta_corriente",
+              customerId: customerId ?? undefined,
+            }
+          : {
+              paymentMethod: effectiveMethod,
+              discountAmount: discount > 0 ? discount : undefined,
+              notes: paymentNotes || undefined,
+              invoiceType: invoiceType === "factura_a" ? "factura_a" : invoiceType === "eventual" ? "eventual" : "consumidor",
+              customerId: customerId || undefined,
+            }
       if (hasSplitPayments) {
         payload.payments = Object.entries(splitTotals).map(([num, amount]) => ({
           diner: parseInt(String(num), 10) || 1,
@@ -1077,7 +1101,7 @@ export default function TableOrderPage() {
       }
       await ordersApi.close(order.id, payload)
       setShowPayment(false)
-      const methodLabel = effectiveMethod === "cash" ? "Efectivo" : effectiveMethod === "card" ? "Tarjeta" : effectiveMethod === "transfer" ? "Transferencia" : effectiveMethod
+      const methodLabel = isCuentaCorriente ? "Cuenta corriente" : effectiveMethod === "cash" ? "Efectivo" : effectiveMethod === "card" ? "Tarjeta" : effectiveMethod === "transfer" ? "Transferencia" : effectiveMethod
       setClosing(false)
       setClosedOrderSnapshot({
         orderNumber: order.orderNumber ?? order.id,
@@ -2340,8 +2364,8 @@ export default function TableOrderPage() {
 
             {(table?.tableType !== "errors" && table?.tableType !== "trash") && (
             <>
-            {/* Método de pago: único o por comensal */}
-            {splitMode && Object.keys(splitTotals).length > 0 ? (
+            {/* Método de pago: no aplica para cuenta corriente (no se cobra en el momento) */}
+            {invoiceType !== "cuenta_corriente" && (splitMode && Object.keys(splitTotals).length > 0 ? (
               <div className="mb-5 w-full">
                 <p className="mb-2 text-sm font-medium text-gray-700">
                   Medio de pago por comensal
@@ -2411,7 +2435,7 @@ export default function TableOrderPage() {
                   ))}
                 </div>
               </>
-            )}
+            ))}
 
             {/* Tipo de comprobante / Factura A */}
             <p className="mb-2 text-sm font-medium text-gray-700">
@@ -2461,6 +2485,25 @@ export default function TableOrderPage() {
               <button
                 type="button"
                 onClick={() => {
+                  setInvoiceType("cuenta_corriente")
+                  setCustomerId(null)
+                  setCustomerSearch("")
+                  setCuitSearchResult(null)
+                  setCustomerSearchResults([])
+                  setShowAddCustomer(false)
+                }}
+                className={cn(
+                  "flex-1 min-w-0 rounded-xl border px-4 py-2.5 text-sm font-medium transition-all",
+                  invoiceType === "cuenta_corriente"
+                    ? "border-emerald-500 bg-emerald-50 text-emerald-700 ring-1 ring-emerald-500"
+                    : "border-gray-200 text-gray-600 hover:bg-gray-50"
+                )}
+              >
+                Cuenta corriente
+              </button>
+              <button
+                type="button"
+                onClick={() => {
                   setInvoiceType("factura_a")
                   setCustomerId(null)
                   setCuitSearchResult(null)
@@ -2478,6 +2521,33 @@ export default function TableOrderPage() {
                 Factura A
               </button>
             </div>
+
+            {/* Cliente (Cuenta corriente) */}
+            {invoiceType === "cuenta_corriente" && locationId && (
+              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+                <label className="mb-1.5 block text-xs font-medium text-amber-800">
+                  Cliente con cuenta corriente
+                </label>
+                {loadingRunningCustomers ? (
+                  <p className="text-sm text-amber-700">Cargando clientes…</p>
+                ) : runningAccountCustomers.length === 0 ? (
+                  <p className="text-sm text-amber-700">No hay clientes con cuenta corriente. Dales un límite en Gestión → Clientes.</p>
+                ) : (
+                  <select
+                    value={customerId ?? ""}
+                    onChange={(e) => setCustomerId(e.target.value || null)}
+                    className="w-full rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm text-gray-800"
+                  >
+                    <option value="">Elegir cliente</option>
+                    {runningAccountCustomers.map((c: any) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} {c.creditLimit != null ? `(límite $${Number(c.creditLimit).toLocaleString("es-AR")})` : ""}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+            )}
 
             {/* Cliente (Factura A) — igual que en la segunda foto */}
             {invoiceType === "factura_a" && cuitSearchResult && typeof cuitSearchResult === "object" && (
@@ -2748,7 +2818,9 @@ export default function TableOrderPage() {
                         ? "FACTURA A"
                         : invoiceType === "eventual"
                           ? "COMPROBANTE EVENTUAL"
-                          : "COMPROBANTE CONSUMIDOR FINAL"}
+                          : invoiceType === "cuenta_corriente"
+                            ? "CUENTA CORRIENTE (no cobrado)"
+                            : "COMPROBANTE CONSUMIDOR FINAL"}
                     </p>
                     <p className="mt-0.5 text-gray-600">
                       {/^\d+$/.test(String(table?.name ?? "")) ? `Mesa ${table?.name}` : table?.name} · Pedido #{order.orderNumber ?? order.id}
@@ -2838,8 +2910,7 @@ export default function TableOrderPage() {
                 onClick={closeOrder}
                 disabled={
                   ((table?.tableType !== "errors" && table?.tableType !== "trash") &&
-                    !paymentMethod &&
-                    !(splitMode && Object.keys(splitTotals).length > 0)) ||
+                    (invoiceType === "cuenta_corriente" ? !customerId : (!paymentMethod && !(splitMode && Object.keys(splitTotals).length > 0)))) ||
                   closing
                 }
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-emerald-700 active:scale-[0.98] disabled:opacity-50"

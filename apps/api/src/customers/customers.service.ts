@@ -7,12 +7,15 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 export class CustomersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(locationId: string, search?: string) {
+  async findAll(locationId: string, search?: string, runningAccountOnly?: boolean) {
     const where: any = { locationId, isActive: true };
+    if (runningAccountOnly) {
+      where.creditLimit = { not: null, gt: 0 };
+    }
     if (search?.trim()) {
       const term = search.trim();
       where.OR = [
-        { name: { contains: term } },
+        { name: { contains: term, mode: 'insensitive' } },
         { cuit: { contains: term } },
       ];
     }
@@ -74,6 +77,7 @@ export class CustomersService {
         email: dto.email,
         address: dto.address,
         phone: dto.phone,
+        creditLimit: dto.creditLimit,
       },
     });
   }
@@ -92,6 +96,7 @@ export class CustomersService {
         ...(dto.email !== undefined && { email: dto.email }),
         ...(dto.address !== undefined && { address: dto.address }),
         ...(dto.phone !== undefined && { phone: dto.phone }),
+        ...(dto.creditLimit !== undefined && { creditLimit: dto.creditLimit }),
       },
     });
   }

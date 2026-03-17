@@ -23,6 +23,7 @@ export class OrdersService {
     locationId?: string;
     status?: string;
     type?: string;
+    invoiceType?: string;
     waiterId?: string;
     dateFrom?: string;
     dateTo?: string;
@@ -33,6 +34,7 @@ export class OrdersService {
       locationId,
       status,
       type,
+      invoiceType,
       waiterId,
       dateFrom,
       dateTo,
@@ -46,6 +48,7 @@ export class OrdersService {
     if (locationId) where.locationId = locationId;
     if (status) where.status = status;
     if (type) where.type = type;
+    if (invoiceType) where.invoiceType = invoiceType;
     if (waiterId) where.waiterId = waiterId;
 
     if (dateFrom || dateTo) {
@@ -428,6 +431,13 @@ export class OrdersService {
       );
     }
 
+    const isCuentaCorriente = data.invoiceType === 'cuenta_corriente';
+    if (isCuentaCorriente && (!effectiveCustomerId || isSpecialTable)) {
+      throw new BadRequestException(
+        'Para Cuenta corriente debés seleccionar un cliente con cuenta corriente.',
+      );
+    }
+
     if (effectiveCustomerId && !isSpecialTable) {
       const customer = await this.prisma.customer.findUnique({
         where: { id: effectiveCustomerId },
@@ -437,6 +447,11 @@ export class OrdersService {
           'El cliente seleccionado no existe o no pertenece al local de la venta.',
         );
       }
+      if (isCuentaCorriente && (customer.creditLimit == null || customer.creditLimit <= 0)) {
+        throw new BadRequestException(
+          'El cliente no tiene límite de cuenta corriente. Asignale un límite en el panel de gestión.',
+        );
+      }
     }
 
     const isEventual = data.invoiceType === 'eventual';
@@ -444,7 +459,9 @@ export class OrdersService {
       !isSpecialTable && data.invoiceType
         ? isEventual
           ? 'eventual'
-          : this.arcaFiscalService.resolveInvoiceType(data.invoiceType)
+          : isCuentaCorriente
+            ? 'cuenta_corriente'
+            : this.arcaFiscalService.resolveInvoiceType(data.invoiceType)
         : undefined;
 
     const closedOrder = await this.prisma.$transaction(async (tx) => {
@@ -489,16 +506,19 @@ export class OrdersService {
         }
       }
 
-      // Persistir desglose por medio de pago para que el cierre de caja sume por método (tarjetas, efectivo, QR, transferencia)
+      // Cuenta corriente: no se cobra en el momento; no va a cierre por medio de pago
+      const isCc = invoiceType === 'cuenta_corriente';
       const paymentBreakdown =
-        Array.isArray(data.payments) && data.payments.length > 0
-          ? data.payments.map((p: { diner: number; method: string; amount: number }) => ({
-              diner: Number(p.diner),
-              method: String(p.method || 'cash').trim() || 'cash',
-              amount: Math.round(Number(p.amount) * 100) / 100,
-            }))
-          : null;
-      const orderPaymentMethod = paymentBreakdown ? 'split' : data.paymentMethod;
+        isCc
+          ? null
+          : Array.isArray(data.payments) && data.payments.length > 0
+            ? data.payments.map((p: { diner: number; method: string; amount: number }) => ({
+                diner: Number(p.diner),
+                method: String(p.method || 'cash').trim() || 'cash',
+                amount: Math.round(Number(p.amount) * 100) / 100,
+              }))
+            : null;
+      const orderPaymentMethod = isCc ? 'cuenta_corriente' : (paymentBreakdown ? 'split' : data.paymentMethod);
 
       // Update order
       const closedOrder = await tx.order.update({
@@ -514,7 +534,7 @@ export class OrdersService {
           notes: data.notes ?? order.notes,
           invoiceType: invoiceType ?? 'consumidor',
           customerId: effectiveCustomerId,
-          fiscalStatus: isSpecialTable || isEventual
+          fiscalStatus: isSpecialTable || isEventual || isCc
             ? 'skipped'
             : this.arcaFiscalService.isEnabled()
               ? 'pending'
@@ -522,6 +542,7 @@ export class OrdersService {
           fiscalLastError: null,
           fiscalAttemptedAt: null,
           fiscalIssuedAt: null,
+          cuentaCorrienteStatus: isCc ? 'pending' : undefined,
         },
         include: {
           items: {
@@ -553,7 +574,7 @@ export class OrdersService {
       });
 
       if (!isSpecialTable) {
-        const fiscalVoucherStatus = isEventual
+        const fiscalVoucherStatus = isEventual || isCc
           ? 'skipped'
           : this.arcaFiscalService.isEnabled()
             ? 'pending'
@@ -591,7 +612,8 @@ export class OrdersService {
     if (
       !isSpecialTable &&
       this.arcaFiscalService.isEnabled() &&
-      closedOrder.invoiceType !== 'eventual'
+      closedOrder.invoiceType !== 'eventual' &&
+      closedOrder.invoiceType !== 'cuenta_corriente'
     ) {
       void this.arcaFiscalService.emitForOrder(closedOrder.id).catch(() => undefined);
     }

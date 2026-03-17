@@ -21,3 +21,4 @@ export { usersApi } from './users';
 export { paymentOrdersApi } from './payment-orders';
 export { wasteRecordsApi } from './waste-records';
 export { incidentsApi } from './incidents';
+export { runningAccountsApi } from './running-accounts';

@@ -148,9 +148,16 @@ export default function ProductionDetailPage() {
   const [actionLoading, setActionLoading] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
   const [qrBaseUrl, setQrBaseUrl] = useState("")
+  const [now, setNow] = useState(() => new Date())
   useEffect(() => {
     if (typeof window !== "undefined") setQrBaseUrl(window.location.origin)
   }, [])
+  // Actualizar cada segundo cuando la orden está en curso para el contador en vivo
+  useEffect(() => {
+    if (!order || order.status !== "in_progress" || !order.startedAt) return
+    const t = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(t)
+  }, [order?.id, order?.status, order?.startedAt])
   const loadOrder = useCallback(async () => {
     if (!orderId) return
     setLoading(true)
@@ -325,6 +332,25 @@ export default function ProductionDetailPage() {
   const unitCost =
     order.unitCost ?? (plannedQty > 0 ? Math.round(estimatedCost / plannedQty) : 0)
   const hasMissingIngredients = hasMissingStock(order)
+
+  // Tiempo de elaboración: duración real y tiempo de la receta
+  const startedAtDate = order.startedAt ? new Date(order.startedAt) : null
+  const completedAtDate = order.completedAt ? new Date(order.completedAt) : null
+  let elapsedSeconds = 0
+  if (status === "in_progress" && startedAtDate) {
+    elapsedSeconds = Math.floor((now.getTime() - startedAtDate.getTime()) / 1000)
+  } else if (
+    (status === "completed" || status === "completed_adjusted") &&
+    startedAtDate &&
+    completedAtDate
+  ) {
+    elapsedSeconds = Math.floor(
+      (completedAtDate.getTime() - startedAtDate.getTime()) / 1000
+    )
+  }
+  const elapsedMinutes = Math.floor(elapsedSeconds / 60)
+  const elapsedRemainderSec = elapsedSeconds % 60
+  const recipePrepMin = order.recipe?.prepTimeMin ?? null
 
   return (
     <div className="space-y-6">
@@ -558,6 +584,29 @@ export default function ProductionDetailPage() {
                 </div>
               )
             })}
+
+            {/* Contador en curso o resumen al completar */}
+            {status === "in_progress" && startedAtDate && (
+              <div className="mt-6 flex items-center justify-center gap-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 px-4 py-3">
+                <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Tiempo transcurrido:</span>
+                <span className="tabular-nums font-mono text-lg font-semibold text-blue-900 dark:text-blue-100">
+                  {elapsedMinutes} min {elapsedRemainderSec.toString().padStart(2, "0")} s
+                </span>
+              </div>
+            )}
+            {(status === "completed" || status === "completed_adjusted") && startedAtDate && completedAtDate && (
+              <div className="mt-6 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 px-4 py-3">
+                <p className="text-sm font-medium text-green-800 dark:text-green-200">
+                  Tardó <span className="font-mono font-semibold">{elapsedMinutes} min {elapsedRemainderSec.toString().padStart(2, "0")} s</span> en elaboración.
+                </p>
+                {recipePrepMin != null && (
+                  <p className="mt-1 text-sm text-green-700 dark:text-green-300">
+                    Tiempo de la receta: <span className="font-mono font-medium">{recipePrepMin} min</span>
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>

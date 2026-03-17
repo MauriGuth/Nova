@@ -73,7 +73,10 @@ export class ArcaFiscalService {
       return this.getOrderFiscalStatus(orderId);
     }
 
-    const invoiceType = this.resolveInvoiceType(order.invoiceType);
+    const invoiceType =
+      order.invoiceType === 'cuenta_corriente'
+        ? 'factura_a'
+        : this.resolveInvoiceType(order.invoiceType);
     this.validateCustomerForInvoice((order as { customer?: unknown }).customer, invoiceType);
 
     const ptoVta = this.getPtoVtaForOrder(order as { location?: { arcaPtoVta?: number | null } | null });

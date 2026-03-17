@@ -167,6 +167,7 @@ export class ProductionService {
             yieldQty: true,
             yieldUnit: true,
             productId: true,
+            prepTimeMin: true,
             ingredients: {
               include: {
                 product: {

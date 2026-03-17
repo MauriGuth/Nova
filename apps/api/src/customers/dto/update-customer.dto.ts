@@ -1,4 +1,4 @@
-import { IsString, IsOptional, MaxLength } from 'class-validator';
+import { IsString, IsOptional, MaxLength, IsNumber, Min } from 'class-validator';
 
 export class UpdateCustomerDto {
   @IsOptional()
@@ -45,4 +45,9 @@ export class UpdateCustomerDto {
   @IsString()
   @MaxLength(50)
   phone?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  creditLimit?: number;
 }

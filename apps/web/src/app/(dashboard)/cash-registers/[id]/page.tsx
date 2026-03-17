@@ -167,6 +167,10 @@ export default function CashClosureDetailPage() {
                 const declaredTransfQr = (rec.transfer ?? 0) + (rec.qr ?? 0)
                 const declaredCash = closure.closingAmount ?? 0
                 const match = (sold: number, declared: number) => Math.abs((sold ?? 0) - (declared ?? 0)) < 0.02
+                const opening = closure.openingAmount ?? 0
+                const expenses = (closure.totalCashExpenses ?? 0) + (closure.totalWithdrawals ?? 0)
+                const extraIncome = closure.totalExtraIncome ?? 0
+                const expectedCash = Math.round((opening + (closure.salesCash ?? 0) - expenses + extraIncome) * 100) / 100
                 const row = (
                   label: string,
                   sold: number,
@@ -204,7 +208,33 @@ export default function CashClosureDetailPage() {
                 return (
                   <>
                     {row("Tarjetas", salesCards, declaredCards, CreditCard)}
-                    {row("Efectivo", closure.salesCash ?? 0, declaredCash, Banknote)}
+                    {(() => {
+                      const ok = match(declaredCash, expectedCash)
+                      return (
+                        <div key="efectivo" className="flex flex-wrap items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-800 p-3">
+                          <Banknote className="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-300" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs text-gray-500 dark:text-white">Efectivo</p>
+                            <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                              <span className="tabular-nums text-gray-900 dark:text-white">Vendido: {formatCurrency(closure.salesCash ?? 0)}</span>
+                              <span className="text-gray-400 dark:text-gray-500">·</span>
+                              <span className="tabular-nums text-gray-700 dark:text-gray-300">Conteo: {formatCurrency(declaredCash)}</span>
+                              <span className="text-gray-400 dark:text-gray-500">·</span>
+                              <span className="tabular-nums text-gray-500 dark:text-gray-400 text-xs">Esperado: {formatCurrency(expectedCash)}</span>
+                              {ok ? (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/40 px-2 py-0.5 text-xs font-medium text-green-800 dark:text-green-200">
+                                  <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-200">
+                                  Diferencia: {formatCurrency(Math.round((declaredCash - expectedCash) * 100) / 100)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })()}
                     {row("Transferencias + QR", salesTransfQr, declaredTransfQr, Building2)}
                   </>
                 )
@@ -259,6 +289,12 @@ export default function CashClosureDetailPage() {
                 <span className="text-gray-600 dark:text-white">+ Ingresos extra</span>
                 <span className="tabular-nums text-gray-900 dark:text-white">+{formatCurrency(closure.totalExtraIncome ?? 0)}</span>
               </div>
+              {(closure as any).totalCuentaCorriente > 0 && (
+                <div className="flex justify-between text-sm text-amber-700 dark:text-amber-400">
+                  <span>Ventas a cuenta corriente (no cobradas en el turno)</span>
+                  <span className="tabular-nums">{formatCurrency((closure as any).totalCuentaCorriente)}</span>
+                </div>
+              )}
               <div className="border-t border-gray-200 dark:border-gray-700 pt-2 flex justify-between font-medium text-gray-900 dark:text-white">
                 <span>Caja esperada</span>
                 <span className="tabular-nums">{formatCurrency(expected)}</span>

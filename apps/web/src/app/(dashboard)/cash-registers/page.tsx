@@ -476,6 +476,7 @@ export default function CashRegistersPage() {
                       const declaredTransfQr = parseFloat(closeForm.closingTransferQrTotal) || 0
                       const declaredCash = effectiveClosingAmount
                       const match = (a: number, b: number) => Math.abs(a - b) < 0.02
+                      const expectedCash = Math.round((opening + salesCash - expenses - withdrawals + extraIncome) * 100) / 100
                       return (
                         <>
                           <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 dark:bg-gray-800 p-2 text-sm">
@@ -498,12 +499,14 @@ export default function CashRegistersPage() {
                             <span className="tabular-nums text-gray-900 dark:text-white">Vendido: {formatCurrency(salesCash)}</span>
                             <span className="text-gray-400 dark:text-gray-500">·</span>
                             <span className="tabular-nums text-gray-700 dark:text-gray-300">Conteo: {formatCurrency(declaredCash)}</span>
-                            {match(salesCash, declaredCash) ? (
+                            <span className="text-gray-400 dark:text-gray-500">·</span>
+                            <span className="tabular-nums text-gray-500 dark:text-gray-400 text-xs">Esperado: {formatCurrency(expectedCash)}</span>
+                            {match(declaredCash, expectedCash) ? (
                               <span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/40 px-2 py-0.5 text-xs font-medium text-green-800 dark:text-green-200">
                                 <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
                               </span>
                             ) : (
-                              <span className="text-amber-600 dark:text-amber-400 text-xs">Diferencia: {formatCurrency(declaredCash - salesCash)}</span>
+                              <span className="text-amber-600 dark:text-amber-400 text-xs">Diferencia: {formatCurrency(declaredCash - expectedCash)}</span>
                             )}
                           </div>
                           <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 dark:bg-gray-800 p-2 text-sm">

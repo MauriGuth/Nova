@@ -1,7 +1,7 @@
 import { api } from '../api';
 
 export const ordersApi = {
-  getAll: (params?: { locationId?: string; status?: string; type?: string; page?: number; limit?: number }) =>
+  getAll: (params?: { locationId?: string; status?: string; type?: string; invoiceType?: string; page?: number; limit?: number }) =>
     api.get<{ data: any[]; total: number }>('/orders', params),
 
   getById: (id: string) => api.get<any>(`/orders/${id}`),

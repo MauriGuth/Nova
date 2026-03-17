@@ -1262,6 +1262,10 @@ export default function PosCajaPage() {
                           const declaredTransfQr = (rec.transfer ?? 0) + (rec.qr ?? 0)
                           const declaredCash = c.closingAmount ?? 0
                           const match = (a: number, b: number) => Math.abs(a - b) < 0.02
+                          const opening = c.openingAmount ?? 0
+                          const expenses = (c.totalCashExpenses ?? 0) + (c.totalWithdrawals ?? 0)
+                          const extraIncome = c.totalExtraIncome ?? 0
+                          const expectedCash = opening + (c.salesCash ?? 0) - expenses + extraIncome
                           return (
                             <>
                               <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 p-2">
@@ -1284,12 +1288,14 @@ export default function PosCajaPage() {
                                 <span className="tabular-nums">Vendido: {formatCurrency(c.salesCash ?? 0)}</span>
                                 <span className="text-gray-400">·</span>
                                 <span className="tabular-nums text-gray-600">Conteo: {formatCurrency(declaredCash)}</span>
-                                {match(c.salesCash ?? 0, declaredCash) ? (
+                                <span className="text-gray-400">·</span>
+                                <span className="tabular-nums text-gray-500 text-xs">Esperado: {formatCurrency(expectedCash)}</span>
+                                {match(declaredCash, expectedCash) ? (
                                   <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
                                     <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
                                   </span>
                                 ) : (
-                                  <span className="text-xs text-amber-700">Diferencia: {formatCurrency(declaredCash - (c.salesCash ?? 0))}</span>
+                                  <span className="text-xs text-amber-700">Diferencia: {formatCurrency(declaredCash - expectedCash)}</span>
                                 )}
                               </div>
                               <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 p-2">

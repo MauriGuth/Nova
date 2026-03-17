@@ -21,6 +21,7 @@ const pageTitles: Record<string, string> = {
   '/reports': 'Reportes',
   '/alerts': 'Alertas',
   '/fiscal': 'Fiscalización ARCA',
+  '/running-accounts': 'Cuentas corrientes',
   '/users': 'Usuarios',
   '/settings': 'Configuración',
   '/suppliers': 'Proveedores',

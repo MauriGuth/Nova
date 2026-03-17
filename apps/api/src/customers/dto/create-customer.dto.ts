@@ -1,4 +1,4 @@
-import { IsString, IsOptional, MaxLength } from 'class-validator';
+import { IsString, IsOptional, MaxLength, IsNumber, Min } from 'class-validator';
 
 export class CreateCustomerDto {
   @IsString()
@@ -46,4 +46,10 @@ export class CreateCustomerDto {
   @IsString()
   @MaxLength(50)
   phone?: string;
+
+  /** Límite de cuenta corriente (opcional). Si se setea, el cliente puede recibir ventas a cuenta corriente. */
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  creditLimit?: number;
 }
