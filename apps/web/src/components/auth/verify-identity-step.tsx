@@ -5,12 +5,16 @@ import { authApi } from "@/lib/api/auth"
 import { ArrowLeft, Camera, Loader2 } from "lucide-react"
 
 type Props = {
-  user: { firstName?: string; lastName?: string; avatarUrl?: string | null }
+  user: { firstName?: string; lastName?: string; avatarUrl?: string | null; role?: string }
   onVerified: () => void
   onReject: () => void
+  /** Si la foto de referencia no existe en el servidor (ej. redeploy), el admin puede entrar al panel para actualizarla */
+  onEnterPanelToFixPhoto?: () => void
 }
 
-export function VerifyIdentityStep({ user, onVerified, onReject }: Props) {
+const DASHBOARD_ROLES = ["ADMIN", "LOCATION_MANAGER", "AUDITOR", "LOGISTICS"]
+
+export function VerifyIdentityStep({ user, onVerified, onReject, onEnterPanelToFixPhoto }: Props) {
   const [verifying, setVerifying] = useState(false)
   const [verifyError, setVerifyError] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -105,7 +109,20 @@ export function VerifyIdentityStep({ user, onVerified, onReject }: Props) {
               {user.firstName} {user.lastName}
             </p>
             {verifyError && (
-              <p className="text-center text-sm text-red-600">{verifyError}</p>
+              <>
+                <p className="text-center text-sm text-red-600">{verifyError}</p>
+                {onEnterPanelToFixPhoto &&
+                  (verifyError.includes("foto de referencia") || verifyError.includes("referencia")) &&
+                  DASHBOARD_ROLES.includes((user.role ?? "").toUpperCase()) && (
+                    <button
+                      type="button"
+                      onClick={onEnterPanelToFixPhoto}
+                      className="mt-2 w-full rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800 hover:bg-amber-100"
+                    >
+                      Soy admin: entrar al panel para actualizar mi foto
+                    </button>
+                  )}
+              </>
             )}
             <div className="flex w-full gap-3">
               <button

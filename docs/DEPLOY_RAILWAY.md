@@ -60,6 +60,47 @@ Para **DATABASE_URL**: en el servicio de PostgreSQL en Railway, en "Variables" o
 
 ---
 
+## 4b. Volumen persistente para fotos de usuario (recomendado)
+
+En Railway el disco del contenedor es **efímero**: al redesplegar o reiniciar se pierden los archivos subidos (fotos de verificación biométrica en **Usuarios**). Por eso puede aparecer "No se encontró la foto de referencia" al iniciar sesión en el POS.
+
+**Solución:** agregar un **Volume** en Railway y montarlo en la carpeta de uploads.
+
+### Pasos en Railway
+
+1. **Abrí tu proyecto** en [railway.app](https://railway.app) y entrá al **servicio de la API** (el que tiene Root Directory `apps/api`).
+
+2. **Crear el volumen**
+   - **Opción A:** En la vista del proyecto, abrí la **Command Palette** con `Ctrl+K` (Windows/Linux) o `⌘K` (Mac), buscá **"volume"** y elegí la opción para crear un volumen. Asignalo al servicio de la API.
+   - **Opción B:** Clic derecho en el **canvas del proyecto** (donde está el servicio API) y buscá la opción **"Add Volume"** o **"New Volume"**. Creá el volumen y vinculalo al servicio de la API.
+
+3. **Configurar la ruta de montaje**
+   - Entrá al **servicio API** → pestaña **Settings** (o Variables).
+   - Buscá la sección **Volumes** (o en la vista del volumen recién creado).
+   - En **Mount Path** (ruta de montaje) poné exactamente:
+     ```text
+     /app/uploads
+     ```
+   La API escribe en `./uploads` y en Railway el working directory es `/app`, así que `./uploads` = `/app/uploads`. Si tu servicio usa otra raíz, ajustá (ej. `/app/apps/api/uploads` solo si el cwd fuera `/app/apps/api`; con Root Directory `apps/api` suele ser `/app`).
+
+4. **Guardar y redesplegar**
+   - Guardá los cambios del volumen.
+   - Hacé un **redeploy** del servicio (en el menú del servicio: **Redeploy** o **Deploy** → trigger manual), para que el contenedor arranque con el volumen montado.
+
+5. **Después del primer deploy con volumen**
+   - Las **nuevas** fotos que subas en **Usuarios** se guardan en el volumen y ya no se pierden.
+   - Para los usuarios que creaste **antes** de tener el volumen: entrá a **Usuarios** → **Editar** cada uno → **Subir foto** (o **Tomar foto**) de nuevo y guardá. Esa foto quedará en el volumen.
+
+### Resumen
+
+| Dónde | Qué poner |
+|-------|-----------|
+| **Mount Path** del volumen | `/app/uploads` |
+
+Así las fotos de verificación biométrica se conservan entre despliegues.
+
+---
+
 ## 5. Build y start en Railway
 
 Railway suele detectar Node y usar `npm run build` y `npm start`. Para este proyecto:

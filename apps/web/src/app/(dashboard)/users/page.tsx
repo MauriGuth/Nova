@@ -121,6 +121,7 @@ function UserModal({
   const [showCamera, setShowCamera] = useState(false)
   const [cameraError, setCameraError] = useState<string | null>(null)
   const [validationError, setValidationError] = useState<string | null>(null)
+  const [avatarLoadError, setAvatarLoadError] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const cameraInputRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -143,6 +144,7 @@ function UserModal({
         phone: formatPhoneNumber(user.phone ?? ""),
         avatarUrl: user.avatarUrl ?? "",
       })
+      setAvatarLoadError(false)
     } else {
       setForm({
         firstName: "",
@@ -184,6 +186,7 @@ function UserModal({
     const file = e.target.files?.[0]
     if (!file) return
     setUploadingPhoto(true)
+    setAvatarLoadError(false)
     try {
       const { url } = await usersApi.uploadAvatar(file)
       setForm((f) => ({ ...f, avatarUrl: url }))
@@ -211,6 +214,7 @@ function UserModal({
         const file = new File([blob], "foto-biometrica.jpg", { type: "image/jpeg" })
         setUploadingPhoto(true)
         setShowCamera(false)
+        setAvatarLoadError(false)
         stream.getTracks().forEach((t) => t.stop())
         streamRef.current = null
         usersApi
@@ -461,15 +465,23 @@ function UserModal({
             <div className="flex items-center gap-4 flex-wrap">
               {form.avatarUrl ? (
                 <div className="relative">
-                  <img
-                    src={
-                      form.avatarUrl.startsWith("http")
-                        ? form.avatarUrl
-                        : `${process.env.NEXT_PUBLIC_API_URL?.replace(/\/api\/?$/, "") || ""}${form.avatarUrl.startsWith("/") ? form.avatarUrl : "/" + form.avatarUrl}`
-                    }
-                    alt="Foto del usuario"
-                    className="h-20 w-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700"
-                  />
+                  {avatarLoadError ? (
+                    <div className="flex h-20 w-20 flex-col items-center justify-center rounded-full border-2 border-dashed border-amber-400 bg-amber-50 dark:bg-amber-950/30 p-2 text-center">
+                      <span className="text-xs font-medium text-amber-700 dark:text-amber-400">Foto no encontrada</span>
+                      <span className="text-[10px] text-amber-600 dark:text-amber-500">Subí la foto de nuevo</span>
+                    </div>
+                  ) : (
+                    <img
+                      src={
+                        form.avatarUrl.startsWith("http")
+                          ? form.avatarUrl
+                          : `${process.env.NEXT_PUBLIC_API_URL?.replace(/\/api\/?$/, "") || ""}${form.avatarUrl.startsWith("/") ? form.avatarUrl : "/" + form.avatarUrl}`
+                      }
+                      alt="Foto del usuario"
+                      className="h-20 w-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700"
+                      onError={() => setAvatarLoadError(true)}
+                    />
+                  )}
                   <button
                     type="button"
                     onClick={() => setForm((f) => ({ ...f, avatarUrl: "" }))}

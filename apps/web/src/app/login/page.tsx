@@ -89,6 +89,11 @@ export default function LoginPage() {
         user={loggedUser}
         onVerified={handleFaceVerified}
         onReject={handleFaceReject}
+        onEnterPanelToFixPhoto={
+          DASHBOARD_ROLES.includes((loggedUser.role ?? "").toUpperCase())
+            ? () => finishLogin(loggedUser.role)
+            : undefined
+        }
       />
     )
   }

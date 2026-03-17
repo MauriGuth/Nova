@@ -288,11 +288,26 @@ export class AuthService {
     if (!user?.avatarUrl) {
       throw new BadRequestException('El usuario no tiene foto de verificación registrada');
     }
-    const storedPath = join(process.cwd(), user.avatarUrl.replace(/^\//, ''));
-    if (!fs.existsSync(storedPath)) {
-      throw new BadRequestException('No se encontró la foto de referencia');
+    let storedBuffer: Buffer;
+    const isAbsoluteUrl = /^https?:\/\//i.test(user.avatarUrl);
+    if (isAbsoluteUrl) {
+      const res = await fetch(user.avatarUrl);
+      if (!res.ok) {
+        throw new BadRequestException(
+          'No se encontró la foto de referencia en la URL. Subí la foto de nuevo desde el panel de Usuarios.',
+        );
+      }
+      const arr = await res.arrayBuffer();
+      storedBuffer = Buffer.from(arr);
+    } else {
+      const storedPath = join(process.cwd(), user.avatarUrl.replace(/^\//, ''));
+      if (!fs.existsSync(storedPath)) {
+        throw new BadRequestException(
+          'No se encontró la foto de referencia. En la nube los archivos se pierden al redesplegar: volvé a subir la foto en Editar Usuario o usá un volumen persistente en ./uploads.',
+        );
+      }
+      storedBuffer = fs.readFileSync(storedPath);
     }
-    const storedBuffer = fs.readFileSync(storedPath);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       throw new BadRequestException('Verificación por IA no configurada (OPENAI_API_KEY)');
@@ -300,8 +315,10 @@ export class AuthService {
     const openai = new OpenAI({ apiKey });
     const storedB64 = storedBuffer.toString('base64');
     const capturedB64 = capturedImageBuffer.toString('base64');
-    const ext = (user.avatarUrl.split('.').pop() || '').toLowerCase();
-    const storedMime = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : ext === 'gif' ? 'image/gif' : 'image/jpeg';
+    const pathPart = user.avatarUrl.split('?')[0];
+    const ext = (pathPart.split('.').pop() || '').toLowerCase();
+    const storedMime =
+      ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : ext === 'gif' ? 'image/gif' : 'image/jpeg';
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       max_tokens: 50,

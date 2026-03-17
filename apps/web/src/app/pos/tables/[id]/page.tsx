@@ -170,12 +170,46 @@ const SPANISH_NUMBERS: Record<string, number> = {
   once: 11, doce: 12, medio: 1, media: 1,
 }
 
-/** Palabras que suelen ser notas cuando van al final (ej. "cortado jarrito suave" → nota "suave") */
+/** Corrige errores frecuentes de transcripción (Whisper) */
+function normalizeTranscript(raw: string): string {
+  return raw
+    .trim()
+    .replace(/\bcortao(s)?\b/gi, "cortado$1")
+    .replace(/\bsuawe\b/gi, "suave")
+    .replace(/\bsuabe\b/gi, "suave")
+    .replace(/\bexpreso(s)?\b/gi, "espresso$1")
+    .replace(/\bcapuchino(s)?\b/gi, "cappuccino$1")
+    .replace(/\bcappuchino\b/gi, "cappuccino")
+    .replace(/\bcapuccino\b/gi, "cappuccino")
+    .replace(/\blatte(s)?\b/gi, "latte$1")
+    .replace(/\bjarrito(s)?\b/gi, "jarrito$1")
+    .replace(/\bcafe(s)?\b/gi, "café$1")
+    .replace(/\bmedialuna(s)?\b/gi, "medialuna$1")
+    .replace(/\bmedialunas\b/gi, "medialunas")
+    .replace(/\btostado(s)?\b/gi, "tostado$1")
+    .replace(/\bamericano(s)?\b/gi, "americano$1")
+    .replace(/\bmachiato(s)?\b/gi, "macchiato$1")
+    .replace(/\bmakiato\b/gi, "macchiato")
+    .replace(/\bcrema\s*batida\b/gi, "crema batida")
+    .replace(/\bleche\s*de\s*almendra(s)?\b/gi, "leche de almendra$1")
+    .replace(/\bleche\s*de\s*soja\b/gi, "leche de soja")
+    .replace(/\bleche\s*de\s*avena\b/gi, "leche de avena")
+    .replace(/\bazucar\b/gi, "azúcar")
+    .replace(/\bmas\b/gi, "más")
+    .replace(/\bcalient(e|es)\b/gi, "caliente")
+}
+
+/** Palabras/frases que son notas cuando van al final del pedido (minúsculas) */
 const TRAILING_NOTE_WORDS = new Set([
   "suave", "fuerte", "caliente", "frio", "frío", "tibio", "liviano", "cargado",
-  "dulce", "amargo", "bien dulce", "bien cargado", "bien suave", "bien fuerte",
-  "sin azucar", "sin azúcar", "con leche", "con hielo", "grande", "chico", "mediano",
+  "dulce", "amargo", "bien dulce", "bien cargado", "bien suave", "bien fuerte", "bien caliente",
+  "sin azucar", "sin azúcar", "con azúcar", "con leche", "con hielo", "grande", "chico", "mediano",
   "al punto", "jugoso", "seco", "extra", "doble", "light", "descremado", "entero",
+  "al tiempo", "templado", "helado", "en jarrito", "para llevar", "en vaso", "en taza",
+  "poco dulce", "poco azúcar", "más suave", "más fuerte", "sin lactosa", "con crema",
+  "bien hecho", "vuelta y vuelta", "crudo", "a punto", "bien cocido",
+  "con leche de almendras", "con leche de soja", "con leche de avena", "con leche de coco",
+  "leche de almendras", "leche de soja", "leche de avena",
 ])
 
 /** Separa "producto" y "notas" (ej. "latte con leche de almendras" → producto + nota; "cortado jarrito suave" → producto + "suave") */
@@ -204,16 +238,12 @@ function splitProductAndNotes(productText: string): { productPart: string; notes
   }
   // Nota al final: "cortado jarrito suave" → producto "cortado jarrito", nota "suave"
   const words = lower.split(/\s+/).filter(Boolean)
-  if (words.length >= 2) {
-    const last = words[words.length - 1]
-    const lastTwo = words.slice(-2).join(" ")
-    if (TRAILING_NOTE_WORDS.has(last)) {
-      const productPart = words.slice(0, -1).join(" ")
-      if (productPart.length >= 2) return { productPart, notesPart: last }
-    }
-    if (TRAILING_NOTE_WORDS.has(lastTwo)) {
-      const productPart = words.slice(0, -2).join(" ")
-      if (productPart.length >= 2) return { productPart, notesPart: lastTwo }
+  for (const n of [4, 3, 2, 1]) {
+    if (words.length < n) continue
+    const tail = words.slice(-n).join(" ")
+    if (TRAILING_NOTE_WORDS.has(tail)) {
+      const productPart = words.slice(0, -n).join(" ")
+      if (productPart.length >= 2) return { productPart, notesPart: tail }
     }
   }
   return { productPart: productText.trim(), notesPart: "" }
@@ -259,13 +289,12 @@ function parseVoiceCommand(
       }
     }
 
-    // Primero separar posible nota (ej. "cortado jarrito suave" → producto "cortado jarrito", nota "suave")
-    const { productPart, notesPart } = splitProductAndNotes(productText)
-    const normalizedSearch = normalize(notesPart ? productPart : productText)
-    if (normalizedSearch.length < 2) continue
+    const normalizedFull = normalize(productText)
+    if (normalizedFull.length < 2) continue
 
     let bestMatch: any = null
     let bestScore = 0
+    let notes = ""
 
     const scoreProduct = (search: string, pName: string) => {
       if (pName === search) return 100
@@ -278,6 +307,42 @@ function parseVoiceCommand(
       return (matchingWords.length / Math.max(searchWords.length, 1)) * 80
     }
 
+    // Intentar primero coincidir con la frase completa
+    for (const p of products) {
+      const pName = normalize(p.name || "")
+      const s = scoreProduct(normalizedFull, pName)
+      if (s > bestScore) {
+        bestScore = s
+        bestMatch = p
+        notes = ""
+      }
+    }
+    if (bestMatch && bestScore < 40) bestMatch = null
+    if (!bestMatch && !normalizedFull.startsWith("cafe") && !normalizedFull.startsWith("café")) {
+      for (const p of products) {
+        const pName = normalize(p.name || "")
+        const s = scoreProduct("cafe " + normalizedFull, pName)
+        if (s > bestScore) {
+          bestScore = s
+          bestMatch = p
+          notes = ""
+        }
+      }
+    }
+    if (bestMatch && bestScore >= 40) {
+      const sector = detectSector(bestMatch)
+      const trailingNote = splitProductAndNotes(productText).notesPart
+      results.push({ product: bestMatch, quantity, sector, notes: trailingNote })
+      continue
+    }
+
+    // Si no coincide, separar posible nota al final (ej. "cortado jarrito suave" → nota "suave") o por "con/sin"
+    const { productPart, notesPart } = splitProductAndNotes(productText)
+    const normalizedSearch = normalize(productPart)
+    if (normalizedSearch.length < 2) continue
+
+    bestMatch = null
+    bestScore = 0
     for (const p of products) {
       const pName = normalize(p.name || "")
       const s = scoreProduct(normalizedSearch, pName)
@@ -287,6 +352,24 @@ function parseVoiceCommand(
       }
     }
 
+    if (bestMatch && bestScore >= 40) {
+      const sector = detectSector(bestMatch)
+      results.push({ product: bestMatch, quantity, sector, notes: notesPart })
+      continue
+    }
+
+    // Segunda pasada: probar con prefijo "café" (ej. "cortado" → "café cortado" para matchear "Café cortado jarrito")
+    const withCafe = normalizedSearch.startsWith("cafe") || normalizedSearch.startsWith("café")
+      ? normalizedSearch
+      : "cafe " + normalizedSearch
+    for (const p of products) {
+      const pName = normalize(p.name || "")
+      const s = scoreProduct(withCafe, pName)
+      if (s > bestScore) {
+        bestScore = s
+        bestMatch = p
+      }
+    }
     if (bestMatch && bestScore >= 40) {
       const sector = detectSector(bestMatch)
       results.push({ product: bestMatch, quantity, sector, notes: notesPart })
@@ -405,13 +488,14 @@ export default function TableOrderPage() {
 
   const startVoice = useCallback(async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true,
-        },
-      })
+      let stream: MediaStream
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: { noiseSuppression: true },
+        })
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      }
 
       // Pick a supported mimeType (webm for Chrome/Firefox, mp4 for Safari)
       const preferredTypes = [
@@ -473,19 +557,17 @@ export default function TableOrderPage() {
             : actualMime.includes("ogg") ? "ogg"
             : "webm"
 
-          // Prompt con nombres de productos y palabras clave para mejorar precisión (ruido de fondo, acentos)
-          const vocab = [
-            "café", "cortado", "jarrito", "latte", "suave", "fuerte", "caliente", "frío", "con leche", "sin azúcar",
-            ...products.slice(0, 80).map((p: any) => (p.name || "").trim()).filter(Boolean),
-          ].join(". ")
-          const response = await aiEventsApi.transcribeAudio(base64, "es", ext, vocab)
-          const transcript = response.transcript?.trim() || ""
+          const shortPrompt = "café cortado jarrito latte suave fuerte caliente espresso cappuccino."
+          const response = await aiEventsApi.transcribeAudio(base64, "es", ext, shortPrompt)
+          let transcript = response.transcript?.trim() || ""
 
           if (!transcript) {
             setVoiceTranscript("No se detectó audio. Intentá de nuevo.")
             setVoiceProcessing(false)
             return
           }
+
+          transcript = normalizeTranscript(transcript)
 
           const minLength = 6
           const wordCount = transcript.split(/\s+/).filter(Boolean).length
@@ -498,12 +580,7 @@ export default function TableOrderPage() {
           setVoiceTranscript(transcript)
           const matches = parseVoiceCommand(transcript, products)
           setVoiceMatches(matches)
-
-          if (matches.length > 0) {
-            setVoiceConfirming(true)
-          } else {
-            setVoiceTranscript(`"${transcript}" — No encontré productos que coincidan.`)
-          }
+          if (matches.length > 0) setVoiceConfirming(true)
         } catch (err) {
           console.error("Voice transcription error:", err)
           setVoiceTranscript("Error al transcribir. Intentá de nuevo.")
@@ -530,6 +607,19 @@ export default function TableOrderPage() {
     }
     setVoiceActive(false)
   }, [])
+
+  const applyTranscriptAsVoice = useCallback(() => {
+    const text = voiceTranscript.trim()
+    if (!text || text.length < 3) return
+    const corrected = normalizeTranscript(text)
+    const matches = parseVoiceCommand(corrected, products)
+    setVoiceMatches(matches)
+    if (matches.length > 0) {
+      setVoiceConfirming(true)
+    } else {
+      setVoiceTranscript(corrected)
+    }
+  }, [voiceTranscript, products])
 
   const confirmVoiceItems = useCallback(() => {
     for (const match of voiceMatches) {
@@ -1710,7 +1800,7 @@ export default function TableOrderPage() {
             <button
               onClick={voiceActive ? stopVoice : startVoice}
               disabled={voiceProcessing}
-              title={voiceActive ? "Detener grabación" : "Comandar por voz (OpenAI)"}
+              title={voiceActive ? "Detener grabación" : "Comandar por voz. Ej: dos cortados jarrito suave, un latte con leche"}
               className={cn(
                 "flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl px-3 transition-all",
                 voiceActive
@@ -1736,15 +1826,42 @@ export default function TableOrderPage() {
           {/* Voice transcript display */}
           {(voiceActive || voiceTranscript) && !voiceConfirming && (
             <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50/50 px-4 py-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-amber-600 mb-1">
-                <Volume2 className="h-3.5 w-3.5" />
-                {voiceActive ? "Escuchando..." : "Escuchado:"}
-              </div>
-              <p className="text-sm text-gray-700">
-                {voiceTranscript || (
-                  <span className="italic text-gray-400">Decí lo que querés agregar, por ejemplo: &quot;dos cafés con leche y una medialuna&quot;</span>
-                )}
+              <p className="text-xs text-amber-700/90 mb-2">
+                Con ruido de fondo, acercá el micrófono y hablá claro. Si algo se escuchó mal, editá el texto abajo y tocá Buscar.
               </p>
+              <div className="flex items-center gap-2 text-xs font-medium text-amber-600 mb-1">
+                <Volume2 className="h-3.5 w-3.5 shrink-0" />
+                {voiceActive ? "Escuchando..." : voiceProcessing ? "Procesando..." : "Escuchado (podés corregir):"}
+              </div>
+              {voiceActive || voiceProcessing ? (
+                <p className="text-sm text-gray-700">
+                  {voiceTranscript || (
+                    <span className="italic text-gray-400">Decí lo que querés agregar, ej: &quot;dos cortados jarrito suave, un latte&quot;</span>
+                  )}
+                </p>
+              ) : (
+                <>
+                  <textarea
+                    value={voiceTranscript}
+                    onChange={(e) => setVoiceTranscript(e.target.value)}
+                    placeholder='Ej: dos cortados jarrito suave, un latte con leche'
+                    className="mt-1 w-full rounded-lg border border-amber-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                    rows={2}
+                  />
+                  <div className="mt-2 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={applyTranscriptAsVoice}
+                      className="rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-600"
+                    >
+                      Buscar
+                    </button>
+                    {voiceMatches.length === 0 && voiceTranscript.trim().length >= 3 && (
+                      <span className="text-xs text-gray-500">No se encontraron productos. Corregí y tocá Buscar de nuevo.</span>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           )}
 
