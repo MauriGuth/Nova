@@ -1475,31 +1475,33 @@ export default function StockPage() {
                         .filter((loc) => newProduct.locationIds.includes(loc.id))
                         .sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }))
                         .map((location) => (
-                          <div key={location.id} className="flex items-center gap-3">
-                            <span className="min-w-[140px] text-sm text-gray-700 dark:text-gray-200">
+                          <div key={location.id} className="grid grid-cols-[1fr_auto] items-center gap-3">
+                            <span className="text-sm text-gray-700 dark:text-gray-200">
                               {location.name}
                               {location.type === "WAREHOUSE" ? " (Depósito)" : ""}
                             </span>
-                            <input
-                              type="number"
-                              min="0"
-                              step="0.01"
-                              value={newProduct.salePriceByLocation[location.id] ?? ""}
-                              onChange={(e) => {
-                                const v = e.target.value
-                                const num = v === "" ? undefined : parseFloat(v)
-                                setNewProduct((prev) => ({
-                                  ...prev,
-                                  salePriceByLocation: {
-                                    ...prev.salePriceByLocation,
-                                    [location.id]: num ?? 0,
-                                  },
-                                }))
-                              }}
-                              placeholder="0"
-                              className="w-28 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-right tabular-nums text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                              aria-label={`Precio en ${location.name}`}
-                            />
+                            <div className="flex min-w-[7rem] items-center justify-center">
+                              <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                value={newProduct.salePriceByLocation[location.id] ?? ""}
+                                onChange={(e) => {
+                                  const v = e.target.value
+                                  const num = v === "" ? undefined : parseFloat(v)
+                                  setNewProduct((prev) => ({
+                                    ...prev,
+                                    salePriceByLocation: {
+                                      ...prev.salePriceByLocation,
+                                      [location.id]: num ?? 0,
+                                    },
+                                  }))
+                                }}
+                                placeholder="0"
+                                className="w-24 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-center tabular-nums text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                aria-label={`Precio en ${location.name}`}
+                              />
+                            </div>
                           </div>
                         ))}
                     </div>
