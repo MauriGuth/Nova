@@ -134,7 +134,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-50">
-        <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     )
   }
@@ -142,7 +142,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
   if (!user || !location) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-50">
-        <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     )
   }
@@ -166,7 +166,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
           </button>
 
           <Link href={"/pos/tables" + posStationSuffix()} className="flex shrink-0 items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500 shadow-sm shadow-blue-200/60">
               <span className="text-sm font-black text-white">N</span>
             </div>
             <span className="hidden text-lg font-bold tracking-wide text-gray-800 sm:inline">POS</span>
@@ -185,7 +185,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
                     className={cn(
                       "flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-amber-50 text-amber-700"
+                        ? "bg-blue-50 text-blue-700"
                         : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
@@ -207,7 +207,7 @@ function PosLayoutInner({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-amber-50 text-amber-700"
+                      ? "bg-blue-50 text-blue-700"
                       : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   )}
                 >
@@ -275,7 +275,7 @@ export default function PosLayout({ children }: { children: React.ReactNode }) {
     <Suspense
       fallback={
         <div className="flex h-screen items-center justify-center bg-gray-50">
-          <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
         </div>
       }
     >

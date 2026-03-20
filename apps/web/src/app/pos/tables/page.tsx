@@ -52,10 +52,10 @@ const STATUS_CONFIG: Record<
     label: "Ocupada",
   },
   ordering: {
-    bg: "bg-amber-50",
-    border: "border-amber-300",
-    text: "text-amber-700",
-    dot: "bg-amber-500",
+    bg: "bg-sky-50",
+    border: "border-sky-300",
+    text: "text-sky-700",
+    dot: "bg-sky-500",
     label: "Ordenando",
   },
   billing: {
@@ -168,7 +168,7 @@ function TableFormModal({
               }
               autoComplete="off"
               placeholder="Mesa 1"
-              className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-500 transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder-gray-500 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
           <div>
@@ -182,7 +182,7 @@ function TableFormModal({
                 onChange={(e) =>
                   setFormData((p: any) => ({ ...p, zone: e.target.value }))
                 }
-                className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
                 <option value="">Seleccionar zona</option>
                 {zones.map((z: string) => (
@@ -196,7 +196,7 @@ function TableFormModal({
                   setFormData((p: any) => ({ ...p, zone: e.target.value }))
                 }
                 placeholder="Terraza, Interior, Barra..."
-                className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             )}
           </div>
@@ -213,7 +213,7 @@ function TableFormModal({
                   capacity: n === 0 ? 0 : Math.min(20, n),
                 }))
               }
-              className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
           <div>
@@ -229,7 +229,7 @@ function TableFormModal({
                 className={cn(
                   "flex flex-1 items-center justify-center gap-2 rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all",
                   formData.shape === "square"
-                    ? "border-amber-500 bg-amber-50 text-amber-700"
+                    ? "border-blue-500 bg-blue-50 text-blue-700"
                     : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500"
                 )}
               >
@@ -244,7 +244,7 @@ function TableFormModal({
                 className={cn(
                   "flex flex-1 items-center justify-center gap-2 rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all",
                   formData.shape === "round"
-                    ? "border-amber-500 bg-amber-50 text-amber-700"
+                    ? "border-blue-500 bg-blue-50 text-blue-700"
                     : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500"
                 )}
               >
@@ -284,7 +284,7 @@ function TableFormModal({
                     scale: parseFloat(e.target.value),
                   }))
                 }
-                className="flex-1 accent-amber-500"
+                className="flex-1 accent-blue-500"
               />
               <button
                 type="button"
@@ -317,7 +317,7 @@ function TableFormModal({
           <button
             onClick={onSave}
             disabled={!formData.name.trim() || saving}
-            className="flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50"
           >
             {saving && <Loader2 className="h-4 w-4 animate-spin" />}
             Guardar
@@ -1090,7 +1090,7 @@ export default function TablesPage() {
     return (
       <div className="flex h-full items-center justify-center">
         <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-amber-500" />
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-500" />
           <p className="mt-3 text-sm text-gray-500">Cargando mesas...</p>
         </div>
       </div>
@@ -1143,7 +1143,7 @@ export default function TablesPage() {
                 className={cn(
                   "shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all",
                   activeZone === null
-                    ? "bg-amber-500 text-white shadow-sm"
+                    ? "bg-blue-500 text-white shadow-sm"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
                 )}
               >
@@ -1156,7 +1156,7 @@ export default function TablesPage() {
                   className={cn(
                     "shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all",
                     activeZone === z
-                      ? "bg-amber-500 text-white shadow-sm"
+                      ? "bg-blue-500 text-white shadow-sm"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
                   )}
                 >
@@ -1167,7 +1167,7 @@ export default function TablesPage() {
                 <button
                   onClick={() => setShowZonesModal(true)}
                   title="Gestionar zonas"
-                  className="shrink-0 rounded-full border border-dashed border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-500 hover:border-amber-400 hover:text-amber-600 dark:border-gray-600"
+                  className="shrink-0 rounded-full border border-dashed border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-500 hover:border-blue-400 hover:text-blue-600 dark:border-gray-600"
                 >
                   <Settings2 className="inline h-3.5 w-3.5" />
                 </button>
@@ -1216,7 +1216,7 @@ export default function TablesPage() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
                   drawWallMode
-                    ? "border-amber-500 bg-amber-50 text-amber-700"
+                    ? "border-blue-500 bg-blue-50 text-blue-700"
                     : "border-gray-200 text-gray-600 hover:bg-gray-50"
                 )}
               >
@@ -1260,7 +1260,7 @@ export default function TablesPage() {
                   }
                 }}
                 disabled={saving || savingWalls || (Object.keys(editedPositions).length === 0 && walls.length === 0)}
-                className="flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg bg-blue-500 px-3 py-2 text-sm font-medium text-white transition-all hover:bg-blue-600 disabled:opacity-50"
               >
                 {(saving || savingWalls) ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -1300,14 +1300,14 @@ export default function TablesPage() {
 
       {/* ── Sin turno abierto: no se puede cargar ninguna mesa ── */}
       {locationId && !loadingOpenRegister && !openRegister && (
-        <div className="flex items-center gap-2 border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-          <AlertCircle className="h-4 w-4 shrink-0 text-amber-600" />
+        <div className="flex items-center gap-2 border-b border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+          <AlertCircle className="h-4 w-4 shrink-0 text-blue-600" />
           <span className="flex-1">
             No hay turno abierto. Abra un turno en <strong>Caja</strong> para poder cargar mesas.
           </span>
           <Link
             href={"/pos/caja" + posStationSuffix()}
-            className="shrink-0 rounded-lg border border-amber-400 bg-amber-100 px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-200"
+            className="shrink-0 rounded-lg border border-blue-400 bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-800 hover:bg-blue-200"
           >
             Ir a Caja
           </Link>
@@ -1516,7 +1516,7 @@ export default function TablesPage() {
               tableType === "trash"
                 ? "bg-red-50 border-red-400 ring-1 ring-red-200"
                 : tableType === "errors"
-                  ? "bg-amber-50 border-amber-400 ring-1 ring-amber-200"
+                  ? "bg-violet-50 border-violet-400 ring-1 ring-violet-200"
                   : ""
 
             return (
@@ -1569,7 +1569,7 @@ export default function TablesPage() {
                 </div>
 
                 {/* Table name */}
-                <span className={cn("text-sm font-bold", tableType === "normal" ? cfg.text : tableType === "trash" ? "text-red-800" : "text-amber-800")}>
+                <span className={cn("text-sm font-bold", tableType === "normal" ? cfg.text : tableType === "trash" ? "text-red-800" : "text-violet-800")}>
                   {/^\d+$/.test(String(table.name ?? "")) ? `Mesa ${table.name}` : table.name}
                 </span>
 
@@ -1651,7 +1651,7 @@ export default function TablesPage() {
                       setShowAddModal(true)
                       setFormData({ name: "", zone: "", capacity: 4, shape: "square", scale: 1.0 })
                     }}
-                    className="mt-3 flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-600"
+                    className="mt-3 flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600"
                   >
                     <Plus className="h-4 w-4" />
                     Agregar primera mesa
@@ -1660,7 +1660,7 @@ export default function TablesPage() {
                 {activeZone && (
                   <button
                     onClick={() => setActiveZone(null)}
-                    className="mt-3 text-sm text-amber-600 hover:text-amber-700 font-medium"
+                    className="mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium"
                   >
                     Ver todas las zonas
                   </button>
@@ -1704,13 +1704,13 @@ export default function TablesPage() {
                 onChange={(e) => setNewZoneName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleAddZone()}
                 placeholder="Nueva zona (ej. Terraza)"
-                className="flex-1 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="flex-1 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <button
                 type="button"
                 onClick={() => handleAddZone()}
                 disabled={!newZoneName.trim() || allZones.includes(newZoneName.trim())}
-                className="rounded-xl bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+                className="rounded-xl bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
               >
                 Agregar
               </button>
@@ -1732,7 +1732,7 @@ export default function TablesPage() {
                           className="flex-1 rounded-lg border border-gray-200 px-2 py-1.5 text-sm"
                           autoFocus
                         />
-                        <button type="button" onClick={handleRenameZone} disabled={zoneSaveLoading} className="text-sm font-medium text-amber-600 hover:underline disabled:opacity-50">Guardar</button>
+                        <button type="button" onClick={handleRenameZone} disabled={zoneSaveLoading} className="text-sm font-medium text-blue-600 hover:underline disabled:opacity-50">Guardar</button>
                         <button type="button" onClick={() => { setZoneToRename(null); setZoneRenameValue("") }} className="text-sm text-gray-500 hover:underline">Cancelar</button>
                       </div>
                     ) : (
@@ -1765,16 +1765,16 @@ export default function TablesPage() {
 
             {/* Eliminar: reasignar o confirmar */}
             {zoneToDelete && (
-              <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
-                <p className="mb-2 text-sm font-medium text-amber-800">Eliminar zona &quot;{zoneToDelete}&quot;</p>
+              <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3">
+                <p className="mb-2 text-sm font-medium text-blue-800">Eliminar zona &quot;{zoneToDelete}&quot;</p>
                 {tables.filter((t) => t.zone === zoneToDelete).length > 0 ? (
                   <>
-                    <p className="mb-2 text-xs text-amber-700">Hay mesas en esta zona. Reasignar a:</p>
+                    <p className="mb-2 text-xs text-blue-700">Hay mesas en esta zona. Reasignar a:</p>
                     <select
                       aria-label="Reasignar mesas a zona"
                       value={zoneReassignTo}
                       onChange={(e) => setZoneReassignTo(e.target.value)}
-                      className="mb-2 w-full rounded-lg border border-amber-200 px-2 py-1.5 text-sm"
+                      className="mb-2 w-full rounded-lg border border-blue-200 px-2 py-1.5 text-sm"
                     >
                       <option value="">— Elegir zona —</option>
                       {allZones.filter((z) => z !== zoneToDelete).map((z) => (
@@ -1782,14 +1782,14 @@ export default function TablesPage() {
                       ))}
                     </select>
                     <div className="flex gap-2">
-                      <button type="button" onClick={() => handleDeleteZone(false)} disabled={!zoneReassignTo || zoneSaveLoading} className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-700 disabled:opacity-50">Reasignar y eliminar</button>
-                      <button type="button" onClick={() => handleDeleteZone(true)} disabled={zoneSaveLoading} className="rounded-lg border border-amber-300 px-3 py-1.5 text-sm text-amber-800 hover:bg-amber-100">Eliminar mesas y zona</button>
+                      <button type="button" onClick={() => handleDeleteZone(false)} disabled={!zoneReassignTo || zoneSaveLoading} className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50">Reasignar y eliminar</button>
+                      <button type="button" onClick={() => handleDeleteZone(true)} disabled={zoneSaveLoading} className="rounded-lg border border-blue-300 px-3 py-1.5 text-sm text-blue-800 hover:bg-blue-100">Eliminar mesas y zona</button>
                     </div>
                   </>
                 ) : (
                   <div className="flex gap-2">
-                    <button type="button" onClick={() => handleDeleteZone()} disabled={zoneSaveLoading} className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-700">Eliminar zona</button>
-                    <button type="button" onClick={() => setZoneToDelete(null)} className="rounded-lg border border-amber-300 px-3 py-1.5 text-sm text-amber-800 hover:bg-amber-100">Cancelar</button>
+                    <button type="button" onClick={() => handleDeleteZone()} disabled={zoneSaveLoading} className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700">Eliminar zona</button>
+                    <button type="button" onClick={() => setZoneToDelete(null)} className="rounded-lg border border-blue-300 px-3 py-1.5 text-sm text-blue-800 hover:bg-blue-100">Cancelar</button>
                   </div>
                 )}
               </div>

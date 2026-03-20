@@ -191,27 +191,27 @@ export default function MozoLoginPage() {
 
   if (step === "select-location") {
     return (
-      <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
+      <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/40 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
         <div className="w-full max-w-lg">
-          <div className="rounded-2xl border border-amber-100 bg-white px-4 py-8 shadow-xl dark:bg-white dark:border-gray-200 sm:px-8 sm:py-10">
+          <div className="rounded-2xl border border-slate-200/60 bg-white px-4 py-8 shadow-xl dark:bg-white dark:border-gray-200 sm:px-8 sm:py-10">
             <div className="mb-6 text-center sm:mb-8">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-500 shadow-lg">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500 shadow-lg">
                 <UtensilsCrossed className="h-7 w-7 text-white" />
               </div>
               <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">Mozo – Elegir sucursal</h1>
               <p className="mt-1 text-sm text-gray-600">Hola {user?.firstName}, elige la sucursal</p>
             </div>
             {loadingLocations ? (
-              <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-amber-500" /></div>
+              <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-blue-500" /></div>
             ) : (
               <div className="space-y-2 sm:space-y-3">
                 {locations.map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => selectLocation(loc)}
-                    className="flex w-full min-h-[52px] items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-left active:scale-[0.99] hover:border-amber-300 hover:bg-amber-50 dark:bg-gray-100 dark:border-gray-300 sm:gap-4 sm:px-5 sm:py-4"
+                    className="flex w-full min-h-[52px] items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-left active:scale-[0.99] hover:border-blue-300 hover:bg-blue-50 dark:bg-gray-100 dark:border-gray-300 sm:gap-4 sm:px-5 sm:py-4"
                   >
-                    <MapPin className="h-5 w-5 shrink-0 text-amber-600" />
+                    <MapPin className="h-5 w-5 shrink-0 text-blue-600" />
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-gray-900 truncate">{loc.name}</p>
                       <p className="text-sm capitalize text-gray-600">{loc.type}</p>
@@ -229,9 +229,9 @@ export default function MozoLoginPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
+    <div className="flex min-h-[100dvh] min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/40 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 sm:px-4">
       <div className="w-full max-w-md">
-        <div className="rounded-2xl border border-amber-100 bg-white px-4 py-8 shadow-xl dark:border-gray-200 dark:bg-gray-900 sm:px-8 sm:py-10">
+        <div className="rounded-2xl border border-slate-200/60 bg-white px-4 py-8 shadow-xl dark:border-gray-200 dark:bg-gray-900 sm:px-8 sm:py-10">
           <button
             type="button"
             onClick={() => router.push("/pos")}
@@ -241,7 +241,7 @@ export default function MozoLoginPage() {
             Volver
           </button>
           <div className="mb-6 text-center sm:mb-8">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500 shadow-lg sm:h-16 sm:w-16">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500 shadow-lg sm:h-16 sm:w-16">
               <UtensilsCrossed className="h-7 w-7 text-white sm:h-8 sm:w-8" />
             </div>
             <h1 className="text-xl font-bold text-gray-800 dark:text-white sm:text-2xl">Mozo</h1>
@@ -259,8 +259,8 @@ export default function MozoLoginPage() {
                   setEmail(v)
                   setUserTypedEmail(v.length > 0)
                 }}
-                placeholder="mozo@roberto"
-                className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base transition-colors focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedEmail ? "user-typed" : ""}`}
+                placeholder="mozo@roberto.com"
+                className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedEmail ? "user-typed" : ""}`}
               />
             </div>
             <div>
@@ -276,7 +276,7 @@ export default function MozoLoginPage() {
                     setUserTypedPassword(v.length > 0)
                   }}
                   placeholder="••••••••"
-                  className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-base transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedPassword ? "user-typed" : ""}`}
+                  className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-base transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${userTypedPassword ? "user-typed" : ""}`}
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 dark:text-gray-500">
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -291,7 +291,7 @@ export default function MozoLoginPage() {
                     type="button"
                     onClick={handleLoginWithLocation}
                     disabled={loading}
-                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 disabled:opacity-60"
+                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 disabled:opacity-60"
                   >
                     {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><MapPin className="h-4 w-4" /> Usar mi ubicación e iniciar sesión</>}
                   </button>
@@ -301,7 +301,7 @@ export default function MozoLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-amber-600 disabled:opacity-60 active:scale-[0.99]"
+              className="flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-blue-600 disabled:opacity-60 active:scale-[0.99]"
             >
               {loading ? <><Loader2 className="h-5 w-5 animate-spin" /> Entrando...</> : "Iniciar sesión"}
             </button>

@@ -194,7 +194,7 @@ const SECTORS: {
     value: "kitchen",
     label: "Cocina",
     icon: ChefHat,
-    color: "bg-orange-100 text-orange-700",
+    color: "bg-sky-100 text-sky-800",
   },
   {
     value: "bar",
@@ -206,7 +206,7 @@ const SECTORS: {
     value: "coffee",
     label: "Café",
     icon: Coffee,
-    color: "bg-amber-100 text-amber-700",
+    color: "bg-blue-100 text-blue-700",
   },
   {
     value: "bakery",
@@ -278,7 +278,7 @@ function detectSector(product: any): PendingItem["sector"] {
 
 const ITEM_STATUS_STYLES: Record<string, string> = {
   pending: "bg-gray-100 text-gray-600",
-  in_progress: "bg-amber-100 text-amber-700",
+  in_progress: "bg-sky-100 text-sky-700",
   ready: "bg-emerald-100 text-emerald-700",
   served: "bg-blue-100 text-blue-700",
   cancelled: "bg-red-100 text-red-600 line-through",
@@ -1639,7 +1639,7 @@ export default function TableOrderPage() {
     return (
       <div className="flex h-full items-center justify-center">
         <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-amber-500" />
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-500" />
           <p className="mt-3 text-sm text-gray-500">Cargando mesa...</p>
         </div>
       </div>
@@ -1661,7 +1661,7 @@ export default function TableOrderPage() {
           )}
           <button
             onClick={() => router.push("/pos/tables" + posStationSuffix())}
-            className="mt-4 text-sm font-medium text-amber-600 hover:underline"
+            className="mt-4 text-sm font-medium text-blue-600 hover:underline"
           >
             Volver a mesas
           </button>
@@ -1728,7 +1728,7 @@ export default function TableOrderPage() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors",
                   splitMode
-                    ? "border-amber-500 bg-amber-50 text-amber-700"
+                    ? "border-blue-500 bg-blue-50 text-blue-700"
                     : "border-gray-200 text-gray-600 hover:bg-gray-50"
                 )}
               >
@@ -1756,15 +1756,15 @@ export default function TableOrderPage() {
 
         {/* Sin turno abierto: no se puede cargar la mesa */}
         {locationId && !loadingOpenRegister && !openRegister && (
-          <div className="flex items-center gap-2 border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-            <AlertCircle className="h-4 w-4 shrink-0 text-amber-600" />
+          <div className="flex items-center gap-2 border-b border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+            <AlertCircle className="h-4 w-4 shrink-0 text-blue-600" />
             <span className="flex-1">
               No hay turno abierto. Abra un turno en <strong>Caja</strong> para poder cargar esta mesa.
             </span>
             <button
               type="button"
               onClick={() => router.push("/pos/caja" + posStationSuffix())}
-              className="shrink-0 rounded-lg border border-amber-400 bg-amber-100 px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-200"
+              className="shrink-0 rounded-lg border border-blue-400 bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-800 hover:bg-blue-200"
             >
               Ir a Caja
             </button>
@@ -1839,7 +1839,7 @@ export default function TableOrderPage() {
                         </div>
                         {item.notes && (
                           <p
-                            className="mt-2 rounded-lg border-l-4 border-orange-500 bg-orange-50/90 py-1.5 pl-2 pr-2 text-sm font-semibold leading-snug text-orange-950 break-words"
+                            className="mt-2 rounded-lg border-l-4 border-blue-500 bg-blue-50/90 py-1.5 pl-2 pr-2 text-sm font-semibold leading-snug text-blue-950 break-words"
                             title={item.notes}
                           >
                             {item.notes}
@@ -1964,7 +1964,7 @@ export default function TableOrderPage() {
           {/* Pending items (local) */}
           {pendingItems.length > 0 && (
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-amber-500">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-500">
                 Nuevos ítems
               </p>
               <div className="space-y-2">
@@ -1975,7 +1975,7 @@ export default function TableOrderPage() {
                   return (
                     <div
                       key={item.tempId}
-                      className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2.5"
+                      className="rounded-lg border border-blue-200 bg-blue-50/50 px-3 py-2.5"
                     >
                       <div className="flex items-center gap-2">
                         <span className="flex-1 text-sm font-medium text-gray-800 truncate">
@@ -1986,7 +1986,7 @@ export default function TableOrderPage() {
                         </span>
                       </div>
                       {item.modifierSummary ? (
-                        <p className="mt-1.5 rounded-lg border-l-4 border-amber-500 bg-amber-100/90 py-1.5 pl-2 pr-2 text-sm font-semibold leading-snug text-amber-950 break-words">
+                        <p className="mt-1.5 rounded-lg border-l-4 border-blue-500 bg-blue-100/90 py-1.5 pl-2 pr-2 text-sm font-semibold leading-snug text-blue-950 break-words">
                           {item.modifierSummary}
                         </p>
                       ) : null}
@@ -2015,7 +2015,7 @@ export default function TableOrderPage() {
                                   [item.tempId]: parseInt(e.target.value, 10),
                                 }))
                               }
-                              className="rounded border border-amber-200 bg-white px-2 py-1 text-xs text-gray-700"
+                              className="rounded border border-blue-200 bg-white px-2 py-1 text-xs text-gray-700"
                             >
                               {Array.from({ length: customerCount }, (_, i) => i + 1).map((n) => (
                                 <option key={n} value={n}>
@@ -2056,7 +2056,7 @@ export default function TableOrderPage() {
                                           return { ...prev, [item.tempId]: next }
                                         })
                                       }}
-                                      className="w-10 rounded border border-amber-200 px-1 py-0.5 text-center text-xs"
+                                      className="w-10 rounded border border-blue-200 px-1 py-0.5 text-center text-xs"
                                       aria-label={`Comensal ${n} cantidad`}
                                     />
                                   </label>
@@ -2139,7 +2139,7 @@ export default function TableOrderPage() {
                           className={cn(
                             "rounded-lg p-1 transition-colors",
                             item.notes
-                              ? "text-amber-500 hover:bg-amber-50"
+                              ? "text-blue-500 hover:bg-blue-50"
                               : "text-gray-300 hover:bg-gray-50 hover:text-gray-500"
                           )}
                           title="Notas"
@@ -2195,7 +2195,7 @@ export default function TableOrderPage() {
               </div>
             )}
             {pendingItems.length > 0 && (
-              <div className="flex justify-between text-amber-600">
+              <div className="flex justify-between text-blue-600">
                 <span>Nuevos ítems</span>
                 <span>{formatCurrency(pendingSubtotal)}</span>
               </div>
@@ -2250,7 +2250,7 @@ export default function TableOrderPage() {
               <button
                 onClick={sendToKitchen}
                 disabled={sending || !hasOpenShift}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-amber-500 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 active:scale-[0.98] disabled:opacity-50"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-500 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 active:scale-[0.98] disabled:opacity-50"
               >
                 {sending ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -2277,7 +2277,7 @@ export default function TableOrderPage() {
                   <button
                     type="button"
                     onClick={handlePreCierreControl}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-amber-500 bg-amber-50 py-3 text-sm font-semibold text-amber-800 transition-all hover:bg-amber-100 active:scale-[0.98]"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-blue-500 bg-blue-50 py-3 text-sm font-semibold text-blue-800 transition-all hover:bg-blue-100 active:scale-[0.98]"
                   >
                     <FileCheck className="h-4 w-4" />
                     Pre cierre de control
@@ -2311,7 +2311,7 @@ export default function TableOrderPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar producto..."
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-4 text-sm transition-colors focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-4 text-sm transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
               {searchQuery && (
                 <button
@@ -2333,8 +2333,8 @@ export default function TableOrderPage() {
                 voiceActive
                   ? "bg-red-500 text-white animate-pulse shadow-lg shadow-red-500/30"
                   : voiceProcessing
-                    ? "bg-amber-100 text-amber-600 border border-amber-300"
-                    : "border border-gray-200 bg-gray-50 text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-600"
+                    ? "bg-blue-100 text-blue-600 border border-blue-300"
+                    : "border border-gray-200 bg-gray-50 text-gray-500 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600"
               )}
             >
               {voiceProcessing ? (
@@ -2352,11 +2352,11 @@ export default function TableOrderPage() {
 
           {/* Voice transcript display */}
           {(voiceActive || voiceTranscript) && !voiceConfirming && (
-            <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50/50 px-4 py-3">
-              <p className="text-xs text-amber-700/90 mb-2">
+            <div className="mt-2 rounded-xl border border-blue-200 bg-blue-50/50 px-4 py-3">
+              <p className="text-xs text-blue-700/90 mb-2">
                 Con ruido de fondo, acercá el micrófono y hablá claro. Si algo se escuchó mal, editá el texto abajo y tocá Buscar.
               </p>
-              <div className="flex items-center gap-2 text-xs font-medium text-amber-600 mb-1">
+              <div className="flex items-center gap-2 text-xs font-medium text-blue-600 mb-1">
                 <Volume2 className="h-3.5 w-3.5 shrink-0" />
                 {voiceActive ? "Escuchando..." : voiceProcessing ? "Procesando..." : "Escuchado (podés corregir):"}
               </div>
@@ -2372,14 +2372,14 @@ export default function TableOrderPage() {
                     value={voiceTranscript}
                     onChange={(e) => setVoiceTranscript(e.target.value)}
                     placeholder='Ej: dos cortados jarrito suave, un latte con leche'
-                    className="mt-1 w-full rounded-lg border border-amber-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                    className="mt-1 w-full rounded-lg border border-blue-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
                     rows={2}
                   />
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       type="button"
                       onClick={applyTranscriptAsVoice}
-                      className="rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-600"
+                      className="rounded-lg bg-blue-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-600"
                     >
                       Buscar
                     </button>
@@ -2394,8 +2394,8 @@ export default function TableOrderPage() {
 
           {/* Voice confirmation panel */}
           {voiceConfirming && voiceMatches.length > 0 && (
-            <div className="mt-2 rounded-xl border-2 border-amber-400 bg-amber-50 p-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-amber-700 mb-3">
+            <div className="mt-2 rounded-xl border-2 border-blue-400 bg-blue-50 p-4">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-700 mb-3">
                 <Sparkles className="h-4 w-4" />
                 Confirmá la comanda por voz
               </div>
@@ -2403,8 +2403,8 @@ export default function TableOrderPage() {
                 {voiceMatches.map((m, i) => {
                   const sectorInfo = SECTORS.find((s) => s.value === m.sector)
                   return (
-                    <div key={i} className="flex items-center gap-3 rounded-lg bg-white px-3 py-2 border border-amber-200">
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-amber-100 text-xs font-bold text-amber-700">
+                    <div key={i} className="flex items-center gap-3 rounded-lg bg-white px-3 py-2 border border-blue-200">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-blue-100 text-xs font-bold text-blue-700">
                         {m.quantity}
                       </span>
                       <div className="flex-1 min-w-0">
@@ -2445,14 +2445,14 @@ export default function TableOrderPage() {
                 </button>
                 <button
                   onClick={startVoice}
-                  className="flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700 hover:bg-amber-100"
+                  className="flex items-center gap-1.5 rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100"
                 >
                   <Mic className="h-3.5 w-3.5" />
                   Reintentar
                 </button>
                 <button
                   onClick={confirmVoiceItems}
-                  className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-amber-500 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-600"
+                  className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-500 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600"
                 >
                   <Check className="h-4 w-4" />
                   Confirmar
@@ -2470,7 +2470,7 @@ export default function TableOrderPage() {
               className={cn(
                 "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
                 activeCategory === "all"
-                  ? "bg-amber-500 text-white"
+                  ? "bg-blue-500 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
               )}
             >
@@ -2483,7 +2483,7 @@ export default function TableOrderPage() {
                 className={cn(
                   "shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap",
                   activeCategory === cat.id
-                    ? "bg-amber-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
                 )}
               >
@@ -2513,7 +2513,7 @@ export default function TableOrderPage() {
                     onClick={() => void addProduct(product)}
                     disabled={!hasOpenShift || modifierModalLoading}
                     className={cn(
-                      "relative flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 text-left transition-all hover:border-amber-300 hover:shadow-sm active:scale-[0.97]",
+                      "relative flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 text-left transition-all hover:border-blue-300 hover:shadow-sm active:scale-[0.97]",
                       !hasOpenShift && "cursor-not-allowed opacity-60"
                     )}
                   >
@@ -2536,11 +2536,11 @@ export default function TableOrderPage() {
                     <span className="mt-1 text-xs text-gray-400">
                       {product.category?.name}
                     </span>
-                    <span className="mt-auto pt-2 text-sm font-bold text-amber-600">
+                    <span className="mt-auto pt-2 text-sm font-bold text-blue-600">
                       {formatCurrency(product.salePrice)}
                     </span>
                     {qty && (
-                      <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white ring-2 ring-white">
+                      <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white ring-2 ring-white">
                         {qty}
                       </span>
                     )}
@@ -2745,7 +2745,7 @@ export default function TableOrderPage() {
                 </tbody>
               </table>
               {discount > 0 && (
-                <p className="mt-2 text-sm text-amber-700">Descuento: -{formatCurrency(discount)}</p>
+                <p className="mt-2 text-sm text-blue-700">Descuento: -{formatCurrency(discount)}</p>
               )}
               <p className="mt-3 text-base font-bold text-gray-900">
                 Total: {formatCurrency(Math.max(0, orderTotal))}
@@ -2819,7 +2819,7 @@ export default function TableOrderPage() {
                 </tbody>
               </table>
               {closedOrderSnapshot.discount > 0 && (
-                <p className="mt-2 text-sm text-amber-700">Descuento: -{formatCurrency(closedOrderSnapshot.discount)}</p>
+                <p className="mt-2 text-sm text-blue-700">Descuento: -{formatCurrency(closedOrderSnapshot.discount)}</p>
               )}
               <p className="mt-3 text-base font-bold text-gray-900">
                 Total: {formatCurrency(Math.max(0, closedOrderSnapshot.total))}
@@ -2868,8 +2868,8 @@ export default function TableOrderPage() {
               Elegí las opciones del plato
             </p>
             {modifierModal.voiceMeta ? (
-              <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950">
-                <p className="font-semibold text-amber-900">Completando pedido por voz</p>
+              <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-950">
+                <p className="font-semibold text-blue-900">Completando pedido por voz</p>
                 {modifierModal.voiceMeta.quantity > 1 ? (
                   <p className="mt-0.5">Cantidad: {modifierModal.voiceMeta.quantity}</p>
                 ) : null}
@@ -2877,7 +2877,7 @@ export default function TableOrderPage() {
                   <p className="mt-0.5">Nota: {modifierModal.voiceMeta.notes}</p>
                 ) : null}
                 {voiceModifierQueueRef.current.length > 0 ? (
-                  <p className="mt-1.5 text-amber-800">
+                  <p className="mt-1.5 text-blue-800">
                     Luego te pedimos las opciones de otros{" "}
                     {voiceModifierQueueRef.current.length} ítem
                     {voiceModifierQueueRef.current.length === 1 ? "" : "s"}.
@@ -3030,7 +3030,7 @@ export default function TableOrderPage() {
                 <button
                   type="button"
                   onClick={confirmModifierModalVoiceDefaults}
-                  className="w-full rounded-xl border-2 border-amber-400/80 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-950 hover:bg-amber-100"
+                  className="w-full rounded-xl border-2 border-blue-400/80 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-950 hover:bg-blue-100"
                 >
                   Valores por defecto
                 </button>
@@ -3051,7 +3051,7 @@ export default function TableOrderPage() {
               <button
                 type="button"
                 onClick={confirmModifierModal}
-                className="flex-1 rounded-xl bg-amber-500 px-4 py-3 text-sm font-semibold text-white hover:bg-amber-600"
+                className="flex-1 rounded-xl bg-blue-500 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-600"
               >
                 Agregar al pedido
               </button>
@@ -3238,20 +3238,20 @@ export default function TableOrderPage() {
 
             {/* Cliente (Cuenta corriente) */}
             {invoiceType === "cuenta_corriente" && locationId && (
-              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/50 p-3">
-                <label className="mb-1.5 block text-xs font-medium text-amber-800">
+              <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50/50 p-3">
+                <label className="mb-1.5 block text-xs font-medium text-blue-800">
                   Cliente con cuenta corriente
                 </label>
                 {loadingRunningCustomers ? (
-                  <p className="text-sm text-amber-700">Cargando clientes…</p>
+                  <p className="text-sm text-blue-700">Cargando clientes…</p>
                 ) : runningAccountCustomers.length === 0 ? (
-                  <p className="text-sm text-amber-700">No hay clientes con cuenta corriente. Dales un límite en Gestión → Clientes.</p>
+                  <p className="text-sm text-blue-700">No hay clientes con cuenta corriente. Dales un límite en Gestión → Clientes.</p>
                 ) : (
                   <div className="relative w-full">
                     <button
                       type="button"
                       onClick={() => setRunningAccountDropdownOpen((o) => !o)}
-                      className="flex w-full items-center justify-between rounded-lg border border-amber-300 bg-white px-3 py-2 text-left text-sm text-gray-800"
+                      className="flex w-full items-center justify-between rounded-lg border border-blue-300 bg-white px-3 py-2 text-left text-sm text-gray-800"
                     >
                       <span className="truncate">
                         {customerId
@@ -3261,11 +3261,11 @@ export default function TableOrderPage() {
                             })()
                           : "Elegir cliente"}
                       </span>
-                      <ChevronDown className="h-4 w-4 shrink-0 text-amber-600" />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-blue-600" />
                     </button>
                     {runningAccountDropdownOpen && (
-                      <div className="absolute left-0 right-0 top-full z-50 mt-1 w-full min-w-0 rounded-lg border border-amber-200 bg-white shadow-lg">
-                        <div className="border-b border-amber-100 p-2">
+                      <div className="absolute left-0 right-0 top-full z-50 mt-1 w-full min-w-0 rounded-lg border border-blue-200 bg-white shadow-lg">
+                        <div className="border-b border-blue-100 p-2">
                           <div className="relative">
                             <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                             <input
@@ -3274,13 +3274,13 @@ export default function TableOrderPage() {
                               value={runningAccountCustomerSearch}
                               onChange={(e) => setRunningAccountCustomerSearch(e.target.value)}
                               placeholder="Buscar por nombre o CUIT..."
-                              className="w-full rounded-md border border-amber-200 py-2 pl-9 pr-2 text-sm focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                              className="w-full rounded-md border border-blue-200 py-2 pl-9 pr-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
                             />
                           </div>
                         </div>
                         <ul className="max-h-48 overflow-y-auto py-1">
                           {filteredRunningAccountCustomers.length === 0 ? (
-                            <li className="px-3 py-2 text-sm text-amber-700">Ningún cliente coincide con la búsqueda.</li>
+                            <li className="px-3 py-2 text-sm text-blue-700">Ningún cliente coincide con la búsqueda.</li>
                           ) : (
                             filteredRunningAccountCustomers.map((c: any) => (
                               <li key={c.id}>
@@ -3293,7 +3293,7 @@ export default function TableOrderPage() {
                                   }}
                                   className={cn(
                                     "w-full px-3 py-2 text-left text-sm",
-                                    customerId === c.id ? "bg-amber-100 font-medium text-amber-900" : "text-gray-800 hover:bg-amber-50"
+                                    customerId === c.id ? "bg-blue-100 font-medium text-blue-900" : "text-gray-800 hover:bg-blue-50"
                                   )}
                                 >
                                   {c.name} {c.creditLimit != null ? `(límite $${Number(c.creditLimit).toLocaleString("es-AR")})` : ""}
@@ -3404,7 +3404,7 @@ export default function TableOrderPage() {
                       </button>
                     </div>
                     {customerSearchEmpty && (
-                      <p className="mt-2 text-sm text-amber-700">
+                      <p className="mt-2 text-sm text-blue-700">
                         El cliente no está cargado.
                       </p>
                     )}
@@ -3619,7 +3619,7 @@ export default function TableOrderPage() {
                     ))}
                   </div>
                   {discount > 0 && (
-                    <p className="py-1 text-amber-700">Descuento: -{formatCurrency(discount)}</p>
+                    <p className="py-1 text-blue-700">Descuento: -{formatCurrency(discount)}</p>
                   )}
                   <div className="mt-2 border-t border-gray-200 pt-2 font-semibold">
                     Total: {formatCurrency(Math.max(0, orderTotal))}
@@ -3630,8 +3630,8 @@ export default function TableOrderPage() {
 
             {/* Resumen por comensal (dividir cuenta) */}
             {(table?.tableType !== "errors" && table?.tableType !== "trash") && splitMode && Object.keys(splitTotals).length > 0 && (
-              <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50/50 px-4 py-3">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-amber-700">
+              <div className="mb-5 rounded-xl border border-blue-200 bg-blue-50/50 px-4 py-3">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-700">
                   Resumen por comensal
                 </p>
                 <div className="space-y-1">
@@ -3719,7 +3719,7 @@ export default function TableOrderPage() {
                   title="Cantidad"
                   placeholder="1"
                   aria-label="Cantidad"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
               <div>
@@ -3735,7 +3735,7 @@ export default function TableOrderPage() {
                     )
                   }
                   placeholder="Opcional"
-                  className="w-full resize-none rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full resize-none rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
             </div>
@@ -3749,7 +3749,7 @@ export default function TableOrderPage() {
               <button
                 onClick={saveOrderItemEdit}
                 disabled={updatingItem}
-                className="flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600 disabled:opacity-50"
+                className="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 disabled:opacity-50"
               >
                 {updatingItem && <Loader2 className="h-4 w-4 animate-spin" />}
                 Guardar
@@ -3774,7 +3774,7 @@ export default function TableOrderPage() {
               value={notesDraft}
               onChange={(e) => setNotesDraft(e.target.value)}
               placeholder="Sin cebolla, extra queso..."
-              className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
             <div className="mt-4 flex items-center justify-end gap-3">
               <button
@@ -3788,7 +3788,7 @@ export default function TableOrderPage() {
               </button>
               <button
                 onClick={saveNote}
-                className="rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600"
+                className="rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600"
               >
                 Guardar
               </button>

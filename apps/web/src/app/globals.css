@@ -115,12 +115,18 @@ input:-webkit-autofill:active {
 .dark .pos-modal-producto input,
 .dark .pos-modal-producto select,
 .dark .pos-modal-producto textarea,
+/* Mismo gris que placeholder en tema claro (#6b7280 ≈ gray-500), como login Cajero */
 .dark .form-login-fields .login-field {
   background-color: #fff !important;
-  color: #111827 !important;
-  -webkit-text-fill-color: #111827 !important;
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
   caret-color: #111827;
   border-color: #d1d5db;
+}
+.dark .form-login-fields .login-field::placeholder {
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
+  opacity: 1;
 }
 .dark .form-login-fields .login-field.user-typed,
 .dark .form-login-fields .login-field.user-typed:-webkit-autofill {
@@ -174,6 +180,7 @@ input:-webkit-autofill:active {
 /* Formularios de login (login, cajero, mozo, depósito): placeholder/autocompletado gris, texto al escribir negro */
 .form-login-fields .login-field::placeholder {
   color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
   opacity: 1;
 }
 .form-login-fields .login-field,

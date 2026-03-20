@@ -79,9 +79,9 @@ export function VerifyIdentityStep({ user, onVerified, onReject, onEnterPanelToF
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/40 px-4">
       <div className="w-full max-w-md">
-        <div className="rounded-2xl border border-amber-100 bg-white px-8 py-10 shadow-xl">
+        <div className="rounded-2xl border border-slate-200/60 bg-white px-8 py-10 shadow-xl">
           <button
             type="button"
             onClick={onReject}
@@ -117,7 +117,7 @@ export function VerifyIdentityStep({ user, onVerified, onReject, onEnterPanelToF
                     <button
                       type="button"
                       onClick={onEnterPanelToFixPhoto}
-                      className="mt-2 w-full rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800 hover:bg-amber-100"
+                      className="mt-2 w-full rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-900 hover:bg-blue-100"
                     >
                       Soy admin: entrar al panel para actualizar mi foto
                     </button>
@@ -137,7 +137,7 @@ export function VerifyIdentityStep({ user, onVerified, onReject, onEnterPanelToF
                 type="button"
                 onClick={handleCaptureAndVerify}
                 disabled={verifying}
-                className="flex-1 rounded-xl bg-amber-500 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 disabled:opacity-50 inline-flex items-center justify-center gap-2"
+                className="flex-1 rounded-xl bg-blue-500 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 disabled:opacity-50 inline-flex items-center justify-center gap-2"
               >
                 {verifying ? (
                   <>

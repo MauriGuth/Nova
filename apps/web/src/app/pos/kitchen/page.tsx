@@ -218,7 +218,7 @@ function KitchenOrderCard({
                 {item.productName}
               </span>
               {item.notes && (
-                <p className="mt-1.5 rounded-lg border-l-4 border-amber-400 bg-amber-950/35 py-1.5 pl-2 pr-1 text-base font-bold leading-snug text-amber-100 break-words">
+                <p className="mt-1.5 rounded-lg border-l-4 border-blue-400 bg-blue-950/35 py-1.5 pl-2 pr-1 text-base font-bold leading-snug text-blue-100 break-words">
                   {item.notes}
                 </p>
               )}
@@ -229,10 +229,10 @@ function KitchenOrderCard({
                 item.sector === "bar"
                   ? "bg-purple-900/50 text-purple-300"
                   : item.sector === "coffee"
-                    ? "bg-amber-900/50 text-amber-300"
+                    ? "bg-blue-900/50 text-blue-300"
                     : item.sector === "bakery"
                       ? "bg-yellow-900/50 text-yellow-300"
-                      : "bg-orange-900/50 text-orange-300"
+                      : "bg-blue-900/50 text-blue-300"
               )}
             >
               {
@@ -251,7 +251,7 @@ function KitchenOrderCard({
             <button
               onClick={() => onStart(order.id, pendingIds)}
               disabled={isUpdating}
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-white transition-all hover:bg-amber-400 active:scale-[0.97] disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-500 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-400 active:scale-[0.97] disabled:opacity-50"
             >
               {isUpdating ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -533,7 +533,7 @@ export default function KitchenPage() {
     return (
       <div className="flex h-full items-center justify-center bg-gray-900">
         <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-amber-500" />
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-500" />
           <p className="mt-3 text-sm text-gray-400">Cargando cocina...</p>
         </div>
       </div>
@@ -545,14 +545,14 @@ export default function KitchenPage() {
       {/* ── Kitchen header ── */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-800 px-4 py-3">
         <div className="flex items-center gap-3">
-          <ChefHat className="h-6 w-6 text-amber-500" />
+          <ChefHat className="h-6 w-6 text-blue-500" />
           <h1 className="text-lg font-bold text-white">
             Pantalla de Cocina
           </h1>
 
           {/* New order indicator */}
           {hasNewOrders && (
-            <span className="flex items-center gap-1.5 animate-pulse rounded-full bg-amber-500/20 px-3 py-1 text-xs font-semibold text-amber-400">
+            <span className="flex items-center gap-1.5 animate-pulse rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-400">
               <Bell className="h-3.5 w-3.5" />
               Nuevo pedido
             </span>
@@ -569,7 +569,7 @@ export default function KitchenPage() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                   sectorFilter === s.value
-                    ? "bg-amber-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "text-gray-400 hover:bg-gray-700 hover:text-gray-200"
                 )}
               >
@@ -597,7 +597,7 @@ export default function KitchenPage() {
             className={cn(
               "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
               voiceEnabled
-                ? "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30"
+                ? "bg-blue-500/20 text-blue-400 hover:bg-blue-500/30"
                 : "bg-gray-800 text-gray-500 hover:bg-gray-700 hover:text-gray-300"
             )}
           >
@@ -632,10 +632,10 @@ export default function KitchenPage() {
 
       {/* Banner: texto que se anuncia por voz (por si no se entiende en TV/móvil) */}
       {speakingText && voiceEnabled && (
-        <div className="border-b border-amber-800 bg-amber-950/90 px-4 py-3 text-center">
-          <p className="text-sm font-medium text-amber-200">
-            <Volume2 className="mr-1.5 inline h-4 w-4 text-amber-400" />
-            Ahora dice: <span className="text-amber-100">{speakingText}</span>
+        <div className="border-b border-blue-800 bg-blue-950/90 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-blue-200">
+            <Volume2 className="mr-1.5 inline h-4 w-4 text-blue-400" />
+            Ahora dice: <span className="text-blue-100">{speakingText}</span>
           </p>
         </div>
       )}
@@ -644,7 +644,7 @@ export default function KitchenPage() {
       {announcements.length > 0 && (
         <div className="border-b border-gray-800 bg-gray-950/80">
           <div className="flex items-center gap-2 overflow-x-auto px-4 py-2">
-            <Sparkles className="h-4 w-4 shrink-0 text-amber-400" />
+            <Sparkles className="h-4 w-4 shrink-0 text-blue-400" />
             {announcements.slice(0, 3).map((ann) => {
               const sectorLabel =
                 SECTOR_FILTERS.find((s) => s.value === ann.sector)?.label || ""
@@ -653,13 +653,13 @@ export default function KitchenPage() {
               return (
                 <div
                   key={ann.id}
-                  className="flex shrink-0 items-center gap-2 rounded-lg bg-amber-500/10 border border-amber-500/20 px-3 py-1.5"
+                  className="flex shrink-0 items-center gap-2 rounded-lg bg-blue-500/10 border border-blue-500/20 px-3 py-1.5"
                 >
-                  <Bell className="h-3 w-3 text-amber-400" />
-                  <span className="text-xs text-amber-300">
+                  <Bell className="h-3 w-3 text-blue-400" />
+                  <span className="text-xs text-blue-300">
                     <span className="font-semibold">{ann.tableName}</span>
                     {sectorLabel && (
-                      <span className="ml-1 text-amber-500">({sectorLabel})</span>
+                      <span className="ml-1 text-blue-500">({sectorLabel})</span>
                     )}
                   </span>
                   <span className="text-[10px] text-gray-500">{ageStr}</span>
@@ -718,12 +718,12 @@ export default function KitchenPage() {
 
           {/* EN COLA column */}
           <div className="flex flex-col border-r border-gray-800 md:min-h-full">
-            <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-gray-800 bg-amber-950/90 px-4 py-2.5 backdrop-blur">
-              <Clock className="h-4 w-4 text-amber-400" />
-              <span className="text-sm font-bold text-amber-400">
+            <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-gray-800 bg-blue-950/90 px-4 py-2.5 backdrop-blur">
+              <Clock className="h-4 w-4 text-blue-400" />
+              <span className="text-sm font-bold text-blue-400">
                 En Cola
               </span>
-              <span className="ml-auto rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-bold text-amber-300">
+              <span className="ml-auto rounded-full bg-blue-500/20 px-2 py-0.5 text-xs font-bold text-blue-300">
                 {pendingOrders.length}
               </span>
             </div>
@@ -791,7 +791,7 @@ export default function KitchenPage() {
         </span>
         <div className="flex items-center gap-3">
           {voiceEnabled && (
-            <span className="flex items-center gap-1 text-amber-500">
+            <span className="flex items-center gap-1 text-blue-500">
               <Volume2 className="h-3 w-3" />
               Anuncios de voz activos
             </span>

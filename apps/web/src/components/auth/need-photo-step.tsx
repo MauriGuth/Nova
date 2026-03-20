@@ -4,9 +4,9 @@ import { AlertCircle, ArrowLeft, LogOut } from "lucide-react"
 
 export function NeedPhotoStep({ onLogout }: { onLogout: () => void }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/40 px-4">
       <div className="w-full max-w-md">
-        <div className="rounded-2xl border border-amber-100 bg-white px-8 py-10 shadow-xl">
+        <div className="rounded-2xl border border-slate-200/60 bg-white px-8 py-10 shadow-xl">
           <button
             type="button"
             onClick={onLogout}
@@ -16,8 +16,8 @@ export function NeedPhotoStep({ onLogout }: { onLogout: () => void }) {
             Volver
           </button>
           <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-              <AlertCircle className="h-8 w-8 text-amber-600" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+              <AlertCircle className="h-8 w-8 text-blue-600" />
             </div>
           </div>
           <h1 className="text-center text-xl font-semibold text-gray-800">

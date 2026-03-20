@@ -852,7 +852,7 @@ export default function PosCajaPage() {
           className={cn(
             "flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all",
             tab === "movimientos"
-              ? "bg-amber-500 text-white shadow"
+              ? "bg-blue-500 text-white shadow"
               : "text-gray-600 hover:bg-gray-100"
           )}
         >
@@ -865,7 +865,7 @@ export default function PosCajaPage() {
           className={cn(
             "flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all",
             tab === "productos"
-              ? "bg-amber-500 text-white shadow"
+              ? "bg-blue-500 text-white shadow"
               : "text-gray-600 hover:bg-gray-100"
           )}
         >
@@ -878,7 +878,7 @@ export default function PosCajaPage() {
           className={cn(
             "flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all",
             tab === "caja"
-              ? "bg-amber-500 text-white shadow"
+              ? "bg-blue-500 text-white shadow"
               : "text-gray-600 hover:bg-gray-100"
           )}
         >
@@ -892,7 +892,7 @@ export default function PosCajaPage() {
             className={cn(
               "flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all",
               tab === "microbalance"
-                ? "bg-amber-500 text-white shadow"
+                ? "bg-blue-500 text-white shadow"
                 : "text-gray-600 hover:bg-gray-100"
             )}
           >
@@ -912,12 +912,12 @@ export default function PosCajaPage() {
           )}
 
           {!currentRegister ? (
-            <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50/50 p-6 text-center">
-              <Lock className="mx-auto h-10 w-10 text-amber-500" />
-              <p className="mt-2 text-sm font-medium text-amber-800">
+            <div className="mb-6 rounded-2xl border border-blue-200 bg-blue-50/50 p-6 text-center">
+              <Lock className="mx-auto h-10 w-10 text-blue-500" />
+              <p className="mt-2 text-sm font-medium text-blue-800">
                 Abra la caja para registrar ingresos y egresos
               </p>
-              <p className="mt-1 text-xs text-amber-700">
+              <p className="mt-1 text-xs text-blue-700">
                 Vaya a la pestaña &quot;Cierre de caja&quot; e ingrese el monto de apertura para abrir el turno.
               </p>
             </div>
@@ -965,7 +965,7 @@ export default function PosCajaPage() {
                   value={parseNumberInputInput(amount) || 0}
                   onChange={(n) => setAmount(String(Math.max(0, n)))}
                   placeholder="0"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 placeholder:text-gray-600 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 placeholder:text-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
               <div className="mb-4">
@@ -977,7 +977,7 @@ export default function PosCajaPage() {
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="Ej: Apertura de caja, retiro, etc."
-                  className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm placeholder:text-gray-600 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm placeholder:text-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
               <button
@@ -987,7 +987,7 @@ export default function PosCajaPage() {
                   !amount ||
                   parseFloat(amount.replace(",", ".")) <= 0
                 }
-                className="w-full rounded-xl bg-amber-500 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+                className="w-full rounded-xl bg-blue-500 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50"
               >
                 {submitting ? (
                   <Loader2 className="mx-auto h-5 w-5 animate-spin" />
@@ -1021,7 +1021,7 @@ export default function PosCajaPage() {
             <div className="divide-y divide-gray-100">
               {loadingMov ? (
                 <div className="flex justify-center py-12">
-                  <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
                 </div>
               ) : !currentRegister ? (
                 <p className="py-8 text-center text-sm text-gray-500">
@@ -1091,7 +1091,7 @@ export default function PosCajaPage() {
               placeholder="Buscar por nombre o SKU..."
               value={productSearch}
               onChange={(e) => setProductSearch(e.target.value)}
-              className="rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder-gray-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               aria-label="Buscar productos por nombre o SKU"
             />
             {isAdmin && (
@@ -1102,7 +1102,7 @@ export default function PosCajaPage() {
                   setCreateForm(defaultProductForm)
                   setShowCreateModal(true)
                 }}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-600"
               >
                 <Plus className="h-4 w-4" />
                 Agregar producto
@@ -1118,7 +1118,7 @@ export default function PosCajaPage() {
             </div>
             {loadingProd ? (
               <div className="flex justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
               </div>
             ) : filteredProducts.length === 0 ? (
               <p className="py-8 text-center text-sm text-gray-500">
@@ -1169,7 +1169,7 @@ export default function PosCajaPage() {
                         <button
                           type="button"
                           onClick={() => openEditModal(p)}
-                          className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-amber-50 hover:text-amber-700"
+                          className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-blue-50 hover:text-blue-700"
                           aria-label="Editar producto"
                         >
                           <Pencil className="h-4 w-4" />
@@ -1212,18 +1212,18 @@ export default function PosCajaPage() {
           )}
 
           {!locationId ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-2xl border border-amber-200 bg-amber-50/50 p-6 text-center">
-              <Lock className="h-10 w-10 text-amber-500" />
-              <p className="mt-2 text-sm font-medium text-amber-800">
+            <div className="flex flex-1 flex-col items-center justify-center rounded-2xl border border-blue-200 bg-blue-50/50 p-6 text-center">
+              <Lock className="h-10 w-10 text-blue-500" />
+              <p className="mt-2 text-sm font-medium text-blue-800">
                 No hay ubicación seleccionada
               </p>
-              <p className="mt-1 text-xs text-amber-700">
+              <p className="mt-1 text-xs text-blue-700">
                 Seleccione un local en el POS para poder abrir la caja.
               </p>
             </div>
           ) : loadingCaja ? (
             <div className="flex flex-1 items-center justify-center">
-              <Loader2 className="h-10 w-10 animate-spin text-amber-500" />
+              <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
             </div>
           ) : !currentRegister ? (
             /* Sin caja abierta: resultado del último cierre (si hay) y formulario Abrir caja */
@@ -1279,7 +1279,7 @@ export default function PosCajaPage() {
                                     <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
                                   </span>
                                 ) : (
-                                  <span className="text-xs text-amber-700">Diferencia: {formatCurrency(declaredCards - salesCards)}</span>
+                                  <span className="text-xs text-blue-700">Diferencia: {formatCurrency(declaredCards - salesCards)}</span>
                                 )}
                               </div>
                               <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 p-2">
@@ -1295,7 +1295,7 @@ export default function PosCajaPage() {
                                     <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
                                   </span>
                                 ) : (
-                                  <span className="text-xs text-amber-700">Diferencia: {formatCurrency(declaredCash - expectedCash)}</span>
+                                  <span className="text-xs text-blue-700">Diferencia: {formatCurrency(declaredCash - expectedCash)}</span>
                                 )}
                               </div>
                               <div className="flex flex-wrap items-center gap-2 rounded-lg bg-gray-50 p-2">
@@ -1309,7 +1309,7 @@ export default function PosCajaPage() {
                                     <CheckCircle2 className="h-3.5 w-3.5" /> Coincide
                                   </span>
                                 ) : (
-                                  <span className="text-xs text-amber-700">Diferencia: {formatCurrency(declaredTransfQr - salesTransfQr)}</span>
+                                  <span className="text-xs text-blue-700">Diferencia: {formatCurrency(declaredTransfQr - salesTransfQr)}</span>
                                 )}
                               </div>
                             </>
@@ -1334,8 +1334,8 @@ export default function PosCajaPage() {
                       <p className="mb-3 font-semibold text-gray-800">Métricas del turno (demoras vs incidentes)</p>
                       <div className="space-y-3 text-sm">
                         <div className="flex flex-wrap gap-4">
-                          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
-                            <span className="font-medium text-amber-900">Errores comanda:</span>{" "}
+                          <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2">
+                            <span className="font-medium text-blue-900">Errores comanda:</span>{" "}
                             {lastCloseResult.closure.shiftMetrics.errorsTable.orderCount} órdenes,{" "}
                             {formatCurrency(lastCloseResult.closure.shiftMetrics.errorsTable.totalAmount)}
                           </div>
@@ -1363,7 +1363,7 @@ export default function PosCajaPage() {
               )}
               <div className="shrink-0 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
                 <div className="mb-4 flex items-center gap-2 text-gray-700">
-                  <Unlock className="h-5 w-5 text-amber-500" />
+                  <Unlock className="h-5 w-5 text-blue-500" />
                   <h2 className="text-lg font-semibold">Abrir caja</h2>
                 </div>
                 <p className="mb-4 text-sm text-gray-500">
@@ -1379,7 +1379,7 @@ export default function PosCajaPage() {
                     value={openAmount}
                     onChange={setOpenAmount}
                     placeholder="0"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
                 <div>
@@ -1390,7 +1390,7 @@ export default function PosCajaPage() {
                     id="open-shift"
                     value={openShift}
                     onChange={(e) => setOpenShift(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-base font-medium text-gray-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-base font-medium text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                     aria-label="Turno del día"
                   >
                     {SHIFT_OPTIONS.map((s) => (
@@ -1403,7 +1403,7 @@ export default function PosCajaPage() {
                 <button
                   type="submit"
                   disabled={opening || openAmount <= 0}
-                  className="w-full rounded-xl bg-amber-500 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+                  className="w-full rounded-xl bg-blue-500 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50"
                 >
                   {opening ? (
                     <Loader2 className="mx-auto h-5 w-5 animate-spin" />
@@ -1484,7 +1484,7 @@ export default function PosCajaPage() {
                 </div>
               )}
 
-              <div className="rounded-2xl border border-amber-200 bg-amber-50/80 p-3 text-sm text-amber-900">
+              <div className="rounded-2xl border border-blue-200 bg-blue-50/80 p-3 text-sm text-blue-900">
                 <p>
                   Las mesas que sigan abiertas al cerrar no se incluyen en este turno; quedan para el turno siguiente.
                 </p>
@@ -1547,11 +1547,11 @@ export default function PosCajaPage() {
                   Cerrar caja
                 </h3>
                 {currentRegister.shift === "afternoon" && afternoonMicroBalanceSubmitted === false && (
-                  <div className="mb-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+                  <div className="mb-4 rounded-xl border border-blue-300 bg-blue-50 p-4 text-sm text-blue-900">
                     <p className="font-medium">
                       Para cerrar la caja del turno tarde primero tenés que completar y enviar el micro balance.
                     </p>
-                    <p className="mt-1 text-amber-800">
+                    <p className="mt-1 text-blue-800">
                       Andá a la pestaña <strong>Micro balance</strong>, ingresá las cantidades contadas y hacé clic en &quot;Enviar micro balance al sistema de gestión&quot;.
                     </p>
                   </div>
@@ -1580,7 +1580,7 @@ export default function PosCajaPage() {
                       ))}
                     </div>
                     {closeUseDenominations && (
-                      <p className="mt-1.5 text-sm font-medium text-amber-800">
+                      <p className="mt-1.5 text-sm font-medium text-blue-800">
                         Total efectivo: {formatCurrency(closeTotalFromDenominations)}
                       </p>
                     )}
@@ -1603,7 +1603,7 @@ export default function PosCajaPage() {
                         value={closeAmount}
                         onChange={setCloseAmount}
                         placeholder="0"
-                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium !text-gray-900 placeholder:text-gray-500 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-medium !text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                     )}
                   </div>
@@ -1619,7 +1619,7 @@ export default function PosCajaPage() {
                           placeholder={formatCurrency(
                             (currentRegister?.salesDebit ?? 0) + (currentRegister?.salesCredit ?? 0) + (currentRegister?.salesCard ?? 0)
                           )}
-                          className="totales-declarados-input w-full rounded-lg border border-gray-200 px-2 py-2 text-sm placeholder:text-gray-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/20"
+                          className="totales-declarados-input w-full rounded-lg border border-gray-200 px-2 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/20"
                         />
                       </div>
                       <div>
@@ -1629,7 +1629,7 @@ export default function PosCajaPage() {
                           value={closeTransferQrTotal}
                           onChange={setCloseTransferQrTotal}
                           placeholder={formatCurrency((currentRegister?.salesTransfer ?? 0) + (currentRegister?.salesQr ?? 0))}
-                          className="totales-declarados-input w-full rounded-lg border border-gray-200 px-2 py-2 text-sm placeholder:text-gray-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/20"
+                          className="totales-declarados-input w-full rounded-lg border border-gray-200 px-2 py-2 text-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/20"
                         />
                       </div>
                     </div>
@@ -1642,7 +1642,7 @@ export default function PosCajaPage() {
                       id="close-shift"
                       value={closeShift}
                       onChange={(e) => setCloseShift(e.target.value)}
-                      className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-base font-medium !text-gray-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-base font-medium !text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       aria-label="Turno al cerrar"
                     >
                       {SHIFT_OPTIONS.map((s) => (
@@ -1662,7 +1662,7 @@ export default function PosCajaPage() {
                       value={closeNotes}
                       onChange={(e) => setCloseNotes(e.target.value)}
                       placeholder="Observaciones del cierre"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm !text-gray-900 placeholder:text-gray-500 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm !text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                     />
                   </div>
                   <button
@@ -1672,7 +1672,7 @@ export default function PosCajaPage() {
                       effectiveCloseAmount <= 0 ||
                       (currentRegister?.shift === "afternoon" && afternoonMicroBalanceSubmitted !== true)
                     }
-                    className="w-full rounded-xl bg-amber-500 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+                    className="w-full rounded-xl bg-blue-500 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50"
                   >
                     {closing ? (
                       <Loader2 className="mx-auto h-5 w-5 animate-spin" />
@@ -1701,18 +1701,18 @@ export default function PosCajaPage() {
             </div>
           )}
           {!locationId ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-2xl border border-amber-200 bg-amber-50/50 p-6 text-center">
-              <ClipboardCheck className="h-10 w-10 text-amber-500" />
-              <p className="mt-2 text-sm font-medium text-amber-800">
+            <div className="flex flex-1 flex-col items-center justify-center rounded-2xl border border-blue-200 bg-blue-50/50 p-6 text-center">
+              <ClipboardCheck className="h-10 w-10 text-blue-500" />
+              <p className="mt-2 text-sm font-medium text-blue-800">
                 No hay ubicación seleccionada
               </p>
-              <p className="mt-1 text-xs text-amber-700">
+              <p className="mt-1 text-xs text-blue-700">
                 Seleccioná un local en el POS para hacer el micro balance.
               </p>
             </div>
           ) : loadingMicroBalance ? (
             <div className="flex flex-1 items-center justify-center">
-              <Loader2 className="h-10 w-10 animate-spin text-amber-500" />
+              <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
             </div>
           ) : microBalanceAlreadyDoneToday || afternoonMicroBalanceSubmitted === true ? (
             <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -1736,14 +1736,14 @@ export default function PosCajaPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmitMicroBalance} className="form-micro-balance space-y-4">
-              <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-4">
-                <p className="text-sm font-medium text-amber-900">
+              <div className="rounded-2xl border border-blue-200 bg-blue-50/50 p-4">
+                <p className="text-sm font-medium text-blue-900">
                   Cierre de jornada – Micro balance
                 </p>
-                <p className="mt-1 text-xs text-amber-800">
+                <p className="mt-1 text-xs text-blue-800">
                   Contá físicamente lo que hay en el local (ej. en la heladera). No se muestra la cantidad del sistema para no influir en el conteo. Al enviar, se actualiza el stock del local y se genera un informe de faltantes/sobrantes para el auditor.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-amber-900">
+                <p className="mt-3 text-sm font-semibold text-blue-900">
                   Turno tarde
                 </p>
               </div>
@@ -1797,7 +1797,7 @@ export default function PosCajaPage() {
               <button
                 type="submit"
                 disabled={submittingReconciliation}
-                className="w-full rounded-xl bg-amber-500 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 disabled:opacity-50"
+                className="w-full rounded-xl bg-blue-500 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50"
               >
                 {submittingReconciliation ? (
                   <Loader2 className="mx-auto h-5 w-5 animate-spin" />
@@ -2011,7 +2011,7 @@ export default function PosCajaPage() {
                 <button
                   type="submit"
                   disabled={creating || !createForm.sku.trim() || !createForm.name.trim()}
-                  className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
                 >
                   {creating && <Loader2 className="h-4 w-4 animate-spin" />}
                   Crear
@@ -2223,7 +2223,7 @@ export default function PosCajaPage() {
                     !editForm.name.trim() ||
                     !editForm.categoryId
                   }
-                  className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
                 >
                   {editing && <Loader2 className="h-4 w-4 animate-spin" />}
                   Guardar

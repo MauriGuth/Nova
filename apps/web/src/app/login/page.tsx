@@ -103,10 +103,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-dvh min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-emerald-50/30 px-4 py-6 safe-area-top">
+    <div className="flex min-h-dvh min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/40 px-4 py-6 safe-area-top">
       {/* Decorative elements */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl" />
+        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-blue-100/40 blur-3xl" />
         <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-slate-200/60 blur-3xl" />
       </div>
 
@@ -115,11 +115,11 @@ export default function LoginPage() {
         <div className="rounded-2xl border border-slate-200/60 bg-white px-5 py-8 shadow-xl shadow-slate-200/50 sm:px-8 sm:py-10">
           {/* Brand */}
           <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-600 shadow-lg shadow-emerald-200">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500 shadow-lg shadow-blue-200/80">
               <span className="text-2xl font-black text-white">N</span>
             </div>
-            <h1 className="text-3xl font-black tracking-wider text-slate-800">
-              NO<span className="text-emerald-600">VA</span>
+            <h1 className="text-3xl font-black tracking-tight text-slate-800">
+              NO<span className="text-blue-500">VA</span>
             </h1>
             <p className="mt-1.5 text-sm text-slate-500">
               Sistema de Gestión Gastronómica
@@ -135,9 +135,9 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="email"
-                className="mb-1.5 block text-sm font-medium text-slate-700"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
-                Correo electrónico
+                Correo
               </label>
               <input
                 id="email"
@@ -150,8 +150,8 @@ export default function LoginPage() {
                   setEmail(v)
                   setUserTypedEmail(v.length > 0)
                 }}
-                placeholder="tu@email.com"
-                className={`login-field w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm transition-colors focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${userTypedEmail ? "user-typed" : ""}`}
+                placeholder="admin@roberto.com"
+                className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${userTypedEmail ? "user-typed" : ""}`}
               />
             </div>
 
@@ -159,7 +159,7 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="mb-1.5 block text-sm font-medium text-slate-700"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Contraseña
               </label>
@@ -175,18 +175,18 @@ export default function LoginPage() {
                     setUserTypedPassword(v.length > 0)
                   }}
                   placeholder="••••••••"
-                  className={`login-field w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 pr-10 text-sm transition-colors focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${userTypedPassword ? "user-typed" : ""}`}
+                  className={`login-field w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-base transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${userTypedPassword ? "user-typed" : ""}`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-lg p-1 text-gray-400 transition-colors hover:text-gray-600"
                   tabIndex={-1}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
+                    <EyeOff className="h-5 w-5" />
                   ) : (
-                    <Eye className="h-4 w-4" />
+                    <Eye className="h-5 w-5" />
                   )}
                 </button>
               </div>
@@ -203,15 +203,15 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Ingresando...
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Entrando...
                 </>
               ) : (
-                "Iniciar Sesión"
+                "Iniciar sesión"
               )}
             </button>
           </form>
